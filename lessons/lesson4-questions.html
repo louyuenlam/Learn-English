@@ -1,0 +1,1607 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lesson 4：問簡單問題 · Asking Simple Questions</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400&family=Noto+Sans+HK:wght@400;500;600;700&family=Lora:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #faf6ef;
+    --cream-dark: #f2ebdc;
+    --paper: #fffdf7;
+    --ink: #2a2420;
+    --ink-soft: #4a3f38;
+    --terra: #c86b4a;
+    --terra-dark: #a8512f;
+    --sage: #7a8471;
+    --sage-dark: #5a6451;
+    --gold: #c9a84c;
+    --gold-dark: #a88828;
+    --blue: #5a7a8b;
+    --blue-dark: #3d5a6a;
+    --burgundy: #8b3a3a;
+    --shadow: rgba(58, 40, 28, 0.12);
+    --sidebar-w: 300px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { height: 100%; overflow: hidden; }
+
+  body {
+    font-family: 'Noto Sans HK', 'Lora', serif;
+    background:
+      radial-gradient(ellipse at top left, rgba(200, 107, 74, 0.08), transparent 50%),
+      radial-gradient(ellipse at bottom right, rgba(122, 132, 113, 0.08), transparent 50%),
+      var(--cream);
+    color: var(--ink);
+    line-height: 1.5;
+    font-size: 18px;
+  }
+
+  body::before {
+    content: '';
+    position: fixed; inset: 0; pointer-events: none;
+    background-image: repeating-linear-gradient(45deg, rgba(139, 115, 85, 0.015) 0 1px, transparent 1px 4px);
+    z-index: 1;
+  }
+
+  /* ============ LAYOUT ============ */
+  .app-layout {
+    display: grid;
+    grid-template-columns: var(--sidebar-w) 1fr;
+    height: 100vh;
+    position: relative;
+    z-index: 2;
+  }
+
+  /* ============ SIDEBAR ============ */
+  .sidebar {
+    background: var(--paper);
+    border-right: 1px solid var(--cream-dark);
+    padding: 16px 16px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .sidebar-header {
+    text-align: center;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--cream-dark);
+  }
+  .sidebar-header .ornament {
+    font-family: 'Fraunces', serif;
+    font-size: 16px;
+    color: var(--gold);
+    letter-spacing: 6px;
+    margin-bottom: 4px;
+  }
+  .sidebar-header .lesson-num {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 14px;
+    color: var(--terra-dark);
+    margin-bottom: 2px;
+  }
+  .sidebar-header h1 {
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-size: 26px;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+    margin-bottom: 2px;
+  }
+  .sidebar-header .subtitle {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 15px;
+    color: var(--ink-soft);
+  }
+
+  .progress-compact {
+    padding: 12px 14px;
+    background: var(--cream);
+    border-radius: 10px;
+  }
+  .progress-compact .label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    color: var(--ink-soft);
+    margin-bottom: 5px;
+  }
+  .progress-compact .value {
+    font-family: 'Fraunces', serif;
+    color: var(--ink);
+    font-weight: 500;
+  }
+  .progress-bar { height: 6px; background: var(--cream-dark); border-radius: 4px; overflow: hidden; }
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--terra), var(--gold));
+    border-radius: 4px;
+    transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* STEPS NAV */
+  .steps-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .steps-label {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 13px;
+    color: var(--terra-dark);
+    letter-spacing: 0.05em;
+    padding: 0 6px;
+    margin-bottom: 2px;
+  }
+  .step-btn {
+    width: 100%;
+    padding: 8px 12px;
+    border-radius: 8px;
+    background: transparent;
+    border: 1.5px solid transparent;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--ink-soft);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-align: left;
+  }
+  .step-btn:hover { background: var(--cream); color: var(--ink); }
+  .step-btn.active {
+    background: var(--ink);
+    color: var(--paper);
+    border-color: var(--ink);
+  }
+  .step-btn.completed { color: var(--sage-dark); }
+  .step-btn .step-num {
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px; height: 24px;
+    border-radius: 50%;
+    background: var(--cream-dark);
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-size: 13px;
+  }
+  .step-btn.active .step-num { background: var(--gold); color: var(--ink); }
+  .step-btn.completed .step-num { background: var(--sage); color: var(--paper); }
+
+  /* SPEED CONTROL - 7 OPTIONS */
+  .speed-panel {
+    padding: 11px 12px;
+    background: var(--cream);
+    border-radius: 10px;
+    border: 1px solid var(--cream-dark);
+  }
+  .speed-label {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 13px;
+    color: var(--terra-dark);
+    letter-spacing: 0.05em;
+    margin-bottom: 8px;
+  }
+  .speed-buttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5px;
+  }
+  .speed-btn {
+    padding: 7px 4px;
+    border-radius: 7px;
+    border: 1.5px solid var(--cream-dark);
+    background: var(--paper);
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--ink-soft);
+    cursor: pointer;
+    transition: all 0.15s ease;
+    line-height: 1.3;
+  }
+  .speed-btn:hover:not(.active) {
+    border-color: var(--gold);
+    color: var(--ink);
+  }
+  .speed-btn.active {
+    background: var(--gold);
+    border-color: var(--gold);
+    color: var(--paper);
+  }
+  .speed-btn .rate {
+    font-family: 'Fraunces', serif;
+    font-weight: 700;
+    display: block;
+  }
+  .speed-btn .rate-label {
+    font-size: 10.5px;
+    display: block;
+    margin-top: 1px;
+    opacity: 0.85;
+  }
+
+  /* ============ MAIN CONTENT ============ */
+  .main-area {
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    padding: 20px 34px;
+  }
+
+  .main-inner {
+    flex: 1;
+    overflow-y: auto;
+    padding-right: 14px;
+    margin-right: -14px;
+  }
+
+  .main-inner::-webkit-scrollbar, .sidebar::-webkit-scrollbar { width: 8px; }
+  .main-inner::-webkit-scrollbar-track, .sidebar::-webkit-scrollbar-track { background: transparent; }
+  .main-inner::-webkit-scrollbar-thumb, .sidebar::-webkit-scrollbar-thumb {
+    background: var(--cream-dark);
+    border-radius: 4px;
+  }
+  .main-inner::-webkit-scrollbar-thumb:hover, .sidebar::-webkit-scrollbar-thumb:hover { background: var(--gold); }
+
+  /* ============ STEP CONTENT ============ */
+  .step-content {
+    animation: fadeIn 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .section-label {
+    display: inline-block;
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 18px;
+    color: var(--terra-dark);
+    letter-spacing: 0.05em;
+    margin-bottom: 2px;
+    font-weight: 500;
+  }
+
+  .step-content h2 {
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-size: 34px;
+    color: var(--ink);
+    margin-bottom: 4px;
+    line-height: 1.15;
+  }
+
+  .card-sub {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 18px;
+    color: var(--ink-soft);
+    margin-bottom: 10px;
+  }
+
+  .instruction {
+    background: var(--paper);
+    border-left: 3px solid var(--gold);
+    padding: 10px 14px;
+    border-radius: 6px;
+    margin-bottom: 12px;
+    font-size: 19px;
+    color: var(--ink-soft);
+    line-height: 1.5;
+  }
+  .instruction strong { color: var(--ink); }
+
+  .callback {
+    background: #eaf0e4;
+    border-left: 3px solid var(--sage);
+    padding: 10px 14px;
+    border-radius: 6px;
+    margin-bottom: 12px;
+    font-size: 18px;
+    color: var(--sage-dark);
+    line-height: 1.45;
+  }
+  .callback strong { color: var(--sage-dark); }
+
+  /* ============ STEP 1: GOALS GRID ============ */
+  .goals-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    margin: 16px 0;
+  }
+  .goal-card {
+    background: var(--paper);
+    border: 1px solid var(--cream-dark);
+    border-radius: 12px;
+    padding: 18px 16px;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  .goal-num {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    background: var(--terra);
+    color: var(--paper);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Fraunces', serif;
+    font-weight: 700;
+    flex-shrink: 0;
+    font-size: 16px;
+  }
+  .goal-text { font-size: 24px; line-height: 1.45; }
+  .goal-text strong { color: var(--terra-dark); }
+
+  .subsection-title {
+    font-family: 'Fraunces', serif;
+    font-size: 30px;
+    color: var(--ink);
+    margin: 16px 0 10px;
+    font-weight: 600;
+  }
+
+  /* ============ QUESTION PAIR CARDS (Step 2) - 2 col grid ============ */
+  #questions-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+  .question-pair {
+    background: var(--paper);
+    border: 1.5px solid var(--cream-dark);
+    border-radius: 12px;
+    padding: 7px 14px 8px;
+    transition: all 0.2s ease;
+  }
+  .question-pair:hover {
+    border-color: var(--gold);
+    box-shadow: 0 2px 10px var(--shadow);
+  }
+  .qp-head {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-bottom: 2px;
+  }
+  .qp-num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px; height: 34px;
+    border-radius: 50%;
+    background: var(--blue);
+    color: var(--paper);
+    font-family: 'Fraunces', serif;
+    font-weight: 700;
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+  .qp-question {
+    font-family: 'Fraunces', serif;
+    font-size: 30px;
+    color: var(--ink);
+    font-weight: 500;
+    line-height: 1.15;
+  }
+  .qp-chinese {
+    color: var(--ink-soft);
+    font-size: 21px;
+    margin-left: 44px;
+    font-style: italic;
+    margin-bottom: 4px;
+    line-height: 1.3;
+  }
+  .qp-answer-row {
+    margin-left: 44px;
+    margin-top: 5px;
+    padding-top: 5px;
+    border-top: 1px dashed var(--cream-dark);
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+  }
+  .qp-answer-label {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 16px;
+    color: var(--terra-dark);
+  }
+  .qp-answer-en {
+    font-family: 'Fraunces', serif;
+    font-size: 25px;
+    color: var(--terra-dark);
+    font-weight: 500;
+    line-height: 1.25;
+  }
+  .qp-answer-zh {
+    font-size: 19px;
+    color: var(--ink-soft);
+    font-style: italic;
+  }
+  .qp-actions {
+    margin-left: 44px;
+    margin-top: 7px;
+    display: flex;
+    gap: 5px;
+    flex-wrap: wrap;
+  }
+
+  .play-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    background: var(--terra);
+    color: var(--paper);
+    border: none;
+    padding: 5px 10px;
+    border-radius: 16px;
+    font-family: inherit;
+    font-weight: 500;
+    font-size: 12px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 1.5px 0 var(--terra-dark);
+  }
+  .play-btn:hover { transform: translateY(-1px); box-shadow: 0 2.5px 0 var(--terra-dark); }
+  .play-btn:active { transform: translateY(1px); box-shadow: 0 0.5px 0 var(--terra-dark); }
+  .play-btn.secondary { background: var(--sage); box-shadow: 0 1.5px 0 var(--sage-dark); }
+  .play-btn.secondary:hover { box-shadow: 0 2.5px 0 var(--sage-dark); }
+  .play-btn.blue { background: var(--blue); box-shadow: 0 1.5px 0 var(--blue-dark); }
+  .play-btn.blue:hover { box-shadow: 0 2.5px 0 var(--blue-dark); }
+
+  .teacher-note {
+    background: #fff8e8;
+    border-left: 3px solid var(--gold);
+    padding: 10px 14px;
+    border-radius: 5px;
+    margin-top: 12px;
+    font-size: 20px;
+    color: var(--ink-soft);
+    line-height: 1.5;
+  }
+  .teacher-note strong { color: var(--gold-dark); }
+
+  /* ============ STEP 3: QUESTION TYPES CARDS ============ */
+  .qtypes-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    margin-bottom: 14px;
+  }
+  .qtype-card {
+    background: var(--paper);
+    border: 2px solid var(--cream-dark);
+    border-radius: 14px;
+    padding: 20px 18px;
+    text-align: center;
+    transition: all 0.2s ease;
+  }
+  .qtype-card:hover {
+    border-color: var(--gold);
+    transform: translateY(-3px);
+    box-shadow: 0 4px 14px var(--shadow);
+  }
+  .qtype-icon {
+    font-size: 58px;
+    line-height: 1;
+    margin-bottom: 10px;
+  }
+  .qtype-word {
+    font-family: 'Fraunces', serif;
+    font-size: 45px;
+    color: var(--blue-dark);
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+  .qtype-zh {
+    color: var(--ink-soft);
+    font-size: 22px;
+    font-style: italic;
+    margin-bottom: 10px;
+  }
+  .qtype-example {
+    background: var(--cream);
+    border-radius: 8px;
+    padding: 10px 12px;
+    margin-top: 10px;
+  }
+  .qtype-example-text {
+    font-family: 'Fraunces', serif;
+    font-size: 25px;
+    color: var(--ink);
+    margin-bottom: 4px;
+  }
+  .qtype-example-zh {
+    font-size: 18px;
+    color: var(--ink-soft);
+    font-style: italic;
+  }
+
+  /* ============ STEP 4: INTERVIEW ROLEPLAY ============ */
+  .interview-scene {
+    background: linear-gradient(135deg, var(--cream) 0%, var(--cream-dark) 100%);
+    border-radius: 14px;
+    padding: 12px 16px;
+    margin-bottom: 10px;
+    border: 1px solid var(--cream-dark);
+  }
+  .interview-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+    padding-bottom: 6px;
+    border-bottom: 1px dashed var(--cream-dark);
+  }
+  .interview-title {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 20px;
+    color: var(--terra-dark);
+    font-weight: 500;
+  }
+  .interview-progress {
+    font-family: 'Fraunces', serif;
+    font-size: 18px;
+    color: var(--ink-soft);
+  }
+
+  .interview-qa {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+  .interview-col {
+    background: var(--paper);
+    border-radius: 10px;
+    padding: 10px 14px;
+  }
+  .interview-col-title {
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-size: 20px;
+    color: var(--terra-dark);
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .interview-col-title .who {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    background: var(--terra);
+    color: var(--paper);
+    font-size: 16px;
+    font-weight: 700;
+  }
+  .interview-col-title .who.them { background: var(--blue); }
+
+  .interview-line {
+    background: var(--cream);
+    border-radius: 8px;
+    padding: 7px 12px;
+    margin-bottom: 5px;
+    transition: all 0.2s ease;
+    cursor: pointer;
+  }
+  .interview-line:hover {
+    background: var(--paper);
+    box-shadow: 0 2px 6px var(--shadow);
+  }
+  .interview-line:last-child { margin-bottom: 0; }
+  .interview-line.highlight {
+    background: #fdf4e3;
+    border-left: 3px solid var(--gold);
+  }
+  .interview-line-en {
+    font-family: 'Fraunces', serif;
+    font-size: 25px;
+    color: var(--ink);
+    line-height: 1.2;
+    margin-bottom: 1px;
+  }
+  .interview-line-zh {
+    font-size: 18px;
+    color: var(--ink-soft);
+    font-style: italic;
+    line-height: 1.25;
+  }
+
+  .play-all-btn {
+    background: var(--blue);
+    color: var(--paper);
+    border: none;
+    padding: 12px 26px;
+    border-radius: 24px;
+    font-family: inherit;
+    font-size: 15px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 2.5px 0 var(--blue-dark);
+    margin-top: 12px;
+  }
+  .play-all-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 3.5px 0 var(--blue-dark);
+  }
+
+  /* ============ STEP 5: QUIZ ============ */
+  .quiz-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+  }
+  .quiz-box {
+    background: var(--paper);
+    border-radius: 10px;
+    padding: 10px 13px;
+    border: 1px solid var(--cream-dark);
+    display: flex;
+    flex-direction: column;
+  }
+  .quiz-tag {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    color: var(--terra-dark);
+    font-size: 13px;
+    margin-bottom: 2px;
+  }
+  .quiz-q {
+    font-family: 'Fraunces', serif;
+    font-size: 18px;
+    color: var(--ink);
+    font-weight: 500;
+    margin-bottom: 6px;
+    line-height: 1.25;
+  }
+  .quiz-audio-btn {
+    background: var(--blue);
+    color: var(--paper);
+    border: none;
+    padding: 6px 12px;
+    border-radius: 14px;
+    font-family: inherit;
+    font-size: 14px;
+    cursor: pointer;
+    margin-bottom: 6px;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    box-shadow: 0 2px 0 var(--blue-dark);
+    align-self: flex-start;
+  }
+  .quiz-audio-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 3px 0 var(--blue-dark);
+  }
+  .quiz-choices { display: flex; flex-direction: column; gap: 4px; }
+  .quiz-choice {
+    background: var(--cream);
+    border: 1.5px solid var(--cream-dark);
+    border-radius: 6px;
+    padding: 6px 11px;
+    font-family: 'Fraunces', serif;
+    font-size: 17px;
+    color: var(--ink);
+    cursor: pointer;
+    transition: all 0.15s ease;
+    text-align: left;
+    font-family: inherit;
+    width: 100%;
+    line-height: 1.25;
+  }
+  .quiz-choice:hover:not(.disabled) {
+    border-color: var(--gold);
+    transform: translateX(2px);
+  }
+  .quiz-choice.correct {
+    background: #e8f0e2;
+    border-color: var(--sage);
+  }
+  .quiz-choice.incorrect {
+    background: #f5dcd0;
+    border-color: var(--terra);
+  }
+  .quiz-choice.disabled { cursor: default; opacity: 0.6; }
+  .quiz-choice.disabled.correct, .quiz-choice.disabled.incorrect { opacity: 1; }
+
+  .quiz-feedback-container { margin-top: 5px; }
+  .quiz-feedback {
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 13px;
+    animation: fadeIn 0.3s ease;
+    line-height: 1.3;
+  }
+  .quiz-feedback.good {
+    background: #e8f0e2;
+    color: var(--sage-dark);
+    border-left: 2px solid var(--sage);
+  }
+  .quiz-feedback.oops {
+    background: #f5dcd0;
+    color: var(--terra-dark);
+    border-left: 2px solid var(--terra);
+  }
+
+  #quiz-result {
+    grid-column: 1 / -1;
+    background: var(--cream);
+    border-radius: 10px;
+    padding: 10px 18px;
+    text-align: center;
+    border-left: 3px solid var(--gold);
+  }
+  #quiz-result h3 {
+    font-family: 'Fraunces', serif;
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 2px;
+  }
+  #quiz-result p { font-size: 14px; color: var(--ink-soft); }
+
+  /* ============ STEP 6: COMPLETE ============ */
+  .complete-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    align-items: start;
+  }
+  .complete-header {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 10px 0 6px;
+  }
+  .complete-trophy {
+    font-size: 58px;
+    display: inline-block;
+    animation: popIn 0.6s cubic-bezier(0.2, 1.5, 0.5, 1);
+    margin-bottom: 2px;
+  }
+  @keyframes popIn {
+    0% { transform: scale(0); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+  }
+  .complete-title {
+    font-family: 'Fraunces', serif;
+    font-size: 30px;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 2px;
+  }
+  .complete-sub {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    color: var(--terra-dark);
+    font-size: 16px;
+  }
+
+  .completion-card {
+    background: var(--paper);
+    border-radius: 12px;
+    padding: 16px 20px;
+    border: 1px solid var(--cream-dark);
+  }
+  .completion-card h3 {
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+  .chunks-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 4px;
+  }
+  .chunks-list li {
+    padding: 4px 0 4px 20px;
+    position: relative;
+    color: var(--ink);
+    font-family: 'Fraunces', serif;
+    font-size: 16px;
+  }
+  .chunks-list li::before {
+    content: "→";
+    position: absolute;
+    left: 0;
+    color: var(--sage);
+    font-weight: 700;
+  }
+
+  .homework-item {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 8px;
+    padding: 10px 12px;
+    background: var(--cream);
+    border-radius: 7px;
+  }
+  .homework-num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px; height: 24px;
+    border-radius: 50%;
+    background: var(--gold);
+    color: var(--paper);
+    font-family: 'Fraunces', serif;
+    font-weight: 700;
+    font-size: 12px;
+    flex-shrink: 0;
+  }
+  .homework-item strong { font-size: 15px; }
+  .homework-item .hw-sub { color: var(--ink-soft); font-size: 13px; margin-top: 2px; }
+
+  .next-lesson-preview {
+    grid-column: 1 / -1;
+    background: var(--paper);
+    border-radius: 10px;
+    padding: 14px 20px;
+    border-left: 3px solid var(--terra);
+  }
+  .next-lesson-preview .tag {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    color: var(--terra-dark);
+    font-size: 14px;
+    margin-bottom: 3px;
+  }
+  .next-lesson-preview h3 {
+    font-family: 'Fraunces', serif;
+    font-size: 19px;
+    margin-bottom: 4px;
+    font-weight: 600;
+  }
+  .next-lesson-preview p { font-size: 14px; color: var(--ink-soft); line-height: 1.5; }
+
+  /* ============ FOOTER NAV ============ */
+  .footer-nav {
+    flex-shrink: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    padding: 14px 0 0;
+    margin-top: 14px;
+    border-top: 1px dashed var(--cream-dark);
+  }
+  .btn-primary {
+    background: var(--ink);
+    color: var(--paper);
+    border: none;
+    padding: 12px 28px;
+    border-radius: 10px;
+    font-size: 16px;
+    font-family: inherit;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 2.5px 0 #000, 0 4px 10px var(--shadow);
+    letter-spacing: 0.02em;
+  }
+  .btn-primary:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 3.5px 0 #000, 0 6px 14px var(--shadow);
+    background: var(--terra-dark);
+  }
+  .btn-primary:active { transform: translateY(1px); box-shadow: 0 1.5px 0 #000; }
+
+  .btn-secondary {
+    background: transparent;
+    color: var(--ink-soft);
+    border: 1.5px solid var(--cream-dark);
+    padding: 10px 20px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-family: inherit;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  .btn-secondary:hover { border-color: var(--gold); color: var(--ink); }
+
+  .hidden { display: none !important; }
+
+  /* ============ RESPONSIVE FALLBACK ============ */
+  @media (max-width: 900px) {
+    html, body { overflow: auto; height: auto; }
+    .app-layout {
+      grid-template-columns: 1fr;
+      height: auto;
+      min-height: 100vh;
+    }
+    .sidebar { border-right: none; border-bottom: 1px solid var(--cream-dark); }
+    .main-area { padding: 20px 16px; }
+    .main-inner { overflow-y: visible; }
+    .goals-grid { grid-template-columns: 1fr; }
+    .qtypes-grid { grid-template-columns: 1fr; }
+    .interview-qa { grid-template-columns: 1fr; }
+    .complete-layout { grid-template-columns: 1fr; }
+    .quiz-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="app-layout">
+
+  <!-- ============ SIDEBAR ============ -->
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <div class="ornament">· · ·</div>
+      <div class="lesson-num">Lesson 4 · 第四堂</div>
+      <h1>問簡單問題</h1>
+      <div class="subtitle">Asking Simple Questions</div>
+    </div>
+
+    <div class="progress-compact">
+      <div class="label">
+        <span id="progress-text">第 1 部分 / 共 6 部分</span>
+        <span class="value" id="progress-time">3 分鐘</span>
+      </div>
+      <div class="progress-bar">
+        <div class="progress-fill" id="progress-fill" style="width: 16.7%;"></div>
+      </div>
+    </div>
+
+    <nav class="steps-nav">
+      <div class="steps-label">學習步驟</div>
+      <button class="step-btn active" data-step="1" onclick="goToStep(1)">
+        <span class="step-num">1</span><span>由答到問</span>
+      </button>
+      <button class="step-btn" data-step="2" onclick="goToStep(2)">
+        <span class="step-num">2</span><span>5 大基本問題</span>
+      </button>
+      <button class="step-btn" data-step="3" onclick="goToStep(3)">
+        <span class="step-num">3</span><span>問題字詞</span>
+      </button>
+      <button class="step-btn" data-step="4" onclick="goToStep(4)">
+        <span class="step-num">4</span><span>互相訪問</span>
+      </button>
+      <button class="step-btn" data-step="5" onclick="goToStep(5)">
+        <span class="step-num">5</span><span>小測驗</span>
+      </button>
+      <button class="step-btn" data-step="6" onclick="goToStep(6)">
+        <span class="step-num">6</span><span>完成</span>
+      </button>
+    </nav>
+
+    <div class="speed-panel">
+      <div class="speed-label">🐢 聲音速度</div>
+      <div class="speed-buttons">
+        <button class="speed-btn" data-speed="0.2" onclick="setSpeed(0.2, this)">
+          <span class="rate">0.2x</span><span class="rate-label">極慢</span>
+        </button>
+        <button class="speed-btn active" data-speed="0.3" onclick="setSpeed(0.3, this)">
+          <span class="rate">0.3x</span><span class="rate-label">好慢</span>
+        </button>
+        <button class="speed-btn" data-speed="0.4" onclick="setSpeed(0.4, this)">
+          <span class="rate">0.4x</span><span class="rate-label">慢</span>
+        </button>
+        <button class="speed-btn" data-speed="0.6" onclick="setSpeed(0.6, this)">
+          <span class="rate">0.6x</span><span class="rate-label">正常</span>
+        </button>
+        <button class="speed-btn" data-speed="0.7" onclick="setSpeed(0.7, this)">
+          <span class="rate">0.7x</span><span class="rate-label">稍快</span>
+        </button>
+        <button class="speed-btn" data-speed="0.9" onclick="setSpeed(0.9, this)">
+          <span class="rate">0.9x</span><span class="rate-label">較快</span>
+        </button>
+        <button class="speed-btn" data-speed="1.0" onclick="setSpeed(1.0, this)">
+          <span class="rate">1.0x</span><span class="rate-label">原速</span>
+        </button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ============ MAIN ============ -->
+  <main class="main-area">
+    <div class="main-inner">
+
+      <!-- STEP 1: WARM-UP / FROM PASSIVE TO ACTIVE -->
+      <div class="step-content" data-step="1">
+        <div class="section-label">Part 1 · 熱身 (3 分鐘)</div>
+        <h2>今日你做主動 🎤</h2>
+        <p class="card-sub">由「被動答」變「主動問」— 呢個係大進步</p>
+
+        <div class="callback">
+          <strong>✦ 前三堂我哋學咗答別人：</strong> 自我介紹、問候、告別禮貌。你識答 24+ 句。
+        </div>
+
+        <div class="instruction">
+          <strong>今日關鍵：</strong> 之前都係「有人問你答」。<strong>今日反過嚟——教你點樣主動問人哋</strong>。識問問題，對話先可以繼續落去，變成真正嘅交流。呢個係 Week 1 最重要嘅一堂。
+        </div>
+
+        <div class="subsection-title">🎯 今日嘅 3 個小目標</div>
+
+        <div class="goals-grid">
+          <div class="goal-card">
+            <div class="goal-num">1</div>
+            <div class="goal-text">識 <strong>5 個基本問題</strong>，包括問名、出生地、住邊</div>
+          </div>
+          <div class="goal-card">
+            <div class="goal-num">2</div>
+            <div class="goal-text">識 <strong>What / Where / How / Do</strong> 4 個問題字詞點用</div>
+          </div>
+          <div class="goal-card">
+            <div class="goal-num">3</div>
+            <div class="goal-text">可以做 <strong>雙向對話</strong>——問同答都掂</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 2: 5 BASIC QUESTIONS WITH ANSWERS -->
+      <div class="step-content hidden" data-step="2">
+        <div class="section-label">Part 2 · 5 大基本問題 (8 分鐘) · ⚠️ "How old are you?" 對陌生人唔禮貌</div>
+        <h2 style="margin-bottom: 2px;">問 + 答一齊學</h2>
+        <p class="card-sub" style="margin-bottom: 8px;">每條問題我哋都畀埋 <strong style="color: var(--terra-dark);">一個標準答案</strong>，即學即用</p>
+
+        <div id="questions-container"></div>
+      </div>
+
+      <!-- STEP 3: QUESTION WORDS -->
+      <div class="step-content hidden" data-step="3">
+        <div class="section-label">Part 3 · 問題字詞 (6 分鐘)</div>
+        <h2>4 個問題字詞</h2>
+        <p class="card-sub">Question words · 識呢 4 個就識問大部分問題</p>
+
+        <div class="instruction">
+          <strong>點用：</strong> 每個字都係問題嘅開頭。識咗呢 4 個，你可以組合唔同嘅問題。㩒每張卡聽下點讀。
+        </div>
+
+        <div class="qtypes-grid">
+          <div class="qtype-card" onclick="playWord('What')">
+            <div class="qtype-icon">❓</div>
+            <div class="qtype-word">What</div>
+            <div class="qtype-zh">乜嘢</div>
+            <div class="qtype-example">
+              <div class="qtype-example-text">What's your name?</div>
+              <div class="qtype-example-zh">你叫咩名？</div>
+            </div>
+          </div>
+
+          <div class="qtype-card" onclick="playWord('Where')">
+            <div class="qtype-icon">📍</div>
+            <div class="qtype-word">Where</div>
+            <div class="qtype-zh">邊度／邊處</div>
+            <div class="qtype-example">
+              <div class="qtype-example-text">Where are you from?</div>
+              <div class="qtype-example-zh">你嚟自邊度？</div>
+            </div>
+          </div>
+
+          <div class="qtype-card" onclick="playWord('How')">
+            <div class="qtype-icon">🤔</div>
+            <div class="qtype-word">How</div>
+            <div class="qtype-zh">點樣／幾</div>
+            <div class="qtype-example">
+              <div class="qtype-example-text">How are you?</div>
+              <div class="qtype-example-zh">你點呀？(已學)</div>
+            </div>
+          </div>
+        </div>
+
+        <div style="background: var(--paper); border: 2px solid var(--cream-dark); border-radius: 14px; padding: 16px 20px; margin-top: 14px;">
+          <div style="display: flex; align-items: center; gap: 16px;">
+            <div style="font-size: 50px;">✋</div>
+            <div style="flex: 1;">
+              <div style="font-family: 'Fraunces', serif; font-size: 32px; color: var(--blue-dark); font-weight: 600;">Do you...?</div>
+              <div style="font-size: 19px; color: var(--ink-soft); font-style: italic; margin-top: 2px;">問「你有冇／會唔會」嘅時候用</div>
+              <div style="font-family: 'Fraunces', serif; font-size: 26px; color: var(--ink); margin-top: 6px;">Do you speak English? <span style="font-size: 18px; color: var(--ink-soft); font-style: italic;">你識講英文嗎？</span></div>
+            </div>
+            <button class="play-btn blue" onclick="speak('Do you speak English?')" style="padding: 10px 18px; font-size: 16px;">🔊</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 4: MUTUAL INTERVIEW -->
+      <div class="step-content hidden" data-step="4">
+        <div class="section-label">Part 4 · 互相訪問 (8 分鐘) · 場景：你同新朋友 Tom 第一次互相了解</div>
+        <h2 style="margin-bottom: 4px;">你問我，我問你</h2>
+        <p class="card-sub" style="margin-bottom: 10px;">A mutual interview · 練習問同答嘅切換</p>
+
+        <div class="interview-scene">
+          <div class="interview-qa">
+            <div class="interview-col">
+              <div class="interview-col-title">
+                <span class="who">你</span>
+                <span>你問 Tom</span>
+              </div>
+              <div id="your-questions"></div>
+            </div>
+            <div class="interview-col">
+              <div class="interview-col-title">
+                <span class="who them">T</span>
+                <span>Tom 問你</span>
+              </div>
+              <div id="their-questions"></div>
+            </div>
+          </div>
+        </div>
+
+        <div style="display: flex; gap: 12px; align-items: stretch;">
+          <button class="play-all-btn" onclick="playInterview()" style="justify-content: center;">
+            🔊 <span>聽成個訪問</span>
+          </button>
+          <div class="teacher-note" style="margin-top: 0; flex: 1;">
+            <strong>✦ 練習：</strong>
+            (1) 聽成個訪問（10 句）
+            (2) 老師扮 Tom 問你，你答；然後你問 Tom，老師答
+            (3) 換位再做
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 5: QUIZ -->
+      <div class="step-content hidden" data-step="5">
+        <div class="section-label">Part 5 · 小測驗 (4 分鐘) · Quick check · 冇壓力</div>
+        <h2 style="margin-bottom: 8px;">試下你記唔記得</h2>
+
+        <div class="quiz-grid" id="quiz-container"></div>
+      </div>
+
+      <!-- STEP 6: COMPLETE -->
+      <div class="step-content hidden" data-step="6">
+        <div class="complete-layout">
+          <div class="complete-header">
+            <div class="complete-trophy">🏁</div>
+            <div class="complete-title">Week 1 新內容完成！</div>
+            <div class="complete-sub">4 lessons · 29+ 套語 · 下一堂係綜合評估</div>
+          </div>
+
+          <div class="completion-card" style="border-left: 3px solid var(--sage);">
+            <h3 style="color: var(--sage-dark);">✦ 今日學咗嘅套語</h3>
+            <ul class="chunks-list">
+              <li>What's your name?</li>
+              <li>Where are you from?</li>
+              <li>Where do you live?</li>
+              <li>How old are you? <span style="font-size: 13px; color: var(--ink-soft); font-style: italic;">(慎用)</span></li>
+              <li>Do you speak English?</li>
+            </ul>
+          </div>
+
+          <div class="completion-card" style="border-left: 3px solid var(--gold);">
+            <h3 style="color: var(--gold-dark);">🎒 今日嘅功課</h3>
+            <div class="homework-item">
+              <div class="homework-num">1</div>
+              <div>
+                <strong>對住鏡扮訪問自己</strong>
+                <div class="hw-sub">問出 5 條問題，然後自己答。建立「開口問」嘅自信。</div>
+              </div>
+            </div>
+            <div class="homework-item">
+              <div class="homework-num">2</div>
+              <div>
+                <strong>寫低你想問屋企人／朋友嘅 3 條問題</strong>
+                <div class="hw-sub">唔一定用英文問人，但先諗好點講。預備好第二日。</div>
+              </div>
+            </div>
+            <div class="homework-item">
+              <div class="homework-num">3</div>
+              <div>
+                <strong>Flashcard app 溫 5 分鐘</strong>
+                <div class="hw-sub">揀 L1-L4 全部，用「未熟」模式，集中練未順嘅。</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="next-lesson-preview">
+            <div class="tag">🏆 Week 1 最後一堂</div>
+            <h3>Lesson 5：Week 1 綜合評估 + 角色扮演</h3>
+            <p>下一堂<strong>冇新內容</strong>，係完整 roleplay：同陌生人做 30 秒見面對話，用到 L1-L4 所有套語。亦會用 flashcard 溫習全部 29 個套語。做完呢堂，Week 1 完成，你可以自信咁做 A2 基礎對話。</p>
+          </div>
+        </div>
+      </div>
+
+    </div> <!-- /main-inner -->
+
+    <div class="footer-nav">
+      <button class="btn-secondary" id="prev-btn" onclick="goPrev()">← 上一步</button>
+      <div style="font-family: 'Fraunces', serif; font-style: italic; color: var(--ink-soft); font-size: 14px;" id="step-indicator">
+        Step 1 of 6
+      </div>
+      <button class="btn-primary" id="next-btn" onclick="goNext()"><span id="next-btn-text">開始學習</span><span>→</span></button>
+    </div>
+  </main>
+</div>
+
+<script>
+let currentStep = 1;
+let currentSpeed = 0.3;
+let englishVoice = null;
+const completedSteps = new Set();
+const TOTAL_STEPS = 6;
+
+// Replaceable name (keeps "you" concept but uses Hannah)
+const STUDENT_NAME = "Hannah";
+
+// ============ DATA: 5 QUESTIONS WITH ANSWERS ============
+const QUESTIONS = [
+  {
+    en: "What's your name?",
+    zh: "你叫咩名？",
+    answerEn: "My name is " + STUDENT_NAME + ".",
+    answerZh: "我叫 " + STUDENT_NAME + "。",
+  },
+  {
+    en: "Where are you from?",
+    zh: "你嚟自邊度？",
+    answerEn: "I'm from Hong Kong.",
+    answerZh: "我嚟自香港。",
+  },
+  {
+    en: "Where do you live?",
+    zh: "你而家住邊？",
+    answerEn: "I live in England.",
+    answerZh: "我而家住喺英國。",
+  },
+  {
+    en: "How old are you?",
+    zh: "你幾多歲？(對陌生人避免問)",
+    answerEn: "I'm 55 years old.",
+    answerZh: "我 55 歲。",
+  },
+  {
+    en: "Do you speak English?",
+    zh: "你識講英文嗎？",
+    answerEn: "Yes, a little.",
+    answerZh: "識少少。",
+  }
+];
+
+// ============ INTERVIEW SCRIPT ============
+// Your side - you asking Tom
+const YOUR_QUESTIONS = [
+  { en: "What's your name?", zh: "你叫咩名？" },
+  { en: "Where are you from?", zh: "你嚟自邊度？" },
+  { en: "Where do you live?", zh: "你住邊度？" },
+  { en: "Do you speak Chinese?", zh: "你識講中文嗎？" },
+  { en: "Nice to meet you!", zh: "好開心識到你！" }
+];
+
+// Tom asking you - mirror
+const THEIR_QUESTIONS = [
+  { en: "What's your name?", zh: "你叫咩名？" },
+  { en: "Where are you from?", zh: "你嚟自邊度？" },
+  { en: "Where do you live?", zh: "你住邊度？" },
+  { en: "Do you speak English?", zh: "你識講英文嗎？" },
+  { en: "Nice to meet you too!", zh: "我都好開心識到你！" }
+];
+
+// ============ QUIZ ============
+const QUIZ = [
+  {
+    type: "audio",
+    q: "聽下老師問咩，揀啱嘅中文意思：",
+    audioText: "What's your name?",
+    choices: [
+      { text: "你幾多歲？", correct: false },
+      { text: "你叫咩名？", correct: true },
+      { text: "你嚟自邊度？", correct: false },
+      { text: "你點呀？", correct: false }
+    ]
+  },
+  {
+    type: "text",
+    q: "想問人住邊度，你會講？",
+    choices: [
+      { text: "What's your name?", correct: false },
+      { text: "How old are you?", correct: false },
+      { text: "Where do you live?", correct: true },
+      { text: "Do you speak English?", correct: false }
+    ]
+  },
+  {
+    type: "text",
+    q: "有人問「Where are you from?」，啱嘅答法係？",
+    choices: [
+      { text: "I'm 55 years old.", correct: false },
+      { text: "My name is " + STUDENT_NAME + ".", correct: false },
+      { text: "I'm from Hong Kong.", correct: true },
+      { text: "Yes, a little.", correct: false }
+    ]
+  },
+  {
+    type: "audio",
+    q: "聽下呢條問題，揀意思：",
+    audioText: "Do you speak English?",
+    choices: [
+      { text: "你識英文嗎？", correct: true },
+      { text: "你叫咩名？", correct: false },
+      { text: "你住邊？", correct: false },
+      { text: "你點呀？", correct: false }
+    ]
+  },
+  {
+    type: "text",
+    q: "喺英國，對陌生人問邊條問題唔太禮貌？",
+    choices: [
+      { text: "What's your name?", correct: false },
+      { text: "Where are you from?", correct: false },
+      { text: "Where do you live?", correct: false },
+      { text: "How old are you?", correct: true }
+    ]
+  }
+];
+
+let quizScore = 0;
+let quizAnswered = 0;
+
+// ============ SPEECH ============
+function loadVoice() {
+  const voices = speechSynthesis.getVoices();
+  englishVoice = voices.find(v => v.lang === 'en-GB' && v.name.toLowerCase().includes('female'))
+              || voices.find(v => v.lang === 'en-GB')
+              || voices.find(v => v.lang === 'en-US' && v.name.toLowerCase().includes('female'))
+              || voices.find(v => v.lang === 'en-US')
+              || voices.find(v => v.lang.startsWith('en'))
+              || voices[0];
+}
+if ('speechSynthesis' in window) {
+  loadVoice();
+  speechSynthesis.onvoiceschanged = loadVoice;
+}
+function speak(text, rate) {
+  if (!('speechSynthesis' in window)) {
+    alert("你嘅瀏覽器唔支援聲音播放，請用 Chrome、Edge 或 Safari。");
+    return;
+  }
+  speechSynthesis.cancel();
+  const utter = new SpeechSynthesisUtterance(text);
+  utter.lang = 'en-GB';
+  utter.rate = rate || currentSpeed;
+  if (englishVoice) utter.voice = englishVoice;
+  speechSynthesis.speak(utter);
+}
+function setSpeed(speed, btn) {
+  currentSpeed = speed;
+  document.querySelectorAll('.speed-btn').forEach(b => b.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+}
+
+// ============ STEP 2 RENDER ============
+function renderQuestions() {
+  const container = document.getElementById('questions-container');
+  container.innerHTML = QUESTIONS.map((q, i) => `
+    <div class="question-pair">
+      <div class="qp-head">
+        <div class="qp-num">${i + 1}</div>
+        <div class="qp-question">${q.en}</div>
+      </div>
+      <div class="qp-chinese">${q.zh}</div>
+      <div class="qp-answer-row">
+        <span class="qp-answer-en">↳ ${q.answerEn}</span>
+        <span class="qp-answer-zh">${q.answerZh}</span>
+      </div>
+      <div class="qp-actions">
+        <button class="play-btn" onclick="speak('${q.en.replace(/'/g, "\\'")}')">🔊 問</button>
+        <button class="play-btn secondary" onclick="speak('${q.answerEn.replace(/'/g, "\\'")}')">🔊 答</button>
+        <button class="play-btn blue" onclick="playQA('${q.en.replace(/'/g, "\\'")}', '${q.answerEn.replace(/'/g, "\\'")}')">🔁 問答</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function playQA(question, answer) {
+  speechSynthesis.cancel();
+  speak(question);
+  // Wait for question to finish, then play answer
+  setTimeout(() => speak(answer), Math.max(2500, 2500 / currentSpeed));
+}
+
+// ============ STEP 3 ============
+function playWord(word) {
+  speak(word);
+}
+
+// ============ STEP 4 RENDER ============
+function renderInterview() {
+  const yourCol = document.getElementById('your-questions');
+  yourCol.innerHTML = YOUR_QUESTIONS.map((q, i) => `
+    <div class="interview-line" onclick="speak('${q.en.replace(/'/g, "\\'")}')">
+      <div class="interview-line-en">${i + 1}. ${q.en}</div>
+      <div class="interview-line-zh">${q.zh}</div>
+    </div>
+  `).join('');
+
+  const theirCol = document.getElementById('their-questions');
+  theirCol.innerHTML = THEIR_QUESTIONS.map((q, i) => `
+    <div class="interview-line" onclick="speak('${q.en.replace(/'/g, "\\'")}')">
+      <div class="interview-line-en">${i + 1}. ${q.en}</div>
+      <div class="interview-line-zh">${q.zh}</div>
+    </div>
+  `).join('');
+}
+
+function playInterview() {
+  speechSynthesis.cancel();
+  // Play alternating: you ask, Tom asks, you ask, Tom asks...
+  const allLines = [];
+  for (let i = 0; i < 5; i++) {
+    allLines.push(YOUR_QUESTIONS[i].en);
+    allLines.push(THEIR_QUESTIONS[i].en);
+  }
+  const dialogueRate = Math.max(currentSpeed, 0.4);
+  const gap = Math.max(3500, 3500 / currentSpeed);
+  allLines.forEach((line, i) => {
+    setTimeout(() => speak(line, dialogueRate), i * gap);
+  });
+}
+
+// ============ STEP 5 QUIZ ============
+function renderQuiz() {
+  const container = document.getElementById('quiz-container');
+  container.innerHTML = QUIZ.map((q, i) => {
+    let promptHtml = '';
+    if (q.type === 'audio') {
+      promptHtml = `
+        <button class="quiz-audio-btn" onclick="speak('${q.audioText.replace(/'/g, "\\'")}', 0.3)">
+          🔊 <span>聽聲音</span>
+        </button>
+      `;
+    }
+    return `
+      <div class="quiz-box" data-quiz-idx="${i}">
+        <div class="quiz-tag">第 ${i + 1} 題</div>
+        <div class="quiz-q">${q.q}</div>
+        ${promptHtml}
+        <div class="quiz-choices">
+          ${q.choices.map((c, j) => `
+            <button class="quiz-choice" onclick="answerQuiz(${i}, ${j}, ${c.correct})">
+              ${String.fromCharCode(65 + j)}. ${c.text}
+            </button>
+          `).join('')}
+        </div>
+        <div class="quiz-feedback-container"></div>
+      </div>
+    `;
+  }).join('') + '<div id="quiz-result" class="hidden"></div>';
+}
+
+function answerQuiz(qIdx, choiceIdx, isCorrect) {
+  const quizBox = document.querySelector(`[data-quiz-idx="${qIdx}"]`);
+  const choices = quizBox.querySelectorAll('.quiz-choice');
+
+  if (choices[0].classList.contains('disabled')) return;
+  choices.forEach(c => c.classList.add('disabled'));
+  const selected = choices[choiceIdx];
+
+  if (isCorrect) {
+    selected.classList.add('correct');
+    quizScore++;
+  } else {
+    selected.classList.add('incorrect');
+    const correctIdx = QUIZ[qIdx].choices.findIndex(c => c.correct);
+    choices[correctIdx].classList.add('correct');
+  }
+  quizAnswered++;
+
+  const feedbackContainer = quizBox.querySelector('.quiz-feedback-container');
+  if (isCorrect) {
+    feedbackContainer.innerHTML = `<div class="quiz-feedback good">✦ 答啱喇！</div>`;
+  } else {
+    const correctText = QUIZ[qIdx].choices.find(c => c.correct).text;
+    feedbackContainer.innerHTML = `<div class="quiz-feedback oops">冇問題！答案：<strong>${correctText}</strong></div>`;
+  }
+
+  if (quizAnswered === QUIZ.length) {
+    setTimeout(showQuizResult, 500);
+  }
+}
+
+function showQuizResult() {
+  const result = document.getElementById('quiz-result');
+  result.classList.remove('hidden');
+  const percent = (quizScore / QUIZ.length) * 100;
+  let title, text;
+  if (percent >= 80) {
+    title = `🏆 ${quizScore} / ${QUIZ.length} 分 — 好叻呀！`;
+    text = '準備好迎接 Week 1 評估！';
+  } else if (percent >= 60) {
+    title = `✦ ${quizScore} / ${QUIZ.length} 分 — 唔錯！`;
+    text = '大部分都識。複習下答錯嘅問題。';
+  } else {
+    title = `🌱 ${quizScore} / ${QUIZ.length} 分 — 繼續努力！`;
+    text = '新內容需要時間吸收。返 Part 2 重聽幾次。';
+  }
+  result.innerHTML = `<h3>${title}</h3><p>${text}</p>`;
+  result.scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+
+// ============ NAVIGATION ============
+function goToStep(step) {
+  speechSynthesis.cancel();
+  if (step > currentStep) completedSteps.add(currentStep);
+  currentStep = step;
+
+  document.querySelectorAll('.step-content').forEach(el => el.classList.add('hidden'));
+  document.querySelector(`.step-content[data-step="${step}"]`).classList.remove('hidden');
+
+  document.querySelectorAll('.step-btn').forEach(btn => {
+    const btnStep = parseInt(btn.dataset.step);
+    btn.classList.remove('active', 'completed');
+    if (btnStep === step) btn.classList.add('active');
+    else if (completedSteps.has(btnStep)) btn.classList.add('completed');
+  });
+
+  const progress = (step / TOTAL_STEPS) * 100;
+  document.getElementById('progress-fill').style.width = progress + '%';
+  document.getElementById('progress-text').textContent = `第 ${step} 部分 / 共 6 部分`;
+
+  const timeMap = { 1: "3 分鐘", 2: "8 分鐘", 3: "6 分鐘", 4: "8 分鐘", 5: "4 分鐘", 6: "1 分鐘" };
+  document.getElementById('progress-time').textContent = timeMap[step] || "";
+
+  document.getElementById('step-indicator').textContent = `Step ${step} of ${TOTAL_STEPS}`;
+  const prevBtn = document.getElementById('prev-btn');
+  const nextBtn = document.getElementById('next-btn');
+  const nextText = document.getElementById('next-btn-text');
+
+  prevBtn.style.visibility = step === 1 ? 'hidden' : 'visible';
+  if (step === TOTAL_STEPS) {
+    nextText.textContent = '🖨 列印記錄';
+    nextBtn.onclick = () => window.print();
+  } else if (step === 1) {
+    nextText.textContent = '開始學習';
+    nextBtn.onclick = goNext;
+  } else {
+    nextText.textContent = '下一步';
+    nextBtn.onclick = goNext;
+  }
+
+  document.querySelector('.main-inner').scrollTop = 0;
+
+  // Lazy-render content
+  if (step === 2 && !document.getElementById('questions-container').innerHTML) {
+    renderQuestions();
+  }
+  if (step === 4 && !document.getElementById('your-questions').innerHTML) {
+    renderInterview();
+  }
+  if (step === 5 && !document.getElementById('quiz-container').innerHTML) {
+    renderQuiz();
+  }
+}
+
+function goNext() {
+  if (currentStep < TOTAL_STEPS) goToStep(currentStep + 1);
+}
+function goPrev() {
+  if (currentStep > 1) goToStep(currentStep - 1);
+}
+
+// INIT
+goToStep(1);
+</script>
+
+</body>
+</html>
