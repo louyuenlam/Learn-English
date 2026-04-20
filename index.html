@@ -6,7 +6,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="theme-color" content="#faf6ef">
-<title>Hannah 英文學習 · Home</title>
+<title>Hannah 英文</title>
 <link rel="apple-touch-icon" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%23faf6ef'/><text x='50' y='70' text-anchor='middle' font-size='58'>📚</text></svg>">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400&family=Noto+Sans+HK:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
@@ -31,10 +31,8 @@
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
   html, body {
-    height: 100%;
-    overflow: hidden;
+    min-height: 100%;
     -webkit-tap-highlight-color: transparent;
-    overscroll-behavior: none;
   }
 
   body {
@@ -44,141 +42,181 @@
       radial-gradient(ellipse at bottom right, rgba(122, 132, 113, 0.08), transparent 50%),
       var(--cream);
     color: var(--ink);
-    display: flex;
-    flex-direction: column;
+    line-height: 1.5;
+    padding: calc(20px + var(--safe-top)) 20px calc(20px + var(--safe-bottom));
+    min-height: 100vh;
+    min-height: 100dvh;
   }
 
-  /* ============ TAB BAR (Top) ============ */
-  .tab-bar {
-    flex-shrink: 0;
+  body::before {
+    content: '';
+    position: fixed; inset: 0; pointer-events: none;
+    background-image: repeating-linear-gradient(45deg, rgba(139, 115, 85, 0.015) 0 1px, transparent 1px 4px);
+    z-index: 0;
+  }
+
+  .container {
+    max-width: 640px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ============ GREETING HEADER ============ */
+  .greeting {
+    text-align: center;
+    padding: 16px 0 28px;
+  }
+  .greeting .ornament {
+    font-family: 'Fraunces', serif;
+    font-size: 18px;
+    color: var(--gold);
+    letter-spacing: 8px;
+    margin-bottom: 10px;
+  }
+  .greeting h1 {
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-size: 32px;
+    color: var(--ink);
+    line-height: 1.15;
+    margin-bottom: 6px;
+  }
+  .greeting .sub {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    color: var(--ink-soft);
+    font-size: 18px;
+  }
+
+  /* ============ ACTION CARDS ============ */
+  .actions {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .action-card {
     background: var(--paper);
-    border-bottom: 1px solid var(--cream-dark);
-    padding-top: var(--safe-top);
-    display: flex;
-    flex-direction: column;
-    z-index: 10;
-  }
-
-  .tab-bar-top {
+    border: 2px solid var(--cream-dark);
+    border-radius: 20px;
+    padding: 22px 24px;
+    text-decoration: none;
+    color: var(--ink);
     display: flex;
     align-items: center;
-    padding: 10px 16px 6px;
-    gap: 10px;
+    gap: 20px;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.3, 0.8, 0.4, 1);
+    box-shadow: 0 2px 0 var(--cream-dark);
+    position: relative;
+    overflow: hidden;
+    min-height: 120px;
+  }
+  .action-card::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 5px;
+    background: var(--accent);
+    transition: width 0.2s ease;
+  }
+  .action-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px var(--shadow), 0 2px 0 var(--cream-dark);
+    border-color: var(--accent);
+  }
+  .action-card:hover::before {
+    width: 8px;
+  }
+  .action-card:active {
+    transform: translateY(0);
   }
 
-  .tab-bar-title {
+  .action-card[data-color="terra"] { --accent: var(--terra); }
+  .action-card[data-color="gold"] { --accent: var(--gold); }
+  .action-card[data-color="sage"] { --accent: var(--sage); }
+
+  .action-card .icon-box {
+    flex-shrink: 0;
+    width: 72px;
+    height: 72px;
+    border-radius: 18px;
+    background: var(--cream);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 40px;
+  }
+  .action-card[data-color="terra"] .icon-box { background: #faeee8; }
+  .action-card[data-color="gold"] .icon-box { background: #fdf4e3; }
+  .action-card[data-color="sage"] .icon-box { background: #eef3e8; }
+
+  .action-card .text {
     flex: 1;
     min-width: 0;
   }
-  .tab-bar-title .tag {
-    font-family: 'Fraunces', serif;
-    font-style: italic;
-    font-size: 12px;
-    color: var(--terra-dark);
-    margin-bottom: 1px;
-  }
-  .tab-bar-title h1 {
+  .action-card h2 {
     font-family: 'Fraunces', serif;
     font-weight: 600;
-    font-size: 19px;
+    font-size: 26px;
     color: var(--ink);
-    line-height: 1.1;
+    line-height: 1.15;
+    margin-bottom: 4px;
+  }
+  .action-card .desc {
+    font-size: 16px;
+    color: var(--ink-soft);
+    line-height: 1.4;
+  }
+  .action-card .desc .time {
+    color: var(--accent);
+    font-weight: 600;
+    font-family: 'Fraunces', serif;
   }
 
-  .tab-bar-lesson-btn {
-    background: var(--cream);
-    border: 1px solid var(--cream-dark);
-    padding: 8px 14px;
-    border-radius: 18px;
+  .action-card .arrow {
+    flex-shrink: 0;
+    font-size: 28px;
+    color: var(--ink-soft);
+    font-family: 'Fraunces', serif;
+  }
+
+  /* ============ BOTTOM SECTION ============ */
+  .bottom-section {
+    margin-top: 32px;
+    padding-top: 22px;
+    border-top: 1px dashed var(--cream-dark);
+    text-align: center;
+  }
+  .bottom-section .label {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    color: var(--ink-soft);
+    font-size: 15px;
+    margin-bottom: 12px;
+  }
+  .lessons-btn {
+    background: transparent;
+    border: 1.5px solid var(--cream-dark);
+    padding: 12px 24px;
+    border-radius: 14px;
     font-family: inherit;
-    font-size: 13px;
+    font-size: 15px;
     color: var(--ink-soft);
     cursor: pointer;
     display: inline-flex;
     align-items: center;
-    gap: 4px;
-    font-weight: 500;
-    flex-shrink: 0;
-  }
-  .tab-bar-lesson-btn:hover { background: var(--cream-dark); color: var(--ink); }
-
-  /* The tabs themselves */
-  .tabs {
-    display: flex;
-    padding: 0 8px 6px;
-    gap: 4px;
-  }
-  .tab {
-    flex: 1;
-    padding: 10px 6px;
-    border: none;
-    background: transparent;
-    font-family: inherit;
-    font-size: 14px;
-    color: var(--ink-soft);
-    cursor: pointer;
-    border-radius: 10px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 2px;
+    gap: 10px;
+    text-decoration: none;
     transition: all 0.15s ease;
-    min-height: 52px;
-    position: relative;
   }
-  .tab:hover:not(.active) { background: var(--cream); color: var(--ink); }
-  .tab.active {
-    background: var(--ink);
-    color: var(--paper);
-    font-weight: 600;
+  .lessons-btn:hover {
+    border-color: var(--terra);
+    color: var(--terra-dark);
+    background: var(--paper);
   }
-  .tab .tab-icon {
-    font-size: 19px;
-    line-height: 1;
-  }
-  .tab .tab-label {
-    font-family: 'Fraunces', serif;
-    font-weight: 600;
-    font-size: 13.5px;
-    line-height: 1;
-  }
-
-  /* ============ CONTENT (iframe containers) ============ */
-  .content {
-    flex: 1;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .app-frame {
-    position: absolute;
-    inset: 0;
-    border: none;
-    width: 100%;
-    height: 100%;
-    background: var(--cream);
-    display: none;
-  }
-  .app-frame.active { display: block; }
-
-  /* Loading state */
-  .app-frame:not(.loaded) + .frame-loading {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: var(--cream);
-    color: var(--ink-soft);
-    font-family: 'Fraunces', serif;
-    font-style: italic;
-    font-size: 15px;
-    animation: pulse 1.5s ease-in-out infinite;
-  }
-  @keyframes pulse {
-    0%, 100% { opacity: 0.5; }
-    50% { opacity: 1; }
-  }
+  .lessons-btn .icon { font-size: 18px; }
 
   /* ============ LESSONS MODAL ============ */
   .modal-backdrop {
@@ -196,11 +234,11 @@
   .modal-sheet {
     background: var(--paper);
     width: 100%;
-    max-width: 600px;
+    max-width: 640px;
     max-height: 85vh;
-    border-radius: 20px 20px 0 0;
+    border-radius: 24px 24px 0 0;
     overflow-y: auto;
-    padding: 20px 20px calc(20px + var(--safe-bottom));
+    padding: 20px 24px calc(24px + var(--safe-bottom));
     animation: slideUp 0.3s cubic-bezier(0.3, 0.85, 0.4, 1);
   }
   @keyframes slideUp {
@@ -208,169 +246,185 @@
     to { transform: translateY(0); }
   }
   .modal-handle {
-    width: 40px;
-    height: 4px;
+    width: 44px;
+    height: 5px;
     background: var(--cream-dark);
-    border-radius: 2px;
-    margin: 0 auto 14px;
+    border-radius: 3px;
+    margin: 0 auto 16px;
   }
   .modal-title {
     font-family: 'Fraunces', serif;
     font-weight: 600;
-    font-size: 22px;
+    font-size: 24px;
     color: var(--ink);
-    margin-bottom: 4px;
     text-align: center;
+    margin-bottom: 4px;
   }
   .modal-sub {
     font-family: 'Fraunces', serif;
     font-style: italic;
     color: var(--ink-soft);
-    font-size: 14px;
+    font-size: 15px;
     text-align: center;
-    margin-bottom: 16px;
+    margin-bottom: 18px;
   }
 
   .lesson-list {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 10px;
   }
   .lesson-item {
     background: var(--cream);
     border: 1.5px solid var(--cream-dark);
-    border-radius: 12px;
-    padding: 12px 16px;
+    border-radius: 14px;
+    padding: 14px 18px;
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 14px;
     text-decoration: none;
     color: var(--ink);
-    cursor: pointer;
     transition: all 0.15s ease;
   }
   .lesson-item:hover {
     border-color: var(--gold);
-    transform: translateX(2px);
+    transform: translateX(3px);
   }
   .lesson-item .num {
     flex-shrink: 0;
-    width: 40px;
-    height: 40px;
+    width: 44px;
+    height: 44px;
     border-radius: 50%;
     background: var(--terra);
     color: var(--paper);
     font-family: 'Fraunces', serif;
     font-weight: 700;
-    font-size: 17px;
+    font-size: 18px;
     display: flex;
     align-items: center;
     justify-content: center;
   }
+  .lesson-item.special .num { background: var(--sage); }
   .lesson-item .meta {
     flex: 1;
     min-width: 0;
   }
-  .lesson-item .meta .title {
+  .lesson-item .title {
     font-family: 'Fraunces', serif;
     font-weight: 600;
-    font-size: 15.5px;
+    font-size: 17px;
     color: var(--ink);
     line-height: 1.2;
+    margin-bottom: 2px;
   }
-  .lesson-item .meta .sub {
-    font-size: 12.5px;
+  .lesson-item .sub {
+    font-size: 13.5px;
     color: var(--ink-soft);
     font-style: italic;
-    margin-top: 2px;
   }
   .lesson-item .arrow {
     flex-shrink: 0;
     color: var(--ink-soft);
-    font-size: 18px;
+    font-size: 20px;
   }
 
   .modal-close {
     width: 100%;
-    margin-top: 14px;
-    padding: 12px;
-    background: transparent;
-    border: 1px solid var(--cream-dark);
-    border-radius: 10px;
+    margin-top: 18px;
+    padding: 14px;
+    background: var(--ink);
+    color: var(--paper);
+    border: none;
+    border-radius: 12px;
     font-family: inherit;
-    font-size: 14px;
-    color: var(--ink-soft);
+    font-weight: 600;
+    font-size: 16px;
     cursor: pointer;
+    min-height: 50px;
   }
-  .modal-close:hover { background: var(--cream); }
+  .modal-close:hover { background: var(--terra-dark); }
 
   /* ============ DESKTOP ============ */
   @media (min-width: 769px) {
-    .tab-bar-top { padding: 14px 24px 8px; }
-    .tab-bar-title h1 { font-size: 22px; }
-    .tab-bar-title .tag { font-size: 13px; }
-    .tabs { padding: 0 16px 8px; }
-    .tab {
-      flex-direction: row;
-      padding: 11px 20px;
-      gap: 8px;
-      min-height: 48px;
+    body { padding: 40px 20px; }
+    .greeting { padding: 24px 0 36px; }
+    .greeting h1 { font-size: 38px; }
+    .greeting .sub { font-size: 20px; }
+    .action-card { min-height: 130px; padding: 24px 28px; }
+    .action-card h2 { font-size: 28px; }
+    .action-card .desc { font-size: 17px; }
+    .action-card .icon-box {
+      width: 80px;
+      height: 80px;
+      font-size: 44px;
     }
-    .tab .tab-icon { font-size: 18px; }
-    .tab .tab-label { font-size: 15px; }
-    .tab-bar-lesson-btn { font-size: 14px; padding: 9px 16px; }
   }
 </style>
 </head>
 <body>
 
-<!-- TAB BAR -->
-<div class="tab-bar">
-  <div class="tab-bar-top">
-    <div class="tab-bar-title">
-      <div class="tag">Hannah 英文學習 · Week 1</div>
-      <h1>📚 學習工具</h1>
-    </div>
-    <button class="tab-bar-lesson-btn" onclick="openLessons()">
-      📖 <span>課堂</span>
-    </button>
-  </div>
-  <div class="tabs" role="tablist">
-    <button class="tab active" data-tab="flashcard" onclick="switchTab('flashcard', this)">
-      <span class="tab-icon">🃏</span>
-      <span class="tab-label">Flashcard</span>
-    </button>
-    <button class="tab" data-tab="test" onclick="switchTab('test', this)">
-      <span class="tab-icon">📝</span>
-      <span class="tab-label">進度測驗</span>
-    </button>
-    <button class="tab" data-tab="drill" onclick="switchTab('drill', this)">
-      <span class="tab-icon">🎯</span>
-      <span class="tab-label">Q&A Drill</span>
-    </button>
-  </div>
-</div>
+<div class="container">
 
-<!-- CONTENT -->
-<div class="content">
-  <iframe class="app-frame active" data-frame="flashcard" src="tools/flashcard.html" title="Flashcard"></iframe>
-  <iframe class="app-frame" data-frame="test" data-src="tools/test.html" title="進度測驗"></iframe>
-  <iframe class="app-frame" data-frame="drill" data-src="tools/qa-drill.html" title="Q&A Drill"></iframe>
+  <div class="greeting">
+    <div class="ornament">· · ·</div>
+    <h1 id="greeting-title">Hannah，早晨！</h1>
+    <div class="sub">你今日想做咩？</div>
+  </div>
+
+  <div class="actions">
+
+    <a class="action-card" data-color="terra" href="tools/flashcard.html">
+      <div class="icon-box">🃏</div>
+      <div class="text">
+        <h2>溫習套語</h2>
+        <div class="desc">睇英文，諗中文意思 · <span class="time">5 分鐘</span></div>
+      </div>
+      <div class="arrow">→</div>
+    </a>
+
+    <a class="action-card" data-color="gold" href="tools/qa-drill.html">
+      <div class="icon-box">🎯</div>
+      <div class="text">
+        <h2>練習即時對答</h2>
+        <div class="desc">聽問題，即刻答 · <span class="time">5 分鐘</span></div>
+      </div>
+      <div class="arrow">→</div>
+    </a>
+
+    <a class="action-card" data-color="sage" href="tools/test.html">
+      <div class="icon-box">📝</div>
+      <div class="text">
+        <h2>考下自己</h2>
+        <div class="desc">20 題 · 睇下學到幾多 · <span class="time">15 分鐘</span></div>
+      </div>
+      <div class="arrow">→</div>
+    </a>
+
+  </div>
+
+  <div class="bottom-section">
+    <div class="label">想睇返堂嘅內容？</div>
+    <button class="lessons-btn" onclick="openLessons()">
+      <span class="icon">📖</span>
+      <span>返去睇 5 堂課</span>
+    </button>
+  </div>
+
 </div>
 
 <!-- LESSONS MODAL -->
 <div class="modal-backdrop" id="lessons-modal" onclick="closeLessonsIfBackdrop(event)">
   <div class="modal-sheet">
     <div class="modal-handle"></div>
-    <h2 class="modal-title">📖 5 堂課程</h2>
-    <p class="modal-sub">Week 1 · Activation &amp; Foundations</p>
+    <h2 class="modal-title">📖 Week 1 · 5 堂課</h2>
+    <p class="modal-sub">揀一堂去睇返內容</p>
 
     <div class="lesson-list">
       <a class="lesson-item" href="lessons/lesson1-introduction.html">
         <span class="num">1</span>
         <div class="meta">
           <div class="title">自我介紹</div>
-          <div class="sub">Self-Introduction · 5 句</div>
+          <div class="sub">我叫... / 我嚟自... / 我住...</div>
         </div>
         <span class="arrow">→</span>
       </a>
@@ -378,7 +432,7 @@
         <span class="num">2</span>
         <div class="meta">
           <div class="title">問候語</div>
-          <div class="sub">Greetings · 11 句</div>
+          <div class="sub">早晨／下午好 / 你點呀？</div>
         </div>
         <span class="arrow">→</span>
       </a>
@@ -386,7 +440,7 @@
         <span class="num">3</span>
         <div class="meta">
           <div class="title">告別禮貌</div>
-          <div class="sub">Goodbyes &amp; Politeness · 8 句</div>
+          <div class="sub">再見 / 多謝 / 唔好意思</div>
         </div>
         <span class="arrow">→</span>
       </a>
@@ -394,7 +448,7 @@
         <span class="num">4</span>
         <div class="meta">
           <div class="title">問簡單問題</div>
-          <div class="sub">Simple Questions · 5 句</div>
+          <div class="sub">你叫咩名？／你住邊？</div>
         </div>
         <span class="arrow">→</span>
       </a>
@@ -402,15 +456,15 @@
         <span class="num">5</span>
         <div class="meta">
           <div class="title">Week 1 綜合評估</div>
-          <div class="sub">Week 1 Review &amp; Roleplay</div>
+          <div class="sub">完整對話練習</div>
         </div>
         <span class="arrow">→</span>
       </a>
-      <a class="lesson-item" href="lessons/placement-test.html" style="margin-top: 6px; background: var(--paper); border-style: dashed;">
-        <span class="num" style="background: var(--sage);">★</span>
+      <a class="lesson-item special" href="lessons/placement-test.html">
+        <span class="num">★</span>
         <div class="meta">
           <div class="title">入學評估測試</div>
-          <div class="sub">Placement Test</div>
+          <div class="sub">睇你而家嘅程度</div>
         </div>
         <span class="arrow">→</span>
       </a>
@@ -421,45 +475,19 @@
 </div>
 
 <script>
-// ============ TAB SWITCHING ============
-let loadedFrames = new Set(['flashcard']); // flashcard starts loaded
-
-function switchTab(tabName, btn) {
-  // Update tab buttons
-  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-  btn.classList.add('active');
-
-  // Update iframes
-  document.querySelectorAll('.app-frame').forEach(frame => {
-    frame.classList.remove('active');
-  });
-
-  const targetFrame = document.querySelector(`.app-frame[data-frame="${tabName}"]`);
-  targetFrame.classList.add('active');
-
-  // Lazy-load frame if not yet loaded
-  if (!loadedFrames.has(tabName)) {
-    const src = targetFrame.dataset.src;
-    if (src) {
-      targetFrame.src = src;
-      loadedFrames.add(tabName);
-    }
-  }
-
-  // Save active tab to localStorage
-  try { localStorage.setItem('hannah_active_tab', tabName); } catch (e) {}
+// Dynamic greeting based on time of day
+function setGreeting() {
+  const hour = new Date().getHours();
+  let greeting;
+  if (hour >= 5 && hour < 12) greeting = "Hannah，早晨！";
+  else if (hour >= 12 && hour < 18) greeting = "Hannah，下午好！";
+  else if (hour >= 18 && hour < 22) greeting = "Hannah，晚上好！";
+  else greeting = "Hannah，夜晚好！";
+  document.getElementById('greeting-title').textContent = greeting;
 }
+setGreeting();
 
-// Restore last active tab
-try {
-  const lastTab = localStorage.getItem('hannah_active_tab');
-  if (lastTab && lastTab !== 'flashcard') {
-    const btn = document.querySelector(`.tab[data-tab="${lastTab}"]`);
-    if (btn) switchTab(lastTab, btn);
-  }
-} catch (e) {}
-
-// ============ LESSONS MODAL ============
+// Lessons modal
 function openLessons() {
   document.getElementById('lessons-modal').classList.add('open');
 }
@@ -469,8 +497,6 @@ function closeLessons() {
 function closeLessonsIfBackdrop(e) {
   if (e.target.id === 'lessons-modal') closeLessons();
 }
-
-// ESC to close modal
 document.addEventListener('keydown', e => {
   if (e.key === 'Escape') closeLessons();
 });
