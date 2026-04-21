@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="theme-color" content="#faf6ef">
+<link rel="apple-touch-icon" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%23faf6ef'/><text x='50' y='70' text-anchor='middle' font-size='58'>7</text></svg>">
+<title>Lesson 7：Café 點嘢飲 · Ordering at a Café</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400&family=Noto+Sans+HK:wght@400;500;600;700&family=Lora:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #faf6ef;
+    --cream-dark: #f2ebdc;
+    --paper: #fffdf7;
+    --ink: #2a2420;
+    --ink-soft: #4a3f38;
+    --terra: #c86b4a;
+    --terra-dark: #a8512f;
+    --sage: #7a8471;
+    --sage-dark: #5a6451;
+    --gold: #c9a84c;
+    --gold-dark: #a88828;
+    --blue: #5a7a8b;
+    --blue-dark: #3d5a6a;
+    --burgundy: #8b3a3a;
+    --shadow: rgba(58, 40, 28, 0.12);
+    --sidebar-w: 300px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { height: 100%; overflow: hidden; }
+
+  body {
+    font-family: 'Noto Sans HK', 'Lora', serif;
+    background:
+      radial-gradient(ellipse at top left, rgba(200, 107, 74, 0.08), transparent 50%),
+      radial-gradient(ellipse at bottom right, rgba(122, 132, 113, 0.08), transparent 50%),
+      var(--cream);
+    color: var(--ink);
+    line-height: 1.5;
+    font-size: 15px;
+  }
+
+  body::before {
+    content: '';
+    position: fixed; inset: 0; pointer-events: none;
+    background-image: repeating-linear-gradient(45deg, rgba(139, 115, 85, 0.015) 0 1px, transparent 1px 4px);
+    z-index: 1;
+  }
+
+  .app-layout {
+    display: grid;
+    grid-template-columns: var(--sidebar-w) 1fr;
+    height: 100vh;
+    position: relative;
+    z-index: 2;
+  }
+
+  .sidebar {
+    background: var(--paper);
+    border-right: 1px solid var(--cream-dark);
+    padding: 16px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .sidebar-header {
+    text-align: center;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--cream-dark);
+  }
+  .sidebar-header .ornament { font-family: 'Fraunces', serif; font-size: 14px; color: var(--gold); letter-spacing: 6px; margin-bottom: 4px; }
+  .sidebar-header .lesson-num { font-family: 'Fraunces', serif; font-style: italic; font-size: 12px; color: var(--terra-dark); margin-bottom: 2px; }
+  .sidebar-header h1 { font-family: 'Fraunces', serif; font-weight: 600; font-size: 22px; color: var(--ink); }
+  .sidebar-header .subtitle { font-family: 'Fraunces', serif; font-style: italic; font-size: 13px; color: var(--ink-soft); }
+
+  .progress-compact { padding: 12px 14px; background: var(--cream); border-radius: 10px; }
+  .progress-compact .label { display: flex; justify-content: space-between; font-size: 12px; color: var(--ink-soft); margin-bottom: 5px; }
+  .progress-compact .value { font-family: 'Fraunces', serif; color: var(--ink); font-weight: 500; }
+  .progress-bar { height: 6px; background: var(--cream-dark); border-radius: 4px; overflow: hidden; }
+  .progress-fill { height: 100%; background: linear-gradient(90deg, var(--terra), var(--gold)); border-radius: 4px; transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1); }
+
+  .steps-nav { display: flex; flex-direction: column; gap: 4px; }
+  .steps-label { font-family: 'Fraunces', serif; font-style: italic; font-size: 12px; color: var(--ink-soft); text-transform: uppercase; letter-spacing: 2px; padding: 4px 0; }
+  .step-btn { display: flex; align-items: center; gap: 10px; padding: 9px 12px; background: transparent; border: none; border-radius: 8px; text-align: left; cursor: pointer; font-family: 'Noto Sans HK', serif; font-size: 13px; color: var(--ink-soft); transition: all 0.2s ease; }
+  .step-btn:hover { background: var(--cream); color: var(--ink); }
+  .step-btn .step-num { display: inline-flex; align-items: center; justify-content: center; width: 22px; height: 22px; background: var(--cream-dark); color: var(--ink-soft); border-radius: 50%; font-size: 11px; font-weight: 700; flex-shrink: 0; }
+  .step-btn.active { background: linear-gradient(90deg, var(--terra), var(--gold)); color: white; font-weight: 600; }
+  .step-btn.active .step-num { background: rgba(255,255,255,0.25); color: white; }
+  .step-btn.completed .step-num { background: var(--sage); color: white; font-size: 0; }
+  .step-btn.completed .step-num::after { content: '✓'; font-size: 12px; }
+
+  .speed-panel { background: var(--cream); border-radius: 10px; padding: 12px; }
+  .speed-label { font-family: 'Fraunces', serif; font-style: italic; font-size: 12px; color: var(--terra-dark); margin-bottom: 8px; }
+  .speed-buttons { display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px; }
+  .speed-btn { padding: 6px 2px; background: var(--paper); border: 1px solid var(--cream-dark); border-radius: 6px; cursor: pointer; font-family: 'Noto Sans HK', serif; display: flex; flex-direction: column; align-items: center; gap: 1px; transition: all 0.15s ease; }
+  .speed-btn:hover { border-color: var(--terra); }
+  .speed-btn.active { background: var(--terra); border-color: var(--terra); color: white; }
+  .speed-btn .rate { font-size: 12px; font-weight: 700; }
+  .speed-btn .rate-label { font-size: 9px; opacity: 0.8; }
+
+  .main-area { overflow: hidden; display: flex; flex-direction: column; height: 100vh; }
+  .main-inner { flex: 1; overflow-y: auto; padding: 20px 28px; }
+
+  .section-label { font-family: 'Fraunces', serif; font-style: italic; font-size: 12px; color: var(--terra-dark); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 6px; }
+
+  .step-content { animation: fadeIn 0.3s ease; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+  .step-content h2 { font-family: 'Fraunces', serif; font-weight: 600; font-size: 24px; color: var(--ink); margin-bottom: 6px; line-height: 1.2; }
+  .card-sub { font-family: 'Fraunces', serif; font-style: italic; font-size: 14px; color: var(--ink-soft); margin-bottom: 16px; }
+
+  .instruction { background: var(--paper); border-left: 3px solid var(--gold); padding: 12px 16px; border-radius: 6px; font-size: 14px; line-height: 1.55; margin-bottom: 16px; color: var(--ink-soft); }
+  .instruction strong { color: var(--ink); font-weight: 600; }
+
+  .callback { background: rgba(122, 132, 113, 0.1); border-left: 3px solid var(--sage); padding: 10px 14px; border-radius: 6px; font-size: 13px; line-height: 1.5; margin-bottom: 14px; color: var(--ink-soft); }
+
+  .teacher-note { background: rgba(200, 107, 74, 0.07); border-left: 3px solid var(--terra); padding: 10px 14px; border-radius: 6px; font-size: 13px; line-height: 1.5; color: var(--ink-soft); margin-top: 12px; }
+  .teacher-note strong { color: var(--terra-dark); }
+
+  .scene-card { background: linear-gradient(135deg, var(--paper), var(--cream)); border-radius: 14px; padding: 18px; margin-bottom: 14px; border: 1px solid var(--cream-dark); }
+  .scene-card .scene-title { font-family: 'Fraunces', serif; font-weight: 600; font-size: 18px; color: var(--ink); margin-bottom: 6px; }
+  .scene-card .scene-text { font-size: 14px; color: var(--ink-soft); line-height: 1.55; }
+
+  .goals-grid { display: grid; grid-template-columns: 1fr; gap: 10px; }
+  .goal-card { background: var(--paper); border: 1px solid var(--cream-dark); border-radius: 12px; padding: 14px 16px; display: flex; align-items: center; gap: 12px; }
+  .goal-num { background: var(--gold); color: white; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; flex-shrink: 0; font-size: 14px; }
+  .goal-text { font-size: 15px; line-height: 1.4; }
+  .goal-text strong { color: var(--terra-dark); }
+
+  .subsection-title { font-family: 'Fraunces', serif; font-size: 18px; color: var(--ink); margin: 14px 0 8px; font-weight: 600; }
+
+  .dialogue-card { background: var(--paper); border-radius: 14px; padding: 16px; border: 1px solid var(--cream-dark); margin-bottom: 12px; }
+  .dialogue-line { display: flex; gap: 10px; margin-bottom: 12px; align-items: flex-start; }
+  .dialogue-line:last-child { margin-bottom: 0; }
+  .dialogue-avatar { width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; }
+  .dialogue-avatar.shop { background: linear-gradient(135deg, var(--blue), var(--blue-dark)); color: white; }
+  .dialogue-avatar.you { background: linear-gradient(135deg, var(--terra), var(--gold)); color: white; }
+  .dialogue-bubble { flex: 1; background: var(--cream); padding: 10px 12px; border-radius: 10px; }
+  .dialogue-bubble.you { background: rgba(200, 107, 74, 0.08); }
+  .dialogue-text { font-size: 16px; color: var(--ink); margin-bottom: 4px; line-height: 1.3; }
+  .dialogue-zh { font-size: 13px; color: var(--ink-soft); }
+
+  .play-btn { background: var(--terra); color: white; border: none; padding: 9px 14px; border-radius: 8px; cursor: pointer; font-family: inherit; font-size: 13px; font-weight: 600; display: inline-flex; align-items: center; gap: 6px; margin-top: 8px; }
+  .play-btn:hover { background: var(--terra-dark); }
+  .play-btn.blue { background: var(--blue); }
+  .play-btn.blue:hover { background: var(--blue-dark); }
+  .play-btn.small { padding: 6px 10px; font-size: 12px; }
+
+  .phrases-list { display: flex; flex-direction: column; gap: 12px; }
+  .phrase-card { background: var(--paper); border: 1px solid var(--cream-dark); border-radius: 12px; padding: 14px; }
+  .phrase-num { display: inline-flex; align-items: center; justify-content: center; width: 28px; height: 28px; background: var(--terra); color: white; border-radius: 50%; font-weight: 700; font-size: 13px; margin-bottom: 8px; }
+  .phrase-en { font-size: 18px; font-weight: 600; color: var(--ink); margin-bottom: 4px; line-height: 1.25; }
+  .phrase-zh { font-size: 14px; color: var(--ink-soft); margin-bottom: 8px; }
+  .phrase-context { font-size: 12px; color: var(--terra-dark); font-style: italic; margin-bottom: 8px; }
+  .phrase-actions { display: flex; gap: 6px; flex-wrap: wrap; }
+
+  .money-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 14px; }
+  .money-card { background: var(--paper); border: 1px solid var(--cream-dark); border-radius: 10px; padding: 12px; text-align: center; }
+  .money-card .price { font-family: 'Fraunces', serif; font-size: 20px; font-weight: 600; color: var(--terra-dark); margin-bottom: 4px; }
+  .money-card .price-en { font-size: 14px; color: var(--ink); margin-bottom: 6px; }
+  .money-card .price-zh { font-size: 12px; color: var(--ink-soft); margin-bottom: 8px; }
+
+  .roleplay-card { background: linear-gradient(135deg, rgba(200, 107, 74, 0.06), rgba(201, 168, 76, 0.06)); border: 1px solid var(--cream-dark); border-radius: 14px; padding: 16px; margin-bottom: 14px; }
+  .roleplay-prompt { background: var(--paper); border-left: 3px solid var(--blue); padding: 10px 12px; border-radius: 6px; margin-bottom: 10px; }
+  .roleplay-prompt .who { font-size: 11px; color: var(--blue-dark); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 3px; font-weight: 600; }
+  .roleplay-prompt .what { font-size: 15px; color: var(--ink); line-height: 1.35; }
+  .roleplay-prompt .what-zh { font-size: 12px; color: var(--ink-soft); margin-top: 3px; }
+  .roleplay-your-turn { background: rgba(200, 107, 74, 0.08); border: 2px dashed var(--terra); padding: 12px; border-radius: 8px; text-align: center; }
+  .roleplay-your-turn .label { font-family: 'Fraunces', serif; font-style: italic; font-size: 13px; color: var(--terra-dark); margin-bottom: 6px; }
+  .roleplay-your-turn .hint { font-size: 14px; color: var(--ink); margin-bottom: 8px; }
+
+  .complete-screen { text-align: center; padding: 20px 0; }
+  .complete-trophy { font-size: 56px; margin-bottom: 10px; }
+  .complete-title { font-family: 'Fraunces', serif; font-weight: 600; font-size: 24px; color: var(--ink); margin-bottom: 6px; }
+  .complete-sub { font-family: 'Fraunces', serif; font-style: italic; color: var(--ink-soft); font-size: 15px; margin-bottom: 18px; }
+  .summary-box { background: var(--paper); border: 1px solid var(--cream-dark); border-radius: 12px; padding: 16px; text-align: left; margin-bottom: 14px; }
+  .summary-box h3 { font-family: 'Fraunces', serif; font-size: 16px; color: var(--terra-dark); margin-bottom: 8px; }
+  .summary-list { list-style: none; padding: 0; font-size: 14px; line-height: 1.7; color: var(--ink-soft); }
+  .summary-list li::before { content: "✓ "; color: var(--sage); font-weight: 700; }
+  .homework-card { background: rgba(201, 168, 76, 0.1); border: 1px solid var(--gold); border-radius: 12px; padding: 14px; text-align: left; }
+  .homework-card h3 { font-family: 'Fraunces', serif; color: var(--gold-dark); font-size: 16px; margin-bottom: 8px; }
+  .homework-item { display: flex; gap: 10px; margin-bottom: 8px; font-size: 14px; color: var(--ink-soft); line-height: 1.4; }
+  .homework-num { color: var(--gold-dark); font-weight: 700; flex-shrink: 0; }
+
+  .footer-nav { display: flex; align-items: center; justify-content: space-between; padding: 12px 28px; background: var(--paper); border-top: 1px solid var(--cream-dark); flex-shrink: 0; }
+  .btn-primary { background: var(--terra); color: white; border: none; padding: 10px 20px; border-radius: 8px; font-family: 'Noto Sans HK', serif; font-size: 14px; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; transition: all 0.2s ease; }
+  .btn-primary:hover { background: var(--terra-dark); }
+  .btn-secondary { background: transparent; color: var(--ink-soft); border: 1px solid var(--cream-dark); padding: 10px 20px; border-radius: 8px; font-family: inherit; font-size: 14px; cursor: pointer; transition: all 0.2s ease; }
+  .btn-secondary:hover { border-color: var(--gold); color: var(--ink); }
+
+  .hidden { display: none !important; }
+
+  .mobile-top-bar { display: none; }
+  .mobile-progress { display: none; }
+  .mobile-nav-bar { display: none; }
+  .sidebar-backdrop { display: none; }
+
+  @media (max-width: 768px) {
+    :root { --safe-top: env(safe-area-inset-top, 0px); --safe-bottom: env(safe-area-inset-bottom, 0px); }
+    html, body { overflow: hidden; height: 100%; position: fixed; width: 100%; -webkit-tap-highlight-color: transparent; overscroll-behavior: none; }
+    body { font-size: 15px; }
+
+    .app-layout { display: flex; flex-direction: column; height: 100vh; height: 100dvh; grid-template-columns: none; }
+
+    .sidebar { position: fixed; top: 0; right: 0; bottom: 0; width: 86%; max-width: 360px; z-index: 100; transform: translateX(100%); transition: transform 0.3s cubic-bezier(0.3, 0.85, 0.4, 1); padding: calc(16px + var(--safe-top)) 18px calc(16px + var(--safe-bottom)); box-shadow: -4px 0 20px rgba(0,0,0,0.15); overflow-y: auto; -webkit-overflow-scrolling: touch; border-right: none; border-left: 1px solid var(--cream-dark); }
+    .sidebar.open { transform: translateX(0); }
+    .sidebar-backdrop { display: block; position: fixed; inset: 0; background: rgba(42, 36, 32, 0.4); z-index: 99; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
+    .sidebar-backdrop.show { opacity: 1; pointer-events: auto; }
+    .sidebar::before { content: "⚙️ 設定"; display: block; font-family: 'Fraunces', serif; font-weight: 600; font-size: 18px; color: var(--ink); padding-bottom: 12px; border-bottom: 1px solid var(--cream-dark); margin-bottom: 14px; }
+    .sidebar .sidebar-header { display: none; }
+    .sidebar .progress-compact { display: none; }
+    .sidebar .step-btn { padding: 12px 14px; font-size: 14px; min-height: 50px; }
+    .sidebar .speed-btn { padding: 9px 4px; min-height: 48px; }
+
+    .mobile-top-bar { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: calc(10px + var(--safe-top)) 14px 8px; background: var(--paper); border-bottom: 1px solid var(--cream-dark); flex-shrink: 0; z-index: 10; position: relative; }
+    .mobile-top-bar .lesson-info { flex: 1; min-width: 0; }
+    .mobile-top-bar .lesson-tag { font-family: 'Fraunces', serif; font-style: italic; font-size: 11px; color: var(--terra-dark); line-height: 1; margin-bottom: 2px; }
+    .mobile-top-bar h1 { font-family: 'Fraunces', serif; font-weight: 600; font-size: 16px; color: var(--ink); line-height: 1.1; margin: 0; }
+    .mobile-top-bar .step-indicator { background: var(--cream); border-radius: 14px; padding: 5px 11px; font-family: 'Fraunces', serif; font-size: 12px; color: var(--ink); font-weight: 600; flex-shrink: 0; }
+    .mobile-top-bar .step-indicator .total { color: var(--ink-soft); font-weight: 500; }
+    .mobile-top-bar .menu-btn { background: var(--cream); border: none; width: 42px; height: 42px; border-radius: 12px; font-size: 18px; cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: var(--ink); }
+    .mobile-top-bar .menu-btn:active { background: var(--cream-dark); }
+
+    .mobile-progress { display: block; height: 4px; background: var(--cream-dark); flex-shrink: 0; }
+    .mobile-progress .fill { height: 100%; background: linear-gradient(90deg, var(--terra), var(--gold)); transition: width 0.4s ease; }
+
+    .main-area { flex: 1; padding: 0; overflow: hidden; display: flex; flex-direction: column; gap: 0; }
+    .main-inner { padding: 14px 16px; padding-bottom: 14px; }
+
+    .footer-nav { display: none; }
+
+    .mobile-nav-bar { display: flex; background: var(--paper); border-top: 1px solid var(--cream-dark); padding: 8px 14px calc(8px + var(--safe-bottom)); gap: 10px; flex-shrink: 0; }
+    .mobile-nav-bar .nav-btn { flex: 1; padding: 13px 10px; border-radius: 12px; font-family: 'Noto Sans HK', serif; font-size: 15px; font-weight: 600; cursor: pointer; transition: all 0.2s ease; min-height: 48px; border: none; }
+    .mobile-nav-bar .nav-btn.prev { background: var(--cream); color: var(--ink); flex: 0 0 34%; }
+    .mobile-nav-bar .nav-btn.prev:active { background: var(--cream-dark); }
+    .mobile-nav-bar .nav-btn.next { background: var(--terra); color: white; }
+    .mobile-nav-bar .nav-btn.next:active { background: var(--terra-dark); }
+    .mobile-nav-bar .nav-btn.prev.disabled { opacity: 0.35; pointer-events: none; }
+
+    .step-content h2 { font-size: 22px !important; }
+    .money-grid { grid-template-columns: 1fr 1fr !important; }
+    .phrase-en { font-size: 17px; }
+  }
+
+  @media (min-width: 769px) {
+    .mobile-top-bar { display: none !important; }
+    .mobile-progress { display: none !important; }
+    .mobile-nav-bar { display: none !important; }
+    .sidebar-backdrop { display: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<div class="sidebar-backdrop" id="sidebar-backdrop" onclick="closeMobileSidebar()"></div>
+
+<div class="app-layout">
+
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <div class="ornament">· · ·</div>
+      <div class="lesson-num">Lesson 7 · 第七堂</div>
+      <h1>Café 點嘢飲</h1>
+      <div class="subtitle">Ordering at a Café</div>
+    </div>
+
+    <div class="progress-compact">
+      <div class="label">
+        <span id="progress-text">第 1 部分 / 共 6 部分</span>
+        <span class="value" id="progress-time">2 分鐘</span>
+      </div>
+      <div class="progress-bar">
+        <div class="progress-fill" id="progress-fill" style="width: 16.7%;"></div>
+      </div>
+    </div>
+
+    <nav class="steps-nav">
+      <div class="steps-label">學習步驟</div>
+      <button class="step-btn active" data-step="1" onclick="goToStep(1)"><span class="step-num">1</span><span>熱身 & 場景</span></button>
+      <button class="step-btn" data-step="2" onclick="goToStep(2)"><span class="step-num">2</span><span>聽力 · 完整對話</span></button>
+      <button class="step-btn" data-step="3" onclick="goToStep(3)"><span class="step-num">3</span><span>7 句套語拆解</span></button>
+      <button class="step-btn" data-step="4" onclick="goToStep(4)"><span class="step-num">4</span><span>☕ 菜單字詞</span></button>
+      <button class="step-btn" data-step="5" onclick="goToStep(5)"><span class="step-num">5</span><span>角色扮演</span></button>
+      <button class="step-btn" data-step="6" onclick="goToStep(6)"><span class="step-num">6</span><span>🏆 完成</span></button>
+    </nav>
+
+    <div class="speed-panel">
+      <div class="speed-label">🐢 聲音速度</div>
+      <div class="speed-buttons">
+        <button class="speed-btn" data-speed="0.2" onclick="setSpeed(0.2, this)"><span class="rate">0.2x</span><span class="rate-label">極慢</span></button>
+        <button class="speed-btn active" data-speed="0.3" onclick="setSpeed(0.3, this)"><span class="rate">0.3x</span><span class="rate-label">好慢</span></button>
+        <button class="speed-btn" data-speed="0.4" onclick="setSpeed(0.4, this)"><span class="rate">0.4x</span><span class="rate-label">慢</span></button>
+        <button class="speed-btn" data-speed="0.6" onclick="setSpeed(0.6, this)"><span class="rate">0.6x</span><span class="rate-label">正常</span></button>
+        <button class="speed-btn" data-speed="0.7" onclick="setSpeed(0.7, this)"><span class="rate">0.7x</span><span class="rate-label">稍快</span></button>
+        <button class="speed-btn" data-speed="0.9" onclick="setSpeed(0.9, this)"><span class="rate">0.9x</span><span class="rate-label">較快</span></button>
+        <button class="speed-btn" data-speed="1.0" onclick="setSpeed(1.0, this)"><span class="rate">1.0x</span><span class="rate-label">原速</span></button>
+      </div>
+    </div>
+  </aside>
+
+  <main class="main-area">
+
+    <div class="mobile-top-bar">
+      <div class="lesson-info">
+        <div class="lesson-tag">Lesson 7</div>
+        <h1>Café 點嘢飲</h1>
+      </div>
+      <div class="step-indicator" id="mobile-step-indicator">1 <span class="total">/ 6</span></div>
+      <button class="menu-btn" onclick="openMobileSidebar()" aria-label="設定">☰</button>
+    </div>
+
+    <div class="mobile-progress">
+      <div class="fill" id="mobile-progress-fill" style="width: 16.7%;"></div>
+    </div>
+
+    <div class="main-inner">
+
+      <!-- STEP 1 -->
+      <div class="step-content" data-step="1">
+        <div class="section-label">Part 1 · 熱身 & 場景 (2 分鐘)</div>
+        <h2>歡迎入嚟英國 café！☕</h2>
+        <div class="card-sub">學識叫飲品同小食</div>
+
+        <div class="scene-card">
+          <div class="scene-title">📍 今日嘅場景</div>
+          <div class="scene-text">想像你入咗 <strong>Costa Coffee</strong>（或者 Pret a Manger）。你想叫一杯 latte 同一個 scone。但 menu 上嘅字好多英文唔識？呢堂教你 7 句萬用 café 套語 ☕✨</div>
+        </div>
+
+        <div class="subsection-title">🎯 你今日會學到</div>
+        <div class="goals-grid">
+          <div class="goal-card"><div class="goal-num">1</div><div class="goal-text">識叫<strong>飲品</strong>同<strong>小食</strong></div></div>
+          <div class="goal-card"><div class="goal-num">2</div><div class="goal-text">識揀<strong>細／中／大</strong>同<strong>堂食／外賣</strong></div></div>
+          <div class="goal-card"><div class="goal-num">3</div><div class="goal-text">識回應店員問<strong>「仲要其他嘢嗎？」</strong></div></div>
+          <div class="goal-card"><div class="goal-num">4</div><div class="goal-text">完成 <strong>full roleplay</strong> — 由「入店叫嘢」到「攞嘢走」</div></div>
+        </div>
+
+        <div class="callback">💡 <strong>記住 Lesson 6 學過嘅</strong>：今日會用返 "How much"、"Thank you"、"please" — 買嘢同叫嘢飲嘅套語好多都 overlap！</div>
+
+        <div class="teacher-note"><strong>👩‍🏫 老師 tips：</strong>英國 café 通常都有 menu 喺 counter 上面，你可以指住菜單講 "<strong>this one, please</strong>"，唔識讀都唔緊要。最緊要肯開口問！</div>
+      </div>
+
+      <!-- STEP 2 -->
+      <div class="step-content hidden" data-step="2">
+        <div class="section-label">Part 2 · 聽力 · 完整對話 (4 分鐘)</div>
+        <h2>聽聽 Hannah 點叫嘢 👂</h2>
+        <div class="card-sub">先聽完整對話，再逐句拆解</div>
+
+        <div class="instruction"><strong>🎧 點樣聽：</strong>先 㩒 "聽全段"，唔使理解曬。再 㩒每句嘅 ▶️ 聽 或 🐢 極慢。聽 2-3 次先。</div>
+
+        <button class="play-btn blue" onclick="playFullDialogue()">🔊 聽全段對話</button>
+
+        <div class="dialogue-card" style="margin-top: 14px;">
+          <div class="dialogue-line"><div class="dialogue-avatar shop">☕</div><div class="dialogue-bubble"><div class="dialogue-text">Hi! What can I get you?</div><div class="dialogue-zh">你好！想叫啲咩？</div><button class="play-btn small" onclick="speak('Hi! What can I get you?')">▶️ 聽</button> <button class="play-btn small blue" onclick="speak('Hi! What can I get you?', 0.2)">🐢 極慢</button></div></div>
+          <div class="dialogue-line"><div class="dialogue-avatar you">😊</div><div class="dialogue-bubble you"><div class="dialogue-text">Hi! Can I get a latte, please?</div><div class="dialogue-zh">你好！唔該俾我一杯 latte。</div><button class="play-btn small" onclick="speak('Hi! Can I get a latte, please?')">▶️ 聽</button> <button class="play-btn small blue" onclick="speak('Hi! Can I get a latte, please?', 0.2)">🐢 極慢</button></div></div>
+          <div class="dialogue-line"><div class="dialogue-avatar shop">☕</div><div class="dialogue-bubble"><div class="dialogue-text">Sure. Small, medium, or large?</div><div class="dialogue-zh">好。細、中，定大杯？</div><button class="play-btn small" onclick="speak('Sure. Small, medium, or large?')">▶️ 聽</button> <button class="play-btn small blue" onclick="speak('Sure. Small, medium, or large?', 0.2)">🐢 極慢</button></div></div>
+          <div class="dialogue-line"><div class="dialogue-avatar you">😊</div><div class="dialogue-bubble you"><div class="dialogue-text">Medium, please. To stay.</div><div class="dialogue-zh">中杯，唔該。堂食。</div><button class="play-btn small" onclick="speak('Medium, please. To stay.')">▶️ 聽</button> <button class="play-btn small blue" onclick="speak('Medium, please. To stay.', 0.2)">🐢 極慢</button></div></div>
+          <div class="dialogue-line"><div class="dialogue-avatar shop">☕</div><div class="dialogue-bubble"><div class="dialogue-text">Anything else?</div><div class="dialogue-zh">仲要其他嘢嗎？</div><button class="play-btn small" onclick="speak('Anything else?')">▶️ 聽</button> <button class="play-btn small blue" onclick="speak('Anything else?', 0.2)">🐢 極慢</button></div></div>
+          <div class="dialogue-line"><div class="dialogue-avatar you">😊</div><div class="dialogue-bubble you"><div class="dialogue-text">Yes, one scone, please.</div><div class="dialogue-zh">要，一個 scone，唔該。</div><button class="play-btn small" onclick="speak('Yes, one scone, please.')">▶️ 聽</button> <button class="play-btn small blue" onclick="speak('Yes, one scone, please.', 0.2)">🐢 極慢</button></div></div>
+          <div class="dialogue-line"><div class="dialogue-avatar shop">☕</div><div class="dialogue-bubble"><div class="dialogue-text">That's six pounds fifty. How long will it take? About five minutes.</div><div class="dialogue-zh">總共六鎊五。要等大概 5 分鐘。</div><button class="play-btn small" onclick="speak(`That's six pounds fifty. About five minutes.`)">▶️ 聽</button> <button class="play-btn small blue" onclick="speak(`That's six pounds fifty. About five minutes.`, 0.2)">🐢 極慢</button></div></div>
+          <div class="dialogue-line"><div class="dialogue-avatar you">😊</div><div class="dialogue-bubble you"><div class="dialogue-text">Thank you! Have a nice day!</div><div class="dialogue-zh">多謝！祝你有美好一日！</div><button class="play-btn small" onclick="speak('Thank you! Have a nice day!')">▶️ 聽</button> <button class="play-btn small blue" onclick="speak('Thank you! Have a nice day!', 0.2)">🐢 極慢</button></div></div>
+        </div>
+
+        <div class="teacher-note"><strong>👩‍🏫 注意：</strong>"Can I get..." 同 "Can I have..." 都係叫嘢飲嘅常用句。"Get" 喺英國 café 比 "have" 更口語。下一步逐句拆解！</div>
+      </div>
+
+      <!-- STEP 3 -->
+      <div class="step-content hidden" data-step="3">
+        <div class="section-label">Part 3 · 7 句套語拆解 (5 分鐘)</div>
+        <h2>逐句學識 ✏️</h2>
+        <div class="card-sub">每句聽 2-3 次，跟住讀</div>
+
+        <div class="phrases-list">
+          <div class="phrase-card"><div class="phrase-num">1</div><div class="phrase-en">Can I get a coffee, please?</div><div class="phrase-zh">唔該俾我一杯咖啡。</div><div class="phrase-context">📍 用喺：叫飲品（萬用句，"coffee" 換做 "tea" / "latte" 都得）</div><div class="phrase-actions"><button class="play-btn small" onclick="speak('Can I get a coffee, please?')">▶️ 聽</button> <button class="play-btn small blue" onclick="speak('Can I get a coffee, please?', 0.2)">🐢 極慢</button></div></div>
+          <div class="phrase-card"><div class="phrase-num">2</div><div class="phrase-en">To stay.</div><div class="phrase-zh">堂食。</div><div class="phrase-context">📍 用喺：店員問你 "To stay or take away?"</div><div class="phrase-actions"><button class="play-btn small" onclick="speak('To stay.')">▶️ 聽</button> <button class="play-btn small blue" onclick="speak('To stay.', 0.2)">🐢 極慢</button></div></div>
+          <div class="phrase-card"><div class="phrase-num">3</div><div class="phrase-en">Take away, please.</div><div class="phrase-zh">外賣，唔該。</div><div class="phrase-context">📍 用喺：想攞走（美式英文叫 "to go"）</div><div class="phrase-actions"><button class="play-btn small" onclick="speak('Take away, please.')">▶️ 聽</button> <button class="play-btn small blue" onclick="speak('Take away, please.', 0.2)">🐢 極慢</button></div></div>
+          <div class="phrase-card"><div class="phrase-num">4</div><div class="phrase-en">Medium, please.</div><div class="phrase-zh">中杯，唔該。</div><div class="phrase-context">📍 用喺：店員問 "Small, medium, or large?" — 換 "small" 或 "large" 都得</div><div class="phrase-actions"><button class="play-btn small" onclick="speak('Medium, please.')">▶️ 聽</button> <button class="play-btn small blue" onclick="speak('Medium, please.', 0.2)">🐢 極慢</button></div></div>
+          <div class="phrase-card"><div class="phrase-num">5</div><div class="phrase-en">With milk, please.</div><div class="phrase-zh">加奶，唔該。</div><div class="phrase-context">📍 用喺：英國人 tea 通常加奶（你都可以講 "no milk" 唔加奶）</div><div class="phrase-actions"><button class="play-btn small" onclick="speak('With milk, please.')">▶️ 聽</button> <button class="play-btn small blue" onclick="speak('With milk, please.', 0.2)">🐢 極慢</button></div></div>
+          <div class="phrase-card"><div class="phrase-num">6</div><div class="phrase-en">No, that's all, thanks.</div><div class="phrase-zh">唔使，就咁，唔該。</div><div class="phrase-context">📍 用喺：店員問 "Anything else?" 嘅回應</div><div class="phrase-actions"><button class="play-btn small" onclick="speak(`No, that's all, thanks.`)">▶️ 聽</button> <button class="play-btn small blue" onclick="speak(`No, that's all, thanks.`, 0.2)">🐢 極慢</button></div></div>
+          <div class="phrase-card"><div class="phrase-num">7</div><div class="phrase-en">How long will it take?</div><div class="phrase-zh">要等幾耐？</div><div class="phrase-context">📍 用喺：想知幾時拎到飲品（叫 latte 通常要 3-5 分鐘）</div><div class="phrase-actions"><button class="play-btn small" onclick="speak('How long will it take?')">▶️ 聽</button> <button class="play-btn small blue" onclick="speak('How long will it take?', 0.2)">🐢 極慢</button></div></div>
+        </div>
+
+        <div class="teacher-note"><strong>👩‍🏫 發音 tips：</strong><br>• "Latte" 讀 <strong>"LAH-tay"</strong>（重音喺前）<br>• "Scone" 有兩種讀法 — "skon"（南英國）/ "skohn"（北英國），兩個都啱！<br>• 句尾加 "please" 一定唔錯</div>
+      </div>
+
+      <!-- STEP 4 -->
+      <div class="step-content hidden" data-step="4">
+        <div class="section-label">Part 4 · ☕ 菜單字詞 (4 分鐘)</div>
+        <h2>學識 menu 上嘅字 📖</h2>
+        <div class="card-sub">飲品名 + size + 加嘢</div>
+
+        <div class="instruction"><strong>📖 點解咁多選擇？</strong>英國 café 嘅 menu 通常分 3 種：<br>• <strong>飲品種類</strong>（咖啡、茶、朱古力）<br>• <strong>Size</strong>（小／中／大）<br>• <strong>加嘢</strong>（奶、糖、syrup）</div>
+
+        <div class="subsection-title">☕ 常見飲品</div>
+        <div class="money-grid">
+          <div class="money-card"><div class="price">☕</div><div class="price-en">Coffee</div><div class="price-zh">咖啡（普通）</div><button class="play-btn small" onclick="speak('Coffee')">▶️ 聽</button> <button class="play-btn small blue" onclick="speak('Coffee', 0.2)">🐢 極慢</button></div>
+          <div class="money-card"><div class="price">🥛</div><div class="price-en">Latte</div><div class="price-zh">拿鐵（多奶）</div><button class="play-btn small" onclick="speak('Latte')">▶️ 聽</button> <button class="play-btn small blue" onclick="speak('Latte', 0.2)">🐢 極慢</button></div>
+          <div class="money-card"><div class="price">☕</div><div class="price-en">Cappuccino</div><div class="price-zh">卡布奇諾</div><button class="play-btn small" onclick="speak('Cappuccino')">▶️ 聽</button> <button class="play-btn small blue" onclick="speak('Cappuccino', 0.2)">🐢 極慢</button></div>
+          <div class="money-card"><div class="price">🍫</div><div class="price-en">Hot chocolate</div><div class="price-zh">熱朱古力</div><button class="play-btn small" onclick="speak('Hot chocolate')">▶️ 聽</button> <button class="play-btn small blue" onclick="speak('Hot chocolate', 0.2)">🐢 極慢</button></div>
+          <div class="money-card"><div class="price">🧊</div><div class="price-en">Iced coffee</div><div class="price-zh">凍咖啡</div><button class="play-btn small" onclick="speak('Iced coffee')">▶️ 聽</button> <button class="play-btn small blue" onclick="speak('Iced coffee', 0.2)">🐢 極慢</button></div>
+          <div class="money-card"><div class="price">🧊</div><div class="price-en">Iced tea</div><div class="price-zh">凍茶</div><button class="play-btn small" onclick="speak('Iced tea')">▶️ 聽</button> <button class="play-btn small blue" onclick="speak('Iced tea', 0.2)">🐢 極慢</button></div>
+        </div>
+
+        <div class="subsection-title">🍵 茶嘅選擇（英國人至愛！）</div>
+        <div class="money-grid">
+          <div class="money-card"><div class="price">🍵</div><div class="price-en">Black tea</div><div class="price-zh">紅茶（普通茶，加奶飲）</div><button class="play-btn small" onclick="speak('Black tea')">▶️ 聽</button> <button class="play-btn small blue" onclick="speak('Black tea', 0.2)">🐢 極慢</button></div>
+          <div class="money-card"><div class="price">🫖</div><div class="price-en">English Breakfast</div><div class="price-zh">英式早餐茶</div><button class="play-btn small" onclick="speak('English Breakfast tea')">▶️ 聽</button> <button class="play-btn small blue" onclick="speak('English Breakfast tea', 0.2)">🐢 極慢</button></div>
+          <div class="money-card"><div class="price">🌿</div><div class="price-en">Earl Grey</div><div class="price-zh">伯爵茶（有香檸味）</div><button class="play-btn small" onclick="speak('Earl Grey')">▶️ 聽</button> <button class="play-btn small blue" onclick="speak('Earl Grey', 0.2)">🐢 極慢</button></div>
+          <div class="money-card"><div class="price">🍃</div><div class="price-en">Green tea</div><div class="price-zh">綠茶</div><button class="play-btn small" onclick="speak('Green tea')">▶️ 聽</button> <button class="play-btn small blue" onclick="speak('Green tea', 0.2)">🐢 極慢</button></div>
+          <div class="money-card"><div class="price">🌱</div><div class="price-en">Peppermint tea</div><div class="price-zh">薄荷茶（幫助消化）</div><button class="play-btn small" onclick="speak('Peppermint tea')">▶️ 聽</button> <button class="play-btn small blue" onclick="speak('Peppermint tea', 0.2)">🐢 極慢</button></div>
+          <div class="money-card"><div class="price">🌼</div><div class="price-en">Chamomile tea</div><div class="price-zh">洋甘菊茶（瞓覺前飲）</div><button class="play-btn small" onclick="speak('Chamomile tea')">▶️ 聽</button> <button class="play-btn small blue" onclick="speak('Chamomile tea', 0.2)">🐢 極慢</button></div>
+        </div>
+
+        <div class="subsection-title">🍓 果茶 Fruit Tea</div>
+        <div class="money-grid">
+          <div class="money-card"><div class="price">🍋</div><div class="price-en">Lemon tea</div><div class="price-zh">檸檬茶</div><button class="play-btn small" onclick="speak('Lemon tea')">▶️ 聽</button> <button class="play-btn small blue" onclick="speak('Lemon tea', 0.2)">🐢 極慢</button></div>
+          <div class="money-card"><div class="price">🍑</div><div class="price-en">Peach tea</div><div class="price-zh">桃茶</div><button class="play-btn small" onclick="speak('Peach tea')">▶️ 聽</button> <button class="play-btn small blue" onclick="speak('Peach tea', 0.2)">🐢 極慢</button></div>
+          <div class="money-card"><div class="price">🫐</div><div class="price-en">Berry tea</div><div class="price-zh">莓果茶</div><button class="play-btn small" onclick="speak('Berry tea')">▶️ 聽</button> <button class="play-btn small blue" onclick="speak('Berry tea', 0.2)">🐢 極慢</button></div>
+          <div class="money-card"><div class="price">🌺</div><div class="price-en">Hibiscus tea</div><div class="price-zh">洛神花茶</div><button class="play-btn small" onclick="speak('Hibiscus tea')">▶️ 聽</button> <button class="play-btn small blue" onclick="speak('Hibiscus tea', 0.2)">🐢 極慢</button></div>
+        </div>
+
+        <div class="subsection-title">📏 Size 大小 + 小食</div>
+        <div class="money-grid">
+          <div class="money-card"><div class="price">S</div><div class="price-en">Small</div><div class="price-zh">細杯</div><button class="play-btn small" onclick="speak('Small')">▶️ 聽</button> <button class="play-btn small blue" onclick="speak('Small', 0.2)">🐢 極慢</button></div>
+          <div class="money-card"><div class="price">M</div><div class="price-en">Medium</div><div class="price-zh">中杯</div><button class="play-btn small" onclick="speak('Medium')">▶️ 聽</button> <button class="play-btn small blue" onclick="speak('Medium', 0.2)">🐢 極慢</button></div>
+          <div class="money-card"><div class="price">L</div><div class="price-en">Large</div><div class="price-zh">大杯</div><button class="play-btn small" onclick="speak('Large')">▶️ 聽</button> <button class="play-btn small blue" onclick="speak('Large', 0.2)">🐢 極慢</button></div>
+          <div class="money-card"><div class="price">🥐</div><div class="price-en">Scone</div><div class="price-zh">英式 scone</div><button class="play-btn small" onclick="speak('Scone')">▶️ 聽</button> <button class="play-btn small blue" onclick="speak('Scone', 0.2)">🐢 極慢</button></div>
+        </div>
+
+        <div class="callback">💡 <strong>小貼士</strong>：Costa 嘅 size 叫 "primo / medio / massimo"（意大利文），但你可以照樣講 "small / medium / large"，店員都明！</div>
+
+        <div class="teacher-note"><strong>👩‍🏫 英式奶茶文化：</strong>英國人講 "tea" 預設係 <strong>black tea + milk</strong>（紅茶加奶），叫嘅時候唔使特別講。想飲淨茶要講 "<strong>black tea, no milk, please</strong>"。果茶同香草茶（peppermint, chamomile）<strong>唔加奶</strong>！</div>
+
+        <div class="teacher-note"><strong>👩‍🏫 老師 tips：</strong>叫嘢飲時，可以串起咁講：<br>"<strong>Can I get a medium Earl Grey to stay, please?</strong>" — 一次過講飲品 + size + 堂食 = 超 efficient！</div>
+      </div>
+
+      <!-- STEP 5 -->
+      <div class="step-content hidden" data-step="5">
+        <div class="section-label">Part 5 · 角色扮演 (4 分鐘)</div>
+        <h2>到你開口啦！🎭</h2>
+        <div class="card-sub">扮 Hannah，喺 Costa 叫 latte + scone</div>
+
+        <div class="instruction"><strong>📋 點玩：</strong>每句店員講完，到你諗點答。先諗，再 㩒 "💡 提示" 睇建議答案，最後 㩒 ▶️ 對比讀音。</div>
+
+        <div class="roleplay-card">
+          <div class="roleplay-prompt"><div class="who">☕ 店員</div><div class="what">Hi! What can I get you?</div><div class="what-zh">你好！想叫啲咩？</div><button class="play-btn small blue" onclick="speak('Hi! What can I get you?')">▶️ 聽店員</button> <button class="play-btn small" onclick="speak('Hi! What can I get you?', 0.2)">🐢 極慢</button></div>
+          <div class="roleplay-your-turn"><div class="label">👉 你嘅回應</div><div class="hint" id="hint1">先諗：點叫一杯 latte？</div><button class="play-btn small" onclick="showHint(1, 'Hi! Can I get a latte, please?', '你好！唔該俾我一杯 latte。')">💡 提示</button></div>
+        </div>
+
+        <div class="roleplay-card">
+          <div class="roleplay-prompt"><div class="who">☕ 店員</div><div class="what">Sure. Small, medium, or large?</div><div class="what-zh">好。細、中，定大杯？</div><button class="play-btn small blue" onclick="speak('Sure. Small, medium, or large?')">▶️ 聽店員</button> <button class="play-btn small" onclick="speak('Sure. Small, medium, or large?', 0.2)">🐢 極慢</button></div>
+          <div class="roleplay-your-turn"><div class="label">👉 你嘅回應</div><div class="hint" id="hint2">想要中杯 → 點講？</div><button class="play-btn small" onclick="showHint(2, 'Medium, please.', '中杯，唔該。')">💡 提示</button></div>
+        </div>
+
+        <div class="roleplay-card">
+          <div class="roleplay-prompt"><div class="who">☕ 店員</div><div class="what">To stay or take away?</div><div class="what-zh">堂食定外賣？</div><button class="play-btn small blue" onclick="speak('To stay or take away?')">▶️ 聽店員</button> <button class="play-btn small" onclick="speak('To stay or take away?', 0.2)">🐢 極慢</button></div>
+          <div class="roleplay-your-turn"><div class="label">👉 你嘅回應</div><div class="hint" id="hint3">你想坐喺度飲 → 點答？</div><button class="play-btn small" onclick="showHint(3, 'To stay, please.', '堂食，唔該。')">💡 提示</button></div>
+        </div>
+
+        <div class="roleplay-card">
+          <div class="roleplay-prompt"><div class="who">☕ 店員</div><div class="what">Anything else?</div><div class="what-zh">仲要其他嘢嗎？</div><button class="play-btn small blue" onclick="speak('Anything else?')">▶️ 聽店員</button> <button class="play-btn small" onclick="speak('Anything else?', 0.2)">🐢 極慢</button></div>
+          <div class="roleplay-your-turn"><div class="label">👉 你嘅回應</div><div class="hint" id="hint4">想要一個 scone → 點講？</div><button class="play-btn small" onclick="showHint(4, 'Yes, one scone, please.', '要，一個 scone，唔該。')">💡 提示</button></div>
+        </div>
+
+        <div class="roleplay-card">
+          <div class="roleplay-prompt"><div class="who">☕ 店員</div><div class="what">That's six pounds fifty. Have a nice day!</div><div class="what-zh">總共六鎊五。祝你有美好一日！</div><button class="play-btn small blue" onclick="speak(`That's six pounds fifty. Have a nice day!`)">▶️ 聽店員</button> <button class="play-btn small" onclick="speak(`That's six pounds fifty. Have a nice day!`, 0.2)">🐢 極慢</button></div>
+          <div class="roleplay-your-turn"><div class="label">👉 你嘅回應</div><div class="hint" id="hint5">點禮貌咁回應？</div><button class="play-btn small" onclick="showHint(5, 'Thank you! You too!', '多謝！你都係！')">💡 提示</button></div>
+        </div>
+
+        <div class="teacher-note"><strong>👩‍🏫 練多次！</strong>第一次唔識唔緊要。試 2-3 次，每次都用唔同嘅句（試下叫 cappuccino + small + take away）。</div>
+      </div>
+
+      <!-- STEP 6 -->
+      <div class="step-content hidden" data-step="6">
+        <div class="section-label">Part 6 · 完成 (1 分鐘)</div>
+        <div class="complete-screen">
+          <div class="complete-trophy">🏆</div>
+          <div class="complete-title">完成 Lesson 7！</div>
+          <div class="complete-sub">你而家識得喺英國 café 叫嘢飲喇 ☕</div>
+        </div>
+
+        <div class="summary-box">
+          <h3>✏️ 今日學咗</h3>
+          <ul class="summary-list">
+            <li>Can I get a coffee, please? — 唔該俾我一杯咖啡</li>
+            <li>To stay. / Take away, please. — 堂食／外賣</li>
+            <li>Small / Medium / Large — 細／中／大杯</li>
+            <li>With milk, please. — 加奶</li>
+            <li>No, that's all, thanks. — 唔使，就咁</li>
+            <li>How long will it take? — 要等幾耐？</li>
+            <li>飲品名（latte, tea, cappuccino, hot chocolate...）</li>
+            <li>完整 café 叫嘢 roleplay</li>
+          </ul>
+        </div>
+
+        <div class="homework-card">
+          <h3>📝 今星期嘅 homework</h3>
+          <div class="homework-item"><div class="homework-num">1.</div><div>呢個星期入<strong>一次 café</strong>（Costa / Pret / 鄉村 café），叫一杯飲品。</div></div>
+          <div class="homework-item"><div class="homework-num">2.</div><div>試下叫一啲<strong>新嘢飲</strong>（cappuccino, hot chocolate, iced coffee），擴大你嘅 vocab。</div></div>
+          <div class="homework-item"><div class="homework-num">3.</div><div>每日溫 5 分鐘呢 7 句，下堂前要識口頭講出嚟。</div></div>
+        </div>
+
+        <div class="teacher-note" style="margin-top: 14px;"><strong>👩‍🏫 next：</strong>Lesson 8 — 天氣 & small talk！英國人最愛講天氣 ☔ 學完之後你可以同鄰居 chit-chat！</div>
+      </div>
+
+    </div>
+
+    <div class="footer-nav">
+      <button class="btn-secondary" id="prev-btn" onclick="goPrev()">← 上一步</button>
+      <div style="font-family: 'Fraunces', serif; font-style: italic; color: var(--ink-soft); font-size: 13px;" id="step-indicator">Step 1 of 6</div>
+      <button class="btn-primary" id="next-btn" onclick="goNext()"><span id="next-btn-text">開始學習</span><span>→</span></button>
+    </div>
+
+    <div class="mobile-nav-bar">
+      <button class="nav-btn prev disabled" id="mobile-prev-btn" onclick="goPrev()">← 返</button>
+      <button class="nav-btn next" id="mobile-next-btn" onclick="goNext()"><span id="mobile-next-btn-text">開始學習 →</span></button>
+    </div>
+  </main>
+</div>
+
+<script>
+let currentStep = 1;
+let currentSpeed = 0.3;
+let englishVoice = null;
+const completedSteps = new Set();
+const TOTAL_STEPS = 6;
+
+const FULL_DIALOGUE = [
+  "Hi! What can I get you?",
+  "Hi! Can I get a latte, please?",
+  "Sure. Small, medium, or large?",
+  "Medium, please. To stay.",
+  "Anything else?",
+  "Yes, one scone, please.",
+  "That's six pounds fifty. About five minutes.",
+  "Thank you! Have a nice day!"
+];
+
+function loadVoices() {
+  const voices = speechSynthesis.getVoices();
+  englishVoice = voices.find(v => v.lang === 'en-GB' && v.name.includes('Female')) ||
+                 voices.find(v => v.lang === 'en-GB') ||
+                 voices.find(v => v.lang.startsWith('en-')) ||
+                 voices[0];
+}
+if (typeof speechSynthesis !== 'undefined') {
+  loadVoices();
+  speechSynthesis.onvoiceschanged = loadVoices;
+}
+
+function speak(text, speedOverride) {
+  speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(text);
+  u.rate = speedOverride !== undefined ? speedOverride : currentSpeed;
+  u.pitch = 1;
+  u.volume = 1;
+  if (englishVoice) u.voice = englishVoice;
+  u.lang = 'en-GB';
+  speechSynthesis.speak(u);
+}
+
+function setSpeed(speed, btn) {
+  currentSpeed = speed;
+  document.querySelectorAll('.speed-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+}
+
+function playFullDialogue() {
+  speechSynthesis.cancel();
+  let i = 0;
+  function next() {
+    if (i >= FULL_DIALOGUE.length) return;
+    const u = new SpeechSynthesisUtterance(FULL_DIALOGUE[i]);
+    u.rate = currentSpeed;
+    if (englishVoice) u.voice = englishVoice;
+    u.lang = 'en-GB';
+    u.onend = () => { i++; setTimeout(next, 600); };
+    speechSynthesis.speak(u);
+  }
+  next();
+}
+
+function showHint(num, en, zh) {
+  const el = document.getElementById('hint' + num);
+  el.innerHTML = `<div style="font-weight:600;color:var(--ink);font-size:16px;margin-bottom:4px;">${en}</div><div style="color:var(--ink-soft);font-size:13px;">${zh}</div>`;
+  setTimeout(() => speak(en), 200);
+}
+
+function goToStep(step) {
+  speechSynthesis.cancel();
+  if (step > currentStep) completedSteps.add(currentStep);
+  currentStep = step;
+
+  document.querySelectorAll('.step-content').forEach(el => el.classList.add('hidden'));
+  document.querySelector(`.step-content[data-step="${step}"]`).classList.remove('hidden');
+
+  document.querySelectorAll('.step-btn').forEach(btn => {
+    const btnStep = parseInt(btn.dataset.step);
+    btn.classList.remove('active', 'completed');
+    if (btnStep === step) btn.classList.add('active');
+    else if (completedSteps.has(btnStep)) btn.classList.add('completed');
+  });
+
+  const progress = (step / TOTAL_STEPS) * 100;
+  document.getElementById('progress-fill').style.width = progress + '%';
+  document.getElementById('progress-text').textContent = `第 ${step} 部分 / 共 6 部分`;
+
+  const mobileProgress = document.getElementById('mobile-progress-fill');
+  if (mobileProgress) mobileProgress.style.width = progress + '%';
+  const mobileIndicator = document.getElementById('mobile-step-indicator');
+  if (mobileIndicator) mobileIndicator.innerHTML = `${step} <span class="total">/ ${TOTAL_STEPS}</span>`;
+
+  const timeMap = { 1: "2 分鐘", 2: "4 分鐘", 3: "5 分鐘", 4: "4 分鐘", 5: "4 分鐘", 6: "1 分鐘" };
+  document.getElementById('progress-time').textContent = timeMap[step] || "";
+
+  document.getElementById('step-indicator').textContent = `Step ${step} of ${TOTAL_STEPS}`;
+  const prevBtn = document.getElementById('prev-btn');
+  const nextBtn = document.getElementById('next-btn');
+  const nextText = document.getElementById('next-btn-text');
+
+  prevBtn.style.visibility = step === 1 ? 'hidden' : 'visible';
+  if (step === TOTAL_STEPS) {
+    nextText.textContent = '🎉 完成';
+    nextBtn.onclick = () => alert('恭喜完成 Lesson 7！記得做 homework 喇 ☕');
+  } else if (step === 1) {
+    nextText.textContent = '開始學習';
+    nextBtn.onclick = goNext;
+  } else {
+    nextText.textContent = '下一步';
+    nextBtn.onclick = goNext;
+  }
+
+  const mobilePrev = document.getElementById('mobile-prev-btn');
+  if (mobilePrev) mobilePrev.classList.toggle('disabled', step === 1);
+  const mobileNextText = document.getElementById('mobile-next-btn-text');
+  const mobileNextBtn = document.getElementById('mobile-next-btn');
+  if (mobileNextText && mobileNextBtn) {
+    if (step === TOTAL_STEPS) {
+      mobileNextText.textContent = '🎉 完成';
+      mobileNextBtn.onclick = () => alert('恭喜完成 Lesson 7！記得做 homework 喇 ☕');
+    } else if (step === 1) {
+      mobileNextText.textContent = '開始學習 →';
+      mobileNextBtn.onclick = goNext;
+    } else {
+      mobileNextText.textContent = '下一步 →';
+      mobileNextBtn.onclick = goNext;
+    }
+  }
+
+  document.querySelector('.main-inner').scrollTop = 0;
+}
+
+function goNext() { if (currentStep < TOTAL_STEPS) goToStep(currentStep + 1); }
+function goPrev() { if (currentStep > 1) goToStep(currentStep - 1); }
+
+function openMobileSidebar() {
+  document.querySelector('.sidebar').classList.add('open');
+  document.getElementById('sidebar-backdrop').classList.add('show');
+}
+function closeMobileSidebar() {
+  document.querySelector('.sidebar').classList.remove('open');
+  document.getElementById('sidebar-backdrop').classList.remove('show');
+}
+document.querySelectorAll('.step-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    if (window.innerWidth <= 768) setTimeout(closeMobileSidebar, 150);
+  });
+});
+
+goToStep(1);
+</script>
+
+</body>
+</html>
