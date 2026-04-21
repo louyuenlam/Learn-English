@@ -757,7 +757,7 @@
   <div class="map" id="map"></div>
 
   <div class="map-footer">
-    ⏱️ 5 秒倒數 · 答啱解鎖下關
+    ⏱️ 10 秒倒數 · 答啱解鎖下關
     <br>
     <button class="reset-btn" onclick="resetProgress()">🔄 重新開始</button>
   </div>
@@ -1111,12 +1111,12 @@ const LEVELS = [
   {
     id: 8,
     title: 'Boss：閃電對答',
-    subtitle: '3 秒倒數 · 12 題',
+    subtitle: '5 秒倒數 · 12 題',
     emoji: '⚡',
     boss: true,
     mixed: true,
     questionCount: 12,
-    timeLimit: 3,
+    timeLimit: 5,
     requiresAllStars: 2
   }
 ];
@@ -1353,7 +1353,7 @@ function renderQuestion() {
   setTimeout(() => speakQuestion(), 300);
 
   // Start timer
-  const timeLimit = currentLevel.timeLimit || 5;
+  const timeLimit = currentLevel.timeLimit || 10;
   startTimer(timeLimit);
 }
 
