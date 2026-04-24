@@ -468,6 +468,48 @@
     font-style: italic;
     line-height: 1.2;
   }
+  .dialogue-actions {
+    display: flex;
+    gap: 6px;
+    margin-top: 6px;
+    flex-wrap: wrap;
+  }
+  .dialogue-btn {
+    background: transparent;
+    border: 1px solid var(--cream-dark);
+    border-radius: 8px;
+    padding: 4px 10px;
+    font-family: inherit;
+    font-size: 12px;
+    color: var(--ink-soft);
+    cursor: pointer;
+    min-height: 28px;
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+    transition: all 0.15s ease;
+  }
+  .dialogue-btn:hover {
+    border-color: var(--blue);
+    color: var(--blue-dark);
+  }
+  .dialogue-btn:active { transform: scale(0.95); }
+  .dialogue-btn.slow {
+    color: var(--gold-dark);
+  }
+  .dialogue-btn.slow:hover {
+    border-color: var(--gold);
+  }
+  /* Active highlight when auto-playing */
+  .dialogue-line.active .dialogue-bubble {
+    box-shadow: 0 0 0 2px var(--gold);
+    background: #fdf4e3;
+    transition: box-shadow 0.2s ease, background 0.2s ease;
+  }
+  .dialogue-line.you.active .dialogue-bubble {
+    box-shadow: 0 0 0 2px var(--terra);
+    background: #faeee8;
+  }
 
   /* ============ STEP 3: FLASHCARD REVIEW ============ */
   .fc-review {
@@ -1382,68 +1424,96 @@
         <p class="card-sub" style="margin-bottom: 8px;">呢個就係你今日可以自信做嘅對話 — 融合 Lesson 1-4 所有套語</p>
 
         <div class="roleplay-scene" style="padding: 10px 16px;">
-          <div class="dialogue-grid">
-            <div class="dialogue-line">
+          <div class="dialogue-grid" id="full-dialogue">
+            <div class="dialogue-line" data-line-idx="0">
               <div class="dialogue-avatar other">E</div>
               <div class="dialogue-bubble">
                 <div class="dialogue-text">Hello! Good afternoon!</div>
                 <div class="dialogue-zh">你好！下午好！</div>
+                <div class="dialogue-actions">
+                  <button class="dialogue-btn" onclick="playLine(0)">▶️ 聽</button>
+                  <button class="dialogue-btn slow" onclick="playLine(0, 0.2)">🐢 極慢</button>
+                </div>
               </div>
             </div>
 
-            <div class="dialogue-line you">
+            <div class="dialogue-line you" data-line-idx="1">
               <div class="dialogue-avatar you">你</div>
               <div class="dialogue-bubble">
                 <div class="dialogue-text">Hi! Good afternoon.</div>
                 <div class="dialogue-zh">你好！下午好。</div>
+                <div class="dialogue-actions">
+                  <button class="dialogue-btn" onclick="playLine(1)">▶️ 聽</button>
+                  <button class="dialogue-btn slow" onclick="playLine(1, 0.2)">🐢 極慢</button>
+                </div>
               </div>
             </div>
 
-            <div class="dialogue-line">
+            <div class="dialogue-line" data-line-idx="2">
               <div class="dialogue-avatar other">E</div>
               <div class="dialogue-bubble">
                 <div class="dialogue-text">How are you?</div>
                 <div class="dialogue-zh">你點呀？</div>
+                <div class="dialogue-actions">
+                  <button class="dialogue-btn" onclick="playLine(2)">▶️ 聽</button>
+                  <button class="dialogue-btn slow" onclick="playLine(2, 0.2)">🐢 極慢</button>
+                </div>
               </div>
             </div>
 
-            <div class="dialogue-line you">
+            <div class="dialogue-line you" data-line-idx="3">
               <div class="dialogue-avatar you">你</div>
               <div class="dialogue-bubble">
                 <div class="dialogue-text">I'm good, thanks. And you? What's your name?</div>
                 <div class="dialogue-zh">好好，唔該。你呢？你叫咩名？</div>
+                <div class="dialogue-actions">
+                  <button class="dialogue-btn" onclick="playLine(3)">▶️ 聽</button>
+                  <button class="dialogue-btn slow" onclick="playLine(3, 0.2)">🐢 極慢</button>
+                </div>
               </div>
             </div>
 
-            <div class="dialogue-line">
+            <div class="dialogue-line" data-line-idx="4">
               <div class="dialogue-avatar other">E</div>
               <div class="dialogue-bubble">
                 <div class="dialogue-text">I'm fine. My name is Emma. Where are you from?</div>
                 <div class="dialogue-zh">我幾好。我叫 Emma。你嚟自邊度？</div>
+                <div class="dialogue-actions">
+                  <button class="dialogue-btn" onclick="playLine(4)">▶️ 聽</button>
+                  <button class="dialogue-btn slow" onclick="playLine(4, 0.2)">🐢 極慢</button>
+                </div>
               </div>
             </div>
 
-            <div class="dialogue-line you">
+            <div class="dialogue-line you" data-line-idx="5">
               <div class="dialogue-avatar you">你</div>
               <div class="dialogue-bubble">
                 <div class="dialogue-text">I'm from Hong Kong. Nice to meet you!</div>
                 <div class="dialogue-zh">我嚟自香港。好開心識到你！</div>
+                <div class="dialogue-actions">
+                  <button class="dialogue-btn" onclick="playLine(5)">▶️ 聽</button>
+                  <button class="dialogue-btn slow" onclick="playLine(5, 0.2)">🐢 極慢</button>
+                </div>
               </div>
             </div>
 
-            <div class="dialogue-line">
+            <div class="dialogue-line" data-line-idx="6">
               <div class="dialogue-avatar other">E</div>
               <div class="dialogue-bubble">
                 <div class="dialogue-text">Nice to meet you too! See you later!</div>
                 <div class="dialogue-zh">我都好開心！陣間見！</div>
+                <div class="dialogue-actions">
+                  <button class="dialogue-btn" onclick="playLine(6)">▶️ 聽</button>
+                  <button class="dialogue-btn slow" onclick="playLine(6, 0.2)">🐢 極慢</button>
+                </div>
               </div>
             </div>
           </div>
         </div>
 
         <div style="text-align: center; margin-top: 8px;">
-          <button class="btn-primary" onclick="playFullDialogue()" style="padding: 11px 30px;">
-            🔊 <span>聽成段對話</span>
+          <button class="btn-primary" id="dialogue-play-btn" onclick="toggleFullDialogue()" style="padding: 11px 30px;">
+            🔊 <span id="dialogue-play-label">聽成段對話</span>
           </button>
         </div>
       </div>
@@ -1681,15 +1751,99 @@ function setSpeed(speed, btn) {
 }
 
 // ============ STEP 2: FULL DIALOGUE (2 voices alternating) ============
+// State for toggle play
+let dialogueTimers = [];        // setTimeout IDs
+let dialoguePlaying = false;
+
+// Play ONE line (from button click)
+function playLine(idx, rate) {
+  stopFullDialogue();  // stop any auto-playback first
+  const line = TARGET_DIALOGUE[idx];
+  if (!line) return;
+  // Emma at even index, Hannah at odd
+  const voice = (idx % 2 === 0) ? emmaVoice : hannahVoice;
+  speak(line, rate || currentSpeed, voice);
+  // Highlight this line briefly
+  highlightLine(idx);
+  setTimeout(() => unhighlightLine(idx), 2500);
+}
+
+function highlightLine(idx) {
+  const el = document.querySelector(`.dialogue-line[data-line-idx="${idx}"]`);
+  if (el) el.classList.add('active');
+}
+function unhighlightLine(idx) {
+  const el = document.querySelector(`.dialogue-line[data-line-idx="${idx}"]`);
+  if (el) el.classList.remove('active');
+}
+function clearAllHighlights() {
+  document.querySelectorAll('.dialogue-line.active').forEach(el => el.classList.remove('active'));
+}
+
+// Toggle (Play / Stop)
+function toggleFullDialogue() {
+  if (dialoguePlaying) {
+    stopFullDialogue();
+  } else {
+    playFullDialogue();
+  }
+}
+
 function playFullDialogue() {
   speechSynthesis.cancel();
+  clearAllHighlights();
+  dialogueTimers.forEach(t => clearTimeout(t));
+  dialogueTimers = [];
+  dialoguePlaying = true;
+  updateDialogueButton(true);
+
   const rate = Math.max(currentSpeed, 0.4);
   const gap = Math.max(3500, 3500 / currentSpeed);
-  // Emma speaks at even index (0, 2, 4, 6), Hannah at odd (1, 3, 5)
+
   TARGET_DIALOGUE.forEach((line, i) => {
     const voice = (i % 2 === 0) ? emmaVoice : hannahVoice;
-    setTimeout(() => speak(line, rate, voice), i * gap);
+    const t = setTimeout(() => {
+      // Unhighlight previous
+      if (i > 0) unhighlightLine(i - 1);
+      // Highlight current
+      highlightLine(i);
+      speak(line, rate, voice);
+    }, i * gap);
+    dialogueTimers.push(t);
   });
+
+  // Auto-end: clear highlight + reset button after last line
+  const totalMs = TARGET_DIALOGUE.length * gap;
+  const endTimer = setTimeout(() => {
+    clearAllHighlights();
+    dialoguePlaying = false;
+    updateDialogueButton(false);
+  }, totalMs + 1500);
+  dialogueTimers.push(endTimer);
+}
+
+function stopFullDialogue() {
+  speechSynthesis.cancel();
+  dialogueTimers.forEach(t => clearTimeout(t));
+  dialogueTimers = [];
+  clearAllHighlights();
+  dialoguePlaying = false;
+  updateDialogueButton(false);
+}
+
+function updateDialogueButton(isPlaying) {
+  const label = document.getElementById('dialogue-play-label');
+  const btn = document.getElementById('dialogue-play-btn');
+  if (!label || !btn) return;
+  if (isPlaying) {
+    label.textContent = '停止';
+    // Replace 🔊 icon with ⏹️
+    btn.innerHTML = '⏹️ <span id="dialogue-play-label">停止</span>';
+    btn.setAttribute('onclick', 'toggleFullDialogue()');
+  } else {
+    btn.innerHTML = '🔊 <span id="dialogue-play-label">聽成段對話</span>';
+    btn.setAttribute('onclick', 'toggleFullDialogue()');
+  }
 }
 
 // ============ STEP 3: FLASHCARD REVIEW ============
