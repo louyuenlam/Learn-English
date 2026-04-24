@@ -1584,7 +1584,9 @@
 <script>
 let currentStep = 1;
 let currentSpeed = 0.3;
-let englishVoice = null;
+let emmaVoice = null;   // 對方聲（Emma）
+let hannahVoice = null; // 你嘅聲（Hannah）
+let englishVoice = null; // Fallback / 單人讀（flashcard 等）
 const completedSteps = new Set();
 const TOTAL_STEPS = 6;
 
@@ -1629,24 +1631,47 @@ let assessAnswers = {};
 // ============ SPEECH ============
 function loadVoice() {
   const voices = speechSynthesis.getVoices();
-  englishVoice = voices.find(v => v.lang === 'en-GB' && v.name.toLowerCase().includes('female'))
-              || voices.find(v => v.lang === 'en-GB')
-              || voices.find(v => v.lang === 'en-US' && v.name.toLowerCase().includes('female'))
-              || voices.find(v => v.lang === 'en-US')
-              || voices.find(v => v.lang.startsWith('en'))
-              || voices[0];
+
+  // Find all UK / English female voices
+  const ukFemale = voices.filter(v => v.lang === 'en-GB' && v.name.toLowerCase().includes('female'));
+  const ukAny = voices.filter(v => v.lang === 'en-GB');
+  const enFemale = voices.filter(v => v.lang.startsWith('en-') && v.name.toLowerCase().includes('female'));
+  const enAny = voices.filter(v => v.lang.startsWith('en-'));
+
+  // Build a prioritised pool of female-sounding voices
+  const femalePool = [...ukFemale, ...enFemale];
+  // All English voices as fallback pool
+  const generalPool = [...ukAny, ...enAny, ...voices];
+
+  // Deduplicate while preserving order
+  const seen = new Set();
+  const uniqueFemale = femalePool.filter(v => !seen.has(v.name) && seen.add(v.name));
+  const seen2 = new Set();
+  const uniqueGeneral = generalPool.filter(v => !seen2.has(v.name) && seen2.add(v.name));
+
+  // Pick Emma (對方) — prefer first female UK voice
+  emmaVoice = uniqueFemale[0] || uniqueGeneral[0] || voices[0];
+
+  // Pick Hannah (你) — prefer DIFFERENT female voice
+  hannahVoice = uniqueFemale.find(v => v !== emmaVoice)
+             || uniqueGeneral.find(v => v !== emmaVoice)
+             || emmaVoice;
+
+  // Fallback for single-voice speak() calls (flashcard, review cards)
+  englishVoice = emmaVoice;
 }
 if ('speechSynthesis' in window) {
   loadVoice();
   speechSynthesis.onvoiceschanged = loadVoice;
 }
-function speak(text, rate) {
+function speak(text, rate, voice) {
   if (!('speechSynthesis' in window)) return;
   speechSynthesis.cancel();
   const utter = new SpeechSynthesisUtterance(text);
   utter.lang = 'en-GB';
   utter.rate = rate || currentSpeed;
-  if (englishVoice) utter.voice = englishVoice;
+  // 如果指定 voice 就用佢，否則用 default (englishVoice)
+  utter.voice = voice || englishVoice;
   speechSynthesis.speak(utter);
 }
 function setSpeed(speed, btn) {
@@ -1655,13 +1680,15 @@ function setSpeed(speed, btn) {
   if (btn) btn.classList.add('active');
 }
 
-// ============ STEP 2: FULL DIALOGUE ============
+// ============ STEP 2: FULL DIALOGUE (2 voices alternating) ============
 function playFullDialogue() {
   speechSynthesis.cancel();
   const rate = Math.max(currentSpeed, 0.4);
   const gap = Math.max(3500, 3500 / currentSpeed);
+  // Emma speaks at even index (0, 2, 4, 6), Hannah at odd (1, 3, 5)
   TARGET_DIALOGUE.forEach((line, i) => {
-    setTimeout(() => speak(line, rate), i * gap);
+    const voice = (i % 2 === 0) ? emmaVoice : hannahVoice;
+    setTimeout(() => speak(line, rate, voice), i * gap);
   });
 }
 
