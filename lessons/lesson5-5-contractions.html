@@ -539,10 +539,43 @@ const FULL_DIALOGUE = [
 
 function loadVoices() {
   const voices = speechSynthesis.getVoices();
-  englishVoice = voices.find(v => v.lang === 'en-GB' && v.name.includes('Female')) ||
-                 voices.find(v => v.lang === 'en-GB') ||
-                 voices.find(v => v.lang.startsWith('en-')) ||
-                 voices[0];
+
+  // Known female voice names across iOS / Android / Chrome / macOS / Windows
+  const FEMALE_NAMES = [
+    // iOS / macOS
+    'Samantha', 'Karen', 'Moira', 'Kate', 'Serena', 'Victoria', 'Tessa',
+    'Fiona', 'Veena', 'Allison', 'Ava', 'Susan', 'Zoe',
+    // Google / Android
+    'Google UK English Female', 'Google US English',
+    // Microsoft Windows
+    'Hazel', 'Susan', 'Zira', 'Eva', 'Catherine',
+    // Generic flags
+    'Female', 'female'
+  ];
+
+  function isFemale(voice) {
+    if (!voice || !voice.name) return false;
+    const n = voice.name;
+    return FEMALE_NAMES.some(name => n.includes(name));
+  }
+
+  // Priority search (UK female first, then any English female, then any UK, then any English)
+  englishVoice =
+    voices.find(v => v.lang === 'en-GB' && isFemale(v)) ||
+    voices.find(v => v.lang.startsWith('en-') && isFemale(v)) ||
+    voices.find(v => v.lang === 'en-GB') ||
+    voices.find(v => v.lang.startsWith('en-')) ||
+    voices[0];
+
+  // Remember whether the selected voice is actually female (for pitch fallback)
+  window._voiceIsFemale = englishVoice ? isFemale(englishVoice) : false;
+
+  // Console log for debugging
+  if (englishVoice) {
+    console.log('[Voice selected]', englishVoice.name, '(' + englishVoice.lang + ')', 'Female:', window._voiceIsFemale);
+  } else {
+    console.log('[Voice selected] No voice available!');
+  }
 }
 if (typeof speechSynthesis !== 'undefined') {
   loadVoices();
@@ -553,7 +586,8 @@ function speak(text, speedOverride) {
   speechSynthesis.cancel();
   const u = new SpeechSynthesisUtterance(text);
   u.rate = speedOverride !== undefined ? speedOverride : currentSpeed;
-  u.pitch = 1;
+  // If voice isn't confirmed female, raise pitch to simulate female voice
+  u.pitch = window._voiceIsFemale ? 1.0 : 1.4;
   u.volume = 1;
   if (englishVoice) u.voice = englishVoice;
   u.lang = 'en-GB';
@@ -573,6 +607,8 @@ function playFullDialogue() {
     if (i >= FULL_DIALOGUE.length) return;
     const u = new SpeechSynthesisUtterance(FULL_DIALOGUE[i]);
     u.rate = currentSpeed;
+    u.pitch = window._voiceIsFemale ? 1.0 : 1.4;
+    u.volume = 1;
     if (englishVoice) u.voice = englishVoice;
     u.lang = 'en-GB';
     u.onend = () => { i++; setTimeout(next, 600); };
