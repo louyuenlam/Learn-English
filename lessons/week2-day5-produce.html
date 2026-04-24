@@ -253,6 +253,16 @@
     .mobile-nav-bar { display: none !important; }
     .sidebar-backdrop { display: none !important; }
   }
+
+  /* Active highlight when auto-playing */
+  .dialogue-line.active .dialogue-bubble {
+    box-shadow: 0 0 0 2px var(--gold);
+    transition: box-shadow 0.2s ease;
+  }
+  .dialogue-line.active .dialogue-bubble.you {
+    box-shadow: 0 0 0 2px var(--terra);
+  }
+
 </style>
 </head>
 <body>
@@ -352,17 +362,17 @@
 
         <div class="instruction"><strong>🎧 點樣聽：</strong>先 㩒 "聽全段"，唔使理解曬。再 㩒每句嘅 ▶️ 聽 或 🐢 極慢。聽 2-3 次先。</div>
 
-        <button class="play-btn blue" onclick="playFullDialogue()">🔊 聽全段對話</button>
+        <button class="play-btn blue" onclick="toggleFullDialogue()">🔊 聽全段對話</button>
 
         <div class="dialogue-card" style="margin-top: 14px;">
-          <div class="dialogue-line"><div class="dialogue-avatar shop">🥕</div><div class="dialogue-bubble"><div class="dialogue-text">Hi there! Finding everything OK?</div><div class="dialogue-zh">你好！揾到嘢嗎？</div><button class="play-btn small" onclick="speak(`Hi there! Finding everything OK?`)">▶️ 聽</button> <button class="play-btn small blue" onclick="speak(`Hi there! Finding everything OK?`, 0.2)">🐢 極慢</button></div></div>
-          <div class="dialogue-line"><div class="dialogue-avatar you">😊</div><div class="dialogue-bubble you"><div class="dialogue-text">Yes, thanks. Could I have a bunch of bananas?</div><div class="dialogue-zh">係，多謝。唔該一梳香蕉。</div><button class="play-btn small" onclick="speak(`Yes, thanks. Could I have a bunch of bananas?`)">▶️ 聽</button> <button class="play-btn small blue" onclick="speak(`Yes, thanks. Could I have a bunch of bananas?`, 0.2)">🐢 極慢</button></div></div>
-          <div class="dialogue-line"><div class="dialogue-avatar shop">🥕</div><div class="dialogue-bubble"><div class="dialogue-text">Sure! How about some strawberries? They're on sale.</div><div class="dialogue-zh">好！要唔要士多啤梨？特價。</div><button class="play-btn small" onclick="speak(`Sure! How about some strawberries? They're on sale.`)">▶️ 聽</button> <button class="play-btn small blue" onclick="speak(`Sure! How about some strawberries? They're on sale.`, 0.2)">🐢 極慢</button></div></div>
-          <div class="dialogue-line"><div class="dialogue-avatar you">😊</div><div class="dialogue-bubble you"><div class="dialogue-text">Are these strawberries sweet?</div><div class="dialogue-zh">啲士多啤梨甜嗎？</div><button class="play-btn small" onclick="speak(`Are these strawberries sweet?`)">▶️ 聽</button> <button class="play-btn small blue" onclick="speak(`Are these strawberries sweet?`, 0.2)">🐢 極慢</button></div></div>
-          <div class="dialogue-line"><div class="dialogue-avatar shop">🥕</div><div class="dialogue-bubble"><div class="dialogue-text">Yes, very sweet! Fresh from this morning.</div><div class="dialogue-zh">好甜！今朝先到。</div><button class="play-btn small" onclick="speak(`Yes, very sweet! Fresh from this morning.`)">▶️ 聽</button> <button class="play-btn small blue" onclick="speak(`Yes, very sweet! Fresh from this morning.`, 0.2)">🐢 極慢</button></div></div>
-          <div class="dialogue-line"><div class="dialogue-avatar you">😊</div><div class="dialogue-bubble you"><div class="dialogue-text">OK, one box please. How much per kilo for apples?</div><div class="dialogue-zh">好，一盒。蘋果一公斤幾錢？</div><button class="play-btn small" onclick="speak(`OK, one box please. How much per kilo for apples?`)">▶️ 聽</button> <button class="play-btn small blue" onclick="speak(`OK, one box please. How much per kilo for apples?`, 0.2)">🐢 極慢</button></div></div>
-          <div class="dialogue-line"><div class="dialogue-avatar shop">🥕</div><div class="dialogue-bubble"><div class="dialogue-text">£2.50 per kilo. Red or green?</div><div class="dialogue-zh">£2.50 每公斤。紅定綠？</div><button class="play-btn small" onclick="speak(`£2.50 per kilo. Red or green?`)">▶️ 聽</button> <button class="play-btn small blue" onclick="speak(`£2.50 per kilo. Red or green?`, 0.2)">🐢 極慢</button></div></div>
-          <div class="dialogue-line"><div class="dialogue-avatar you">😊</div><div class="dialogue-bubble you"><div class="dialogue-text">Half a kilo of red, please. Thank you!</div><div class="dialogue-zh">半公斤紅，唔該。多謝！</div><button class="play-btn small" onclick="speak(`Half a kilo of red, please. Thank you!`)">▶️ 聽</button> <button class="play-btn small blue" onclick="speak(`Half a kilo of red, please. Thank you!`, 0.2)">🐢 極慢</button></div></div>
+          <div class="dialogue-line"><div class="dialogue-avatar shop">🥕</div><div class="dialogue-bubble"><div class="dialogue-text">Hi there! Finding everything OK?</div><div class="dialogue-zh">你好！揾到嘢嗎？</div><button class="play-btn small" onclick="speak(`Hi there! Finding everything OK?`, 0.3, 'shop')">▶️ 聽</button> <button class="play-btn small blue" onclick="speak(`Hi there! Finding everything OK?`, 0.2, 'shop')">🐢 極慢</button></div></div>
+          <div class="dialogue-line"><div class="dialogue-avatar you">😊</div><div class="dialogue-bubble you"><div class="dialogue-text">Yes, thanks. Could I have a bunch of bananas?</div><div class="dialogue-zh">係，多謝。唔該一梳香蕉。</div><button class="play-btn small" onclick="speak(`Yes, thanks. Could I have a bunch of bananas?`, 0.3, 'you')">▶️ 聽</button> <button class="play-btn small blue" onclick="speak(`Yes, thanks. Could I have a bunch of bananas?`, 0.2, 'you')">🐢 極慢</button></div></div>
+          <div class="dialogue-line"><div class="dialogue-avatar shop">🥕</div><div class="dialogue-bubble"><div class="dialogue-text">Sure! How about some strawberries? They're on sale.</div><div class="dialogue-zh">好！要唔要士多啤梨？特價。</div><button class="play-btn small" onclick="speak(`Sure! How about some strawberries? They're on sale.`, 0.3, 'shop')">▶️ 聽</button> <button class="play-btn small blue" onclick="speak(`Sure! How about some strawberries? They're on sale.`, 0.2, 'shop')">🐢 極慢</button></div></div>
+          <div class="dialogue-line"><div class="dialogue-avatar you">😊</div><div class="dialogue-bubble you"><div class="dialogue-text">Are these strawberries sweet?</div><div class="dialogue-zh">啲士多啤梨甜嗎？</div><button class="play-btn small" onclick="speak(`Are these strawberries sweet?`, 0.3, 'you')">▶️ 聽</button> <button class="play-btn small blue" onclick="speak(`Are these strawberries sweet?`, 0.2, 'you')">🐢 極慢</button></div></div>
+          <div class="dialogue-line"><div class="dialogue-avatar shop">🥕</div><div class="dialogue-bubble"><div class="dialogue-text">Yes, very sweet! Fresh from this morning.</div><div class="dialogue-zh">好甜！今朝先到。</div><button class="play-btn small" onclick="speak(`Yes, very sweet! Fresh from this morning.`, 0.3, 'shop')">▶️ 聽</button> <button class="play-btn small blue" onclick="speak(`Yes, very sweet! Fresh from this morning.`, 0.2, 'shop')">🐢 極慢</button></div></div>
+          <div class="dialogue-line"><div class="dialogue-avatar you">😊</div><div class="dialogue-bubble you"><div class="dialogue-text">OK, one box please. How much per kilo for apples?</div><div class="dialogue-zh">好，一盒。蘋果一公斤幾錢？</div><button class="play-btn small" onclick="speak(`OK, one box please. How much per kilo for apples?`, 0.3, 'you')">▶️ 聽</button> <button class="play-btn small blue" onclick="speak(`OK, one box please. How much per kilo for apples?`, 0.2, 'you')">🐢 極慢</button></div></div>
+          <div class="dialogue-line"><div class="dialogue-avatar shop">🥕</div><div class="dialogue-bubble"><div class="dialogue-text">£2.50 per kilo. Red or green?</div><div class="dialogue-zh">£2.50 每公斤。紅定綠？</div><button class="play-btn small" onclick="speak(`£2.50 per kilo. Red or green?`, 0.3, 'shop')">▶️ 聽</button> <button class="play-btn small blue" onclick="speak(`£2.50 per kilo. Red or green?`, 0.2, 'shop')">🐢 極慢</button></div></div>
+          <div class="dialogue-line"><div class="dialogue-avatar you">😊</div><div class="dialogue-bubble you"><div class="dialogue-text">Half a kilo of red, please. Thank you!</div><div class="dialogue-zh">半公斤紅，唔該。多謝！</div><button class="play-btn small" onclick="speak(`Half a kilo of red, please. Thank you!`, 0.3, 'you')">▶️ 聽</button> <button class="play-btn small blue" onclick="speak(`Half a kilo of red, please. Thank you!`, 0.2, 'you')">🐢 極慢</button></div></div>
         </div>
 
         <div class="teacher-note"><strong>👩‍🏫 注意：</strong>留意 <strong>"per kilo"</strong> = 一公斤；<strong>"on sale"</strong> = 特價。識呢兩個字你會發現超市處處都有 deal！</div>
@@ -505,7 +515,6 @@
 <script>
 let currentStep = 1;
 let currentSpeed = 0.3;
-let englishVoice = null;
 const completedSteps = new Set();
 const TOTAL_STEPS = 6;
 
@@ -520,48 +529,137 @@ const FULL_DIALOGUE = [
   "Half a kilo of red, please. Thank you!"
 ];
 
+// ============ SPEECH (dual voice) ============
+let emmaVoice = null;   // 對方 / 店員 voice
+let hannahVoice = null; // 你 / Hannah voice
+let englishVoice = null; // default fallback (= emmaVoice)
+
 function loadVoices() {
   const voices = speechSynthesis.getVoices();
-  englishVoice = voices.find(v => v.lang === 'en-GB' && v.name.includes('Female')) ||
-                 voices.find(v => v.lang === 'en-GB') ||
-                 voices.find(v => v.lang.startsWith('en-')) ||
-                 voices[0];
+  const ukFemale = voices.filter(v => v.lang === 'en-GB' && v.name.toLowerCase().includes('female'));
+  const ukAny = voices.filter(v => v.lang === 'en-GB');
+  const enFemale = voices.filter(v => v.lang.startsWith('en-') && v.name.toLowerCase().includes('female'));
+  const enAny = voices.filter(v => v.lang.startsWith('en-'));
+
+  const femalePool = [...ukFemale, ...enFemale];
+  const generalPool = [...ukAny, ...enAny, ...voices];
+
+  const seen = new Set();
+  const uniqueFemale = femalePool.filter(v => !seen.has(v.name) && seen.add(v.name));
+  const seen2 = new Set();
+  const uniqueGeneral = generalPool.filter(v => !seen2.has(v.name) && seen2.add(v.name));
+
+  emmaVoice = uniqueFemale[0] || uniqueGeneral[0] || voices[0];
+  hannahVoice = uniqueFemale.find(v => v !== emmaVoice)
+             || uniqueGeneral.find(v => v !== emmaVoice)
+             || emmaVoice;
+  englishVoice = emmaVoice;  // default for flashcards / single-line speak
 }
 if (typeof speechSynthesis !== 'undefined') {
   loadVoices();
   speechSynthesis.onvoiceschanged = loadVoices;
 }
 
-function speak(text, speedOverride) {
+// Main speak() — accepts optional voice param (shop/you/null=default)
+function speak(text, rate, voiceKind) {
   speechSynthesis.cancel();
   const u = new SpeechSynthesisUtterance(text);
-  u.rate = speedOverride !== undefined ? speedOverride : currentSpeed;
+  u.rate = rate || 0.3;
   u.pitch = 1;
   u.volume = 1;
-  if (englishVoice) u.voice = englishVoice;
   u.lang = 'en-GB';
+  if (voiceKind === 'you') u.voice = hannahVoice;
+  else if (voiceKind === 'shop') u.voice = emmaVoice;
+  else u.voice = englishVoice;
   speechSynthesis.speak(u);
 }
 
-function setSpeed(speed, btn) {
-  currentSpeed = speed;
-  document.querySelectorAll('.speed-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
+// ============ FULL DIALOGUE TOGGLE ============
+let FULL_DIALOGUE_DATA = [];  // populated from DOM on first play
+let dialogueTimers = [];
+let dialoguePlaying = false;
+
+function buildDialogueData() {
+  const lines = document.querySelectorAll('.dialogue-card .dialogue-line');
+  FULL_DIALOGUE_DATA = [];
+  lines.forEach((line, idx) => {
+    line.setAttribute('data-line-idx', idx);
+    const textEl = line.querySelector('.dialogue-text');
+    const bubble = line.querySelector('.dialogue-bubble');
+    const isYou = bubble && bubble.classList.contains('you');
+    FULL_DIALOGUE_DATA.push({
+      text: textEl ? textEl.textContent.trim() : '',
+      voiceKind: isYou ? 'you' : 'shop',
+      idx: idx
+    });
+  });
+}
+
+function highlightLine(idx) {
+  const el = document.querySelector(`.dialogue-line[data-line-idx="${idx}"]`);
+  if (el) el.classList.add('active');
+}
+function unhighlightLine(idx) {
+  const el = document.querySelector(`.dialogue-line[data-line-idx="${idx}"]`);
+  if (el) el.classList.remove('active');
+}
+function clearAllHighlights() {
+  document.querySelectorAll('.dialogue-line.active').forEach(el => el.classList.remove('active'));
+}
+
+function toggleFullDialogue() {
+  if (dialoguePlaying) stopFullDialogue();
+  else playFullDialogue();
 }
 
 function playFullDialogue() {
+  if (FULL_DIALOGUE_DATA.length === 0) buildDialogueData();
   speechSynthesis.cancel();
-  let i = 0;
-  function next() {
-    if (i >= FULL_DIALOGUE.length) return;
-    const u = new SpeechSynthesisUtterance(FULL_DIALOGUE[i]);
-    u.rate = currentSpeed;
-    if (englishVoice) u.voice = englishVoice;
-    u.lang = 'en-GB';
-    u.onend = () => { i++; setTimeout(next, 600); };
-    speechSynthesis.speak(u);
+  clearAllHighlights();
+  dialogueTimers.forEach(t => clearTimeout(t));
+  dialogueTimers = [];
+  dialoguePlaying = true;
+  updateDialogueButton(true);
+
+  const gap = 3500;  // ms between lines
+
+  FULL_DIALOGUE_DATA.forEach((item, i) => {
+    const t = setTimeout(() => {
+      if (i > 0) unhighlightLine(i - 1);
+      highlightLine(i);
+      speak(item.text, 0.4, item.voiceKind);
+    }, i * gap);
+    dialogueTimers.push(t);
+  });
+
+  const totalMs = FULL_DIALOGUE_DATA.length * gap;
+  const endTimer = setTimeout(() => {
+    clearAllHighlights();
+    dialoguePlaying = false;
+    updateDialogueButton(false);
+  }, totalMs + 1500);
+  dialogueTimers.push(endTimer);
+}
+
+function stopFullDialogue() {
+  speechSynthesis.cancel();
+  dialogueTimers.forEach(t => clearTimeout(t));
+  dialogueTimers = [];
+  clearAllHighlights();
+  dialoguePlaying = false;
+  updateDialogueButton(false);
+}
+
+function updateDialogueButton(isPlaying) {
+  const btn = document.querySelector('button[onclick*="FullDialogue"]');
+  if (!btn) return;
+  if (isPlaying) {
+    btn.innerHTML = '⏹️ 停止';
+    btn.setAttribute('onclick', 'toggleFullDialogue()');
+  } else {
+    btn.innerHTML = '🔊 聽全段對話';
+    btn.setAttribute('onclick', 'toggleFullDialogue()');
   }
-  next();
 }
 
 function showHint(num, en, zh) {
