@@ -140,6 +140,9 @@ function refresh() {
   // Selected voice using same logic as the main lessons
   selectedVoice =
     voices.find(v => v.lang === 'en-GB' && isFemale(v)) ||
+    voices.find(v => v.lang === 'en-AU' && isFemale(v)) ||
+    voices.find(v => v.lang === 'en-IE' && isFemale(v)) ||
+    voices.find(v => v.lang === 'en-ZA' && isFemale(v)) ||
     voices.find(v => v.lang.startsWith('en-') && isFemale(v)) ||
     voices.find(v => v.lang === 'en-GB') ||
     voices.find(v => v.lang.startsWith('en-')) ||
@@ -179,10 +182,14 @@ function testSpeak(pitch) {
   u.rate = 0.7;
   u.pitch = pitch;
   u.volume = 1;
-  if (selectedVoice) u.voice = selectedVoice;
-  u.lang = 'en-GB';
+  if (selectedVoice) {
+    u.voice = selectedVoice;
+    u.lang = selectedVoice.lang;
+  } else {
+    u.lang = 'en-GB';
+  }
   speechSynthesis.speak(u);
-  log('Speaking with pitch ' + pitch);
+  log('Speaking with pitch ' + pitch + ' — voice: ' + (selectedVoice ? selectedVoice.name + ' (' + selectedVoice.lang + ')' : 'none'));
 }
 
 // Initial load
