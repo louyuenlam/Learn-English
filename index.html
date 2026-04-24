@@ -89,134 +89,77 @@
     font-size: 18px;
   }
 
-  /* ============ ACTION CARDS ============ */
-  .actions {
-    display: flex;
-    flex-direction: column;
+  /* ============ MAIN BOXES ============ */
+  .main-boxes {
+    display: grid;
+    grid-template-columns: 1fr;
     gap: 16px;
   }
 
-  .action-card {
+  .main-box {
     background: var(--paper);
     border: 2px solid var(--cream-dark);
-    border-radius: 20px;
-    padding: 22px 24px;
-    text-decoration: none;
-    color: var(--ink);
-    display: flex;
-    align-items: center;
-    gap: 20px;
+    border-radius: 24px;
+    padding: 32px 24px;
+    text-align: center;
     cursor: pointer;
     transition: all 0.2s cubic-bezier(0.3, 0.8, 0.4, 1);
-    box-shadow: 0 2px 0 var(--cream-dark);
+    box-shadow: 0 3px 0 var(--cream-dark);
     position: relative;
     overflow: hidden;
-    min-height: 120px;
-  }
-  .action-card::before {
-    content: '';
-    position: absolute;
-    left: 0; top: 0; bottom: 0;
-    width: 5px;
-    background: var(--accent);
-    transition: width 0.2s ease;
-  }
-  .action-card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 16px var(--shadow), 0 2px 0 var(--cream-dark);
-    border-color: var(--accent);
-  }
-  .action-card:hover::before {
-    width: 8px;
-  }
-  .action-card:active {
-    transform: translateY(0);
-  }
-
-  .action-card[data-color="terra"] { --accent: var(--terra); }
-  .action-card[data-color="gold"] { --accent: var(--gold); }
-  .action-card[data-color="sage"] { --accent: var(--sage); }
-
-  .action-card .icon-box {
-    flex-shrink: 0;
-    width: 72px;
-    height: 72px;
-    border-radius: 18px;
-    background: var(--cream);
+    min-height: 180px;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    font-size: 40px;
-  }
-  .action-card[data-color="terra"] .icon-box { background: #faeee8; }
-  .action-card[data-color="gold"] .icon-box { background: #fdf4e3; }
-  .action-card[data-color="sage"] .icon-box { background: #eef3e8; }
-
-  .action-card .text {
-    flex: 1;
-    min-width: 0;
-  }
-  .action-card h2 {
-    font-family: 'Fraunces', serif;
-    font-weight: 600;
-    font-size: 26px;
+    gap: 8px;
+    font-family: inherit;
     color: var(--ink);
-    line-height: 1.15;
+  }
+  .main-box::before {
+    content: '';
+    position: absolute;
+    left: 0; right: 0; top: 0;
+    height: 6px;
+    background: var(--accent);
+    transition: height 0.2s ease;
+  }
+  .main-box:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px var(--shadow), 0 3px 0 var(--cream-dark);
+    border-color: var(--accent);
+  }
+  .main-box:hover::before { height: 10px; }
+  .main-box:active { transform: translateY(0); }
+
+  .main-box[data-color="terra"] { --accent: var(--terra); }
+  .main-box[data-color="gold"] { --accent: var(--gold); }
+
+  .main-box .box-emoji {
+    font-size: 56px;
+    line-height: 1;
     margin-bottom: 4px;
   }
-  .action-card .desc {
-    font-size: 16px;
-    color: var(--ink-soft);
-    line-height: 1.4;
-  }
-  .action-card .desc .time {
-    color: var(--accent);
+  .main-box h2 {
+    font-family: 'Fraunces', serif;
     font-weight: 600;
-    font-family: 'Fraunces', serif;
-  }
-
-  .action-card .arrow {
-    flex-shrink: 0;
     font-size: 28px;
+    color: var(--ink);
+    line-height: 1.1;
+    margin: 0;
+  }
+  .main-box .box-desc {
+    font-size: 15px;
     color: var(--ink-soft);
-    font-family: 'Fraunces', serif;
-  }
-
-  /* ============ BOTTOM SECTION ============ */
-  .bottom-section {
-    margin-top: 32px;
-    padding-top: 22px;
-    border-top: 1px dashed var(--cream-dark);
-    text-align: center;
-  }
-  .bottom-section .label {
     font-family: 'Fraunces', serif;
     font-style: italic;
-    color: var(--ink-soft);
-    font-size: 15px;
-    margin-bottom: 12px;
   }
-  .lessons-btn {
-    background: transparent;
-    border: 1.5px solid var(--cream-dark);
-    padding: 12px 24px;
-    border-radius: 14px;
-    font-family: inherit;
-    font-size: 15px;
-    color: var(--ink-soft);
-    cursor: pointer;
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    text-decoration: none;
-    transition: all 0.15s ease;
+  .main-box .box-arrow {
+    font-size: 24px;
+    color: var(--accent);
+    font-family: 'Fraunces', serif;
+    margin-top: 4px;
   }
-  .lessons-btn:hover {
-    border-color: var(--terra);
-    color: var(--terra-dark);
-    background: var(--paper);
-  }
-  .lessons-btn .icon { font-size: 18px; }
 
   /* ============ LESSONS MODAL ============ */
   .modal-backdrop {
@@ -389,14 +332,19 @@
     .greeting { padding: 24px 0 36px; }
     .greeting h1 { font-size: 38px; }
     .greeting .sub { font-size: 20px; }
-    .action-card { min-height: 130px; padding: 24px 28px; }
-    .action-card h2 { font-size: 28px; }
-    .action-card .desc { font-size: 17px; }
-    .action-card .icon-box {
-      width: 80px;
-      height: 80px;
-      font-size: 44px;
+
+    /* 2-column layout on desktop */
+    .main-boxes {
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
     }
+    .main-box {
+      min-height: 220px;
+      padding: 40px 24px;
+    }
+    .main-box .box-emoji { font-size: 64px; }
+    .main-box h2 { font-size: 32px; }
+    .main-box .box-desc { font-size: 16px; }
   }
 </style>
 </head>
@@ -410,43 +358,22 @@
     <div class="sub">你今日想做咩？</div>
   </div>
 
-  <div class="actions">
+  <div class="main-boxes">
 
-    <a class="action-card" data-color="terra" href="tools/flashcard-game.html">
-      <div class="icon-box">🌲</div>
-      <div class="text">
-        <h2>套語森林</h2>
-        <div class="desc">8 關闖關 · 認字 · <span class="time">5-10 分鐘</span></div>
-      </div>
-      <div class="arrow">→</div>
-    </a>
-
-    <a class="action-card" data-color="gold" href="tools/qa-game.html">
-      <div class="icon-box">🏘️</div>
-      <div class="text">
-        <h2>對答小鎮</h2>
-        <div class="desc">8 關 · 聽問題即刻答 · <span class="time">5-10 分鐘</span></div>
-      </div>
-      <div class="arrow">→</div>
-    </a>
-
-    <a class="action-card" data-color="sage" href="tools/test-game.html">
-      <div class="icon-box">🏔️</div>
-      <div class="text">
-        <h2>評估山頂</h2>
-        <div class="desc">5 站登山 · 5 種題型 · <span class="time">10-15 分鐘</span></div>
-      </div>
-      <div class="arrow">→</div>
-    </a>
-
-  </div>
-
-  <div class="bottom-section">
-    <div class="label">想睇返堂嘅內容？</div>
-    <button class="lessons-btn" onclick="openLessons()">
-      <span class="icon">📖</span>
-      <span>返去睇 7 堂課</span>
+    <button class="main-box" data-color="terra" onclick="openLessons()">
+      <div class="box-emoji">📚</div>
+      <h2>課堂內容</h2>
+      <div class="box-desc">睇 lessons 學新嘢</div>
+      <div class="box-arrow">→</div>
     </button>
+
+    <button class="main-box" data-color="gold" onclick="openGames()">
+      <div class="box-emoji">🎮</div>
+      <h2>溫習</h2>
+      <div class="box-desc">玩遊戲練熟套語</div>
+      <div class="box-arrow">→</div>
+    </button>
+
   </div>
 
 </div>
@@ -455,7 +382,7 @@
 <div class="modal-backdrop" id="lessons-modal" onclick="closeLessonsIfBackdrop(event)">
   <div class="modal-sheet">
     <div class="modal-handle"></div>
-    <h2 class="modal-title">📖 Week 1-2 · 7 堂課</h2>
+    <h2 class="modal-title">📖 所有課堂</h2>
     <p class="modal-sub">揀一堂去睇返內容</p>
 
     <div class="lesson-list">
@@ -503,24 +430,64 @@
         </div>
         <span class="arrow">→</span>
       </a>
+      <a class="lesson-item new-lesson" href="lessons/lesson5-5-contractions.html">
+        <span class="num" style="background: var(--gold); font-size: 14px;">🔤</span>
+        <div class="meta">
+          <div class="title">縮寫聽明白（Bonus）</div>
+          <div class="sub">I'm / It's / I'll 係乜意思？</div>
+        </div>
+        <span class="arrow">→</span>
+      </a>
 
       <div class="week-separator">
-        <span class="label">Week 2 · 日常生活</span>
+        <span class="label">Week 2 · 🛍️ 購物 Deep Dive</span>
         <span class="line"></span>
       </div>
-      <a class="lesson-item new-lesson" href="lessons/lesson6-shopping.html">
-        <span class="num">6</span>
+      <a class="lesson-item" href="lessons/week2-day1-shopping.html">
+        <span class="num">1</span>
         <div class="meta">
-          <div class="title">🛍️ 購物入門</div>
+          <div class="title">🛒 Supermarket 基本</div>
           <div class="sub">喺 Tesco 買嘢 · 問價錢 · 俾錢</div>
         </div>
         <span class="arrow">→</span>
       </a>
-      <a class="lesson-item new-lesson" href="lessons/lesson7-cafe.html">
-        <span class="num">7</span>
+      <a class="lesson-item new-lesson" href="lessons/week2-day2-dairy.html">
+        <span class="num">2</span>
         <div class="meta">
-          <div class="title">☕ Café 點嘢飲</div>
-          <div class="sub">喺 Costa 叫 latte · 茶 · 果茶</div>
+          <div class="title">🥛 奶類 & 早餐</div>
+          <div class="sub">milk, eggs, bread, cheese...</div>
+        </div>
+        <span class="arrow">→</span>
+      </a>
+      <a class="lesson-item new-lesson" href="lessons/week2-day3-meat.html">
+        <span class="num">3</span>
+        <div class="meta">
+          <div class="title">🥩 肉類</div>
+          <div class="sub">beef, chicken, mince, sausages...</div>
+        </div>
+        <span class="arrow">→</span>
+      </a>
+      <a class="lesson-item new-lesson" href="lessons/week2-day4-seafood.html">
+        <span class="num">4</span>
+        <div class="meta">
+          <div class="title">🦐 海鮮</div>
+          <div class="sub">salmon, prawns, crab, mussels...</div>
+        </div>
+        <span class="arrow">→</span>
+      </a>
+      <a class="lesson-item new-lesson" href="lessons/week2-day5-produce.html">
+        <span class="num">5</span>
+        <div class="meta">
+          <div class="title">🍎 水果 & 🥕 蔬菜</div>
+          <div class="sub">apples, bananas, carrots, tomatoes...</div>
+        </div>
+        <span class="arrow">→</span>
+      </a>
+      <a class="lesson-item new-lesson" href="lessons/week2-day6-review.html">
+        <span class="num" style="background: var(--gold);">6</span>
+        <div class="meta">
+          <div class="title">🛒 Week 2 綜合 Review</div>
+          <div class="sub">完整買餸 roleplay + 測驗</div>
         </div>
         <span class="arrow">→</span>
       </a>
@@ -540,6 +507,44 @@
     </div>
 
     <button class="modal-close" onclick="closeLessons()">關閉</button>
+  </div>
+</div>
+
+<!-- GAMES MODAL -->
+<div class="modal-backdrop" id="games-modal" onclick="closeGamesIfBackdrop(event)">
+  <div class="modal-sheet">
+    <div class="modal-handle"></div>
+    <h2 class="modal-title">🎮 揀個遊戲玩</h2>
+    <p class="modal-sub">玩遊戲 = 溫習</p>
+
+    <div class="lesson-list">
+      <a class="lesson-item" href="tools/flashcard-game.html">
+        <span class="num" style="background: var(--terra);">🌲</span>
+        <div class="meta">
+          <div class="title">套語森林</div>
+          <div class="sub">8 關闖關 · 認字 · 5-10 分鐘</div>
+        </div>
+        <span class="arrow">→</span>
+      </a>
+      <a class="lesson-item" href="tools/qa-game.html">
+        <span class="num" style="background: var(--gold);">🏘️</span>
+        <div class="meta">
+          <div class="title">對答小鎮</div>
+          <div class="sub">8 關 · 聽問題即刻答 · 5-10 分鐘</div>
+        </div>
+        <span class="arrow">→</span>
+      </a>
+      <a class="lesson-item" href="tools/test-game.html">
+        <span class="num" style="background: var(--sage);">🏔️</span>
+        <div class="meta">
+          <div class="title">評估山頂</div>
+          <div class="sub">5 站登山 · 5 種題型 · 10-15 分鐘</div>
+        </div>
+        <span class="arrow">→</span>
+      </a>
+    </div>
+
+    <button class="modal-close" onclick="closeGames()">關閉</button>
   </div>
 </div>
 
@@ -566,8 +571,23 @@ function closeLessons() {
 function closeLessonsIfBackdrop(e) {
   if (e.target.id === 'lessons-modal') closeLessons();
 }
+
+// Games modal
+function openGames() {
+  document.getElementById('games-modal').classList.add('open');
+}
+function closeGames() {
+  document.getElementById('games-modal').classList.remove('open');
+}
+function closeGamesIfBackdrop(e) {
+  if (e.target.id === 'games-modal') closeGames();
+}
+
 document.addEventListener('keydown', e => {
-  if (e.key === 'Escape') closeLessons();
+  if (e.key === 'Escape') {
+    closeLessons();
+    closeGames();
+  }
 });
 </script>
 
