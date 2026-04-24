@@ -559,10 +559,15 @@ function loadVoices() {
     return FEMALE_NAMES.some(name => n.includes(name));
   }
 
-  // Priority search (UK female first, then any English female, then any UK, then any English)
+  // Priority search (UK female first, then AU/IE close accent, then US, then fallback)
+  // Note: iOS default en-GB voice is often Daniel (male). We prefer en-AU Karen / en-IE Moira
+  // which sound closer to British than en-US Samantha
   englishVoice =
-    voices.find(v => v.lang === 'en-GB' && isFemale(v)) ||
-    voices.find(v => v.lang.startsWith('en-') && isFemale(v)) ||
+    voices.find(v => v.lang === 'en-GB' && isFemale(v)) ||      // UK female (rare)
+    voices.find(v => v.lang === 'en-AU' && isFemale(v)) ||      // AU female (Karen) - close to UK
+    voices.find(v => v.lang === 'en-IE' && isFemale(v)) ||      // Irish female (Moira)
+    voices.find(v => v.lang === 'en-ZA' && isFemale(v)) ||      // SA female (Tessa)
+    voices.find(v => v.lang.startsWith('en-') && isFemale(v)) || // any English female
     voices.find(v => v.lang === 'en-GB') ||
     voices.find(v => v.lang.startsWith('en-')) ||
     voices[0];
@@ -589,8 +594,12 @@ function speak(text, speedOverride) {
   // If voice isn't confirmed female, raise pitch to simulate female voice
   u.pitch = window._voiceIsFemale ? 1.0 : 1.4;
   u.volume = 1;
-  if (englishVoice) u.voice = englishVoice;
-  u.lang = 'en-GB';
+  if (englishVoice) {
+    u.voice = englishVoice;
+    u.lang = englishVoice.lang;  // ← Match voice's native lang (iOS fix)
+  } else {
+    u.lang = 'en-GB';
+  }
   speechSynthesis.speak(u);
 }
 
@@ -609,8 +618,12 @@ function playFullDialogue() {
     u.rate = currentSpeed;
     u.pitch = window._voiceIsFemale ? 1.0 : 1.4;
     u.volume = 1;
-    if (englishVoice) u.voice = englishVoice;
-    u.lang = 'en-GB';
+    if (englishVoice) {
+      u.voice = englishVoice;
+      u.lang = englishVoice.lang;  // ← Match voice's native lang (iOS fix)
+    } else {
+      u.lang = 'en-GB';
+    }
     u.onend = () => { i++; setTimeout(next, 600); };
     speechSynthesis.speak(u);
   }
