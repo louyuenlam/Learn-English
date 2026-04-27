@@ -4,9 +4,9 @@
 
 ## 🌐 網上使用
 
-**GitHub Pages URL:** `https://<YOUR-USERNAME>.github.io/hannah-english/`
+**GitHub Pages URL:** `https://<louyuenlam>.github.io/hannah-english/`
 
-（`<YOUR-USERNAME>` 要換做你嘅 GitHub username）
+（`<louyuenlam>` 要換做你嘅 GitHub username）
 
 ## 🎯 係咩
 
