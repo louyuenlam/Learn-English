@@ -829,9 +829,9 @@ function loadVoices() {
 
     // Tier 2: iOS local female voices in close-to-UK accents
     voices.find(v => v.lang === 'en-GB' && isIosLocal(v)) ||
-    voices.find(v => v.lang === 'en-IE' && isIosLocal(v)) ||  // Moira
-    voices.find(v => v.lang === 'en-AU' && isIosLocal(v)) ||  // Karen
-    voices.find(v => v.lang === 'en-ZA' && isIosLocal(v)) ||  // Tessa
+    voices.find(v => v.lang === 'en-AU' && isIosLocal(v)) ||  // Karen — closer to UK
+    voices.find(v => v.lang === 'en-IE' && isIosLocal(v)) ||  // Moira — Irish accent
+    voices.find(v => v.lang === 'en-ZA' && isIosLocal(v)) ||  // Tessa — South African
 
     // Tier 3: Any iOS local female voice (US/etc)
     voices.find(v => v.lang.startsWith('en-') && isIosLocal(v)) ||
