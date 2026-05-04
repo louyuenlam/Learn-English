@@ -873,7 +873,7 @@
 <body>
 
 <!-- Version badge -->
-<div class="version-badge"><span class="v-num">v1.0</span><span class="v-date">· 2026-05-04</span></div>
+<div class="version-badge"><span class="v-num">v1.1</span><span class="v-date">· 2026-05-04</span></div>
 
 <div class="container">
 
@@ -920,9 +920,9 @@
       </div>
       <div class="days" id="mini-days"></div>
       <div class="calendar-legend">
-        <div class="calendar-legend-item"><div class="legend-dot w1"></div>Week 1</div>
-        <div class="calendar-legend-item"><div class="legend-dot w2"></div>Week 2</div>
-        <div class="calendar-legend-item"><div class="legend-dot w3"></div>Week 3</div>
+        <div class="calendar-legend-item"><div class="legend-dot w1"></div>Module 1</div>
+        <div class="calendar-legend-item"><div class="legend-dot w2"></div>Module 2</div>
+        <div class="calendar-legend-item"><div class="legend-dot w3"></div>Module 3</div>
         <div class="calendar-legend-item"><div class="legend-dot done"></div>已完成</div>
       </div>
       <a href="calendar.html" class="calendar-link">📅 睇完整 calendar →</a>
@@ -1022,23 +1022,23 @@
 // LESSON CATALOG
 // ============================================================
 const LESSONS = [
-  { id: 'lesson1-introduction', title: '自我介紹', desc: 'I am... My name is... 基本介紹用語', week: 'week-1', weekLabel: 'Week 1', file: 'lessons/lesson1-introduction.html' },
-  { id: 'lesson2-greetings', title: '打招呼', desc: 'Hello / Good morning / How are you 等日常問候', week: 'week-1', weekLabel: 'Week 1', file: 'lessons/lesson2-greetings.html' },
-  { id: 'lesson3-goodbyes', title: '道別', desc: 'Goodbye / See you / Thanks 等告別語句', week: 'week-1', weekLabel: 'Week 1', file: 'lessons/lesson3-goodbyes.html' },
-  { id: 'lesson4-questions', title: '問問題', desc: 'What / Where / When / How 基本疑問詞', week: 'week-1', weekLabel: 'Week 1', file: 'lessons/lesson4-questions.html' },
-  { id: 'lesson5-week1-review', title: 'Week 1 總溫習', desc: '統合 Lesson 1-4 嘅內容', week: 'week-1', weekLabel: 'Week 1', file: 'lessons/lesson5-week1-review.html' },
-  { id: 'week2-day1-shopping', title: '🛍️ 購物入門', desc: '基本購物對話 + 英鎊認識', week: 'week-2', weekLabel: 'Week 2', file: 'lessons/week2-day1-shopping.html' },
-  { id: 'week2-day2-dairy', title: '🥛 奶製品', desc: 'Milk / cheese / yogurt 等乳品詞彙', week: 'week-2', weekLabel: 'Week 2', file: 'lessons/week2-day2-dairy.html' },
-  { id: 'week2-day3-meat', title: '🥩 肉類', desc: 'Beef / chicken / pork 等肉類用詞', week: 'week-2', weekLabel: 'Week 2', file: 'lessons/week2-day3-meat.html' },
-  { id: 'week2-day4-seafood', title: '🐟 海鮮', desc: 'Fish / prawns / salmon 等海鮮詞彙', week: 'week-2', weekLabel: 'Week 2', file: 'lessons/week2-day4-seafood.html' },
-  { id: 'week2-day5-produce', title: '🥕 蔬果', desc: 'Vegetables / fruits 名稱', week: 'week-2', weekLabel: 'Week 2', file: 'lessons/week2-day5-produce.html' },
-  { id: 'week2-day6-review', title: '🛒 Week 2 大溫習', desc: '購物全套溫習 + 角色扮演', week: 'week-2', weekLabel: 'Week 2', file: 'lessons/week2-day6-review.html' },
-  { id: 'week3-day1-cafe', title: '☕ Café 入門', desc: '入 cafe 點嘢飲嘅基本對話', week: 'week-3', weekLabel: 'Week 3', file: 'lessons/week3-day1-cafe.html' },
-  { id: 'week3-day2-tea', title: '🍵 茶', desc: 'English breakfast / Earl grey 等茶款', week: 'week-3', weekLabel: 'Week 3', file: 'lessons/week3-day2-tea.html' },
-  { id: 'week3-day3-coffee', title: '☕ 咖啡', desc: 'Latte / cappuccino / flat white', week: 'week-3', weekLabel: 'Week 3', file: 'lessons/week3-day3-coffee.html' },
-  { id: 'week3-day4-pastries', title: '🥐 糕點', desc: 'Croissant / scone / muffin 等', week: 'week-3', weekLabel: 'Week 3', file: 'lessons/week3-day4-pastries.html' },
-  { id: 'week3-day5-sandwiches', title: '🥪 三文治', desc: 'Sandwich / panini / wrap', week: 'week-3', weekLabel: 'Week 3', file: 'lessons/week3-day5-sandwiches.html' },
-  { id: 'week3-day6-review', title: '🎉 Week 3 大溫習', desc: 'Café 全套溫習 + 完整訂餐', week: 'week-3', weekLabel: 'Week 3', file: 'lessons/week3-day6-review.html' },
+  { id: 'lesson1-introduction', title: '自我介紹', desc: 'I am... My name is... 基本介紹用語', week: 'week-1', weekLabel: 'Module 1', file: 'lessons/lesson1-introduction.html' },
+  { id: 'lesson2-greetings', title: '打招呼', desc: 'Hello / Good morning / How are you 等日常問候', week: 'week-1', weekLabel: 'Module 1', file: 'lessons/lesson2-greetings.html' },
+  { id: 'lesson3-goodbyes', title: '道別', desc: 'Goodbye / See you / Thanks 等告別語句', week: 'week-1', weekLabel: 'Module 1', file: 'lessons/lesson3-goodbyes.html' },
+  { id: 'lesson4-questions', title: '問問題', desc: 'What / Where / When / How 基本疑問詞', week: 'week-1', weekLabel: 'Module 1', file: 'lessons/lesson4-questions.html' },
+  { id: 'lesson5-week1-review', title: 'Module 1 總溫習', desc: '統合 Lesson 1-4 嘅內容', week: 'week-1', weekLabel: 'Module 1', file: 'lessons/lesson5-week1-review.html' },
+  { id: 'week2-day1-shopping', title: '🛍️ 購物入門', desc: '基本購物對話 + 英鎊認識', week: 'week-2', weekLabel: 'Module 2', file: 'lessons/week2-day1-shopping.html' },
+  { id: 'week2-day2-dairy', title: '🥛 奶製品', desc: 'Milk / cheese / yogurt 等乳品詞彙', week: 'week-2', weekLabel: 'Module 2', file: 'lessons/week2-day2-dairy.html' },
+  { id: 'week2-day3-meat', title: '🥩 肉類', desc: 'Beef / chicken / pork 等肉類用詞', week: 'week-2', weekLabel: 'Module 2', file: 'lessons/week2-day3-meat.html' },
+  { id: 'week2-day4-seafood', title: '🐟 海鮮', desc: 'Fish / prawns / salmon 等海鮮詞彙', week: 'week-2', weekLabel: 'Module 2', file: 'lessons/week2-day4-seafood.html' },
+  { id: 'week2-day5-produce', title: '🥕 蔬果', desc: 'Vegetables / fruits 名稱', week: 'week-2', weekLabel: 'Module 2', file: 'lessons/week2-day5-produce.html' },
+  { id: 'week2-day6-review', title: '🛒 Module 2 大溫習', desc: '購物全套溫習 + 角色扮演', week: 'week-2', weekLabel: 'Module 2', file: 'lessons/week2-day6-review.html' },
+  { id: 'week3-day1-cafe', title: '☕ Café 入門', desc: '入 cafe 點嘢飲嘅基本對話', week: 'week-3', weekLabel: 'Module 3', file: 'lessons/week3-day1-cafe.html' },
+  { id: 'week3-day2-tea', title: '🍵 茶', desc: 'English breakfast / Earl grey 等茶款', week: 'week-3', weekLabel: 'Module 3', file: 'lessons/week3-day2-tea.html' },
+  { id: 'week3-day3-coffee', title: '☕ 咖啡', desc: 'Latte / cappuccino / flat white', week: 'week-3', weekLabel: 'Module 3', file: 'lessons/week3-day3-coffee.html' },
+  { id: 'week3-day4-pastries', title: '🥐 糕點', desc: 'Croissant / scone / muffin 等', week: 'week-3', weekLabel: 'Module 3', file: 'lessons/week3-day4-pastries.html' },
+  { id: 'week3-day5-sandwiches', title: '🥪 三文治', desc: 'Sandwich / panini / wrap', week: 'week-3', weekLabel: 'Module 3', file: 'lessons/week3-day5-sandwiches.html' },
+  { id: 'week3-day6-review', title: '🎉 Week 3 大溫習', desc: 'Café 全套溫習 + 完整訂餐', week: 'week-3', weekLabel: 'Module 3', file: 'lessons/week3-day6-review.html' },
 ];
 
 // Bonus lessons — independent, not part of the daily schedule
@@ -1236,7 +1236,7 @@ function renderMiniCalendar() {
       cell.dataset.dateKey = dateKey;
       cell.title = `${lesson.title}（${lesson.weekLabel}）`;
       cell.onclick = () => openLessonModalFromCalendar(dateKey);
-      cell.innerHTML = `<div class="day-num">${day}</div><div class="lesson-mini">${lesson.weekLabel.replace('Week ', 'W').replace('Bonus', 'B')}</div>`;
+      cell.innerHTML = `<div class="day-num">${day}</div><div class="lesson-mini">${lesson.weekLabel.replace('Module ', 'M').replace('Bonus', 'B')}</div>`;
     } else {
       cell.textContent = day;
     }
@@ -1404,7 +1404,7 @@ function populateSidebarLessons() {
       <a href="${l.file}" class="sidebar-item${done ? ' completed' : ''}">
         <span class="sidebar-item-icon"></span>
         <span style="flex: 1;">${l.title}</span>
-        <span class="sidebar-item-week-badge ${weekClass}">${l.weekLabel.replace('Week ', 'W')}</span>
+        <span class="sidebar-item-week-badge ${weekClass}">${l.weekLabel.replace('Module ', 'M')}</span>
       </a>
     `;
   }).join('');
