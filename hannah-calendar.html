@@ -1,0 +1,1013 @@
+<!DOCTYPE html>
+<html lang="zh-yue">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<title>Hannah 學習進度 · Calendar</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400&family=Noto+Sans+HK:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --cream: #faf6ef;
+    --cream-dark: #ede4d3;
+    --paper: #fffbf3;
+    --ink: #2a2420;
+    --ink-soft: #6b5d54;
+    --terra: #c86b4a;
+    --terra-dark: #a85638;
+    --terra-soft: #f4d4c5;
+    --gold: #c9a84c;
+    --gold-soft: #f0e3b8;
+    --sage: #7a8471;
+    --sage-soft: #d8dfd2;
+    --blue: #5a7a8b;
+    --blue-soft: #d4dee5;
+    --berry: #a04d6e;
+    --plum: #6b4d7a;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { -webkit-text-size-adjust: 100%; }
+
+  body {
+    font-family: 'Noto Sans HK', -apple-system, sans-serif;
+    background: var(--cream);
+    color: var(--ink);
+    line-height: 1.5;
+    font-size: 15px;
+    min-height: 100vh;
+  }
+
+  /* Decorative pattern background */
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    pointer-events: none;
+    background-image: repeating-linear-gradient(45deg, rgba(139, 115, 85, 0.02) 0 1px, transparent 1px 6px);
+    z-index: 0;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 30px 20px 60px;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Header */
+  .header {
+    text-align: center;
+    margin-bottom: 36px;
+  }
+  .header .ornament {
+    color: var(--gold);
+    font-size: 18px;
+    letter-spacing: 8px;
+    margin-bottom: 10px;
+  }
+  .header h1 {
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-size: clamp(28px, 5vw, 42px);
+    color: var(--ink);
+    margin-bottom: 6px;
+    letter-spacing: -0.02em;
+  }
+  .header .subtitle {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    color: var(--ink-soft);
+    font-size: 16px;
+  }
+  .header .date-info {
+    margin-top: 14px;
+    font-size: 13px;
+    color: var(--ink-soft);
+  }
+  .header .date-info strong { color: var(--terra); }
+
+  /* Stats panel */
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 14px;
+    margin-bottom: 30px;
+  }
+  .stat-card {
+    background: var(--paper);
+    border: 1.5px solid var(--cream-dark);
+    border-radius: 14px;
+    padding: 16px 18px;
+    text-align: center;
+    transition: transform 0.2s ease;
+  }
+  .stat-card:hover {
+    transform: translateY(-2px);
+  }
+  .stat-card .stat-num {
+    font-family: 'Fraunces', serif;
+    font-size: 32px;
+    font-weight: 600;
+    color: var(--terra);
+    line-height: 1.1;
+  }
+  .stat-card .stat-label {
+    font-size: 12px;
+    color: var(--ink-soft);
+    margin-top: 4px;
+    letter-spacing: 0.5px;
+  }
+  .stat-card.completed .stat-num { color: var(--sage); }
+  .stat-card.upcoming .stat-num { color: var(--gold); }
+  .stat-card.progress .stat-num { color: var(--blue); }
+
+  /* Progress bar */
+  .progress-section {
+    margin-bottom: 36px;
+  }
+  .progress-bar-outer {
+    background: var(--cream-dark);
+    border-radius: 100px;
+    height: 14px;
+    overflow: hidden;
+    position: relative;
+  }
+  .progress-bar-inner {
+    background: linear-gradient(90deg, var(--terra), var(--gold));
+    height: 100%;
+    border-radius: 100px;
+    transition: width 0.6s cubic-bezier(0.3, 0.85, 0.4, 1);
+    box-shadow: 0 0 8px rgba(201, 168, 76, 0.5);
+  }
+  .progress-info {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 8px;
+    font-size: 13px;
+    color: var(--ink-soft);
+  }
+  .progress-info strong { color: var(--ink); font-weight: 600; }
+
+  /* Legend */
+  .legend {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 30px;
+    padding: 14px 20px;
+    background: var(--paper);
+    border-radius: 12px;
+    border: 1.5px solid var(--cream-dark);
+  }
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    color: var(--ink-soft);
+  }
+  .legend-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 4px;
+    flex-shrink: 0;
+  }
+  .legend-dot.week-1 { background: var(--terra); }
+  .legend-dot.week-bonus { background: var(--berry); }
+  .legend-dot.week-2 { background: var(--gold); }
+  .legend-dot.week-3 { background: var(--sage); }
+  .legend-dot.week-4 { background: var(--blue); }
+  .legend-dot.completed {
+    background: var(--sage);
+    background-image: linear-gradient(135deg, var(--sage), #5a6d5e);
+  }
+  .legend-dot.today {
+    background: white;
+    border: 2px solid var(--terra);
+  }
+
+  /* Months grid */
+  .months {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+
+  @media (min-width: 900px) {
+    .months {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .month {
+    background: var(--paper);
+    border-radius: 18px;
+    padding: 22px 18px 18px;
+    border: 1.5px solid var(--cream-dark);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+  }
+
+  .month-title {
+    font-family: 'Fraunces', serif;
+    font-size: 22px;
+    font-weight: 500;
+    color: var(--ink);
+    margin-bottom: 14px;
+    text-align: center;
+    letter-spacing: -0.01em;
+  }
+  .month-title .year {
+    font-size: 13px;
+    color: var(--ink-soft);
+    font-style: italic;
+    margin-left: 8px;
+  }
+
+  /* Day grid */
+  .weekdays {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 4px;
+    margin-bottom: 6px;
+  }
+  .weekday-name {
+    text-align: center;
+    font-size: 10px;
+    color: var(--ink-soft);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 4px 0;
+  }
+  .weekday-name.weekend { color: var(--terra); }
+
+  .days {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 4px;
+  }
+
+  .day {
+    aspect-ratio: 1;
+    background: var(--cream);
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    color: var(--ink-soft);
+    position: relative;
+    cursor: default;
+    transition: all 0.15s ease;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .day.empty {
+    background: transparent;
+    visibility: hidden;
+  }
+
+  .day.past:not(.has-lesson) {
+    opacity: 0.4;
+  }
+
+  .day.today {
+    background: white;
+    border: 2px solid var(--terra);
+    color: var(--ink);
+    font-weight: 700;
+    box-shadow: 0 0 0 3px rgba(200, 107, 74, 0.15);
+  }
+  .day.today::after {
+    content: '今日';
+    position: absolute;
+    bottom: -3px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 8px;
+    color: var(--terra);
+    font-weight: 700;
+    background: white;
+    padding: 0 3px;
+    border-radius: 4px;
+    border: 1px solid var(--terra);
+  }
+
+  .day.has-lesson {
+    cursor: pointer;
+    color: white;
+    font-weight: 600;
+  }
+  .day.has-lesson:hover {
+    transform: scale(1.06);
+    z-index: 2;
+  }
+  .day.has-lesson:active {
+    transform: scale(0.96);
+  }
+
+  .day.has-lesson.week-1 {
+    background: var(--terra);
+  }
+  .day.has-lesson.week-bonus {
+    background: var(--berry);
+  }
+  .day.has-lesson.week-2 {
+    background: var(--gold);
+    color: white;
+  }
+  .day.has-lesson.week-3 {
+    background: var(--sage);
+  }
+  .day.has-lesson.week-4 {
+    background: var(--blue);
+  }
+
+  .day.has-lesson.completed {
+    background: linear-gradient(135deg, #7a8471, #5a6d5e) !important;
+    color: white;
+    position: relative;
+  }
+  .day.has-lesson.completed::before {
+    content: '✓';
+    position: absolute;
+    top: 2px;
+    right: 4px;
+    font-size: 10px;
+    font-weight: 800;
+    color: white;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+  }
+
+  /* Number inside cell */
+  .day-num {
+    font-size: 14px;
+    line-height: 1;
+  }
+  .day.has-lesson .day-num {
+    font-size: 13px;
+  }
+  .day .lesson-mini {
+    font-size: 9px;
+    line-height: 1;
+    margin-top: 3px;
+    opacity: 0.95;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+  }
+
+  /* Lesson detail modal */
+  .modal-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(42, 36, 32, 0.6);
+    z-index: 100;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    -webkit-backdrop-filter: blur(6px);
+    backdrop-filter: blur(6px);
+  }
+  .modal-backdrop.show {
+    display: flex;
+    animation: fadeIn 0.2s ease;
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  .modal {
+    background: var(--paper);
+    border-radius: 18px;
+    padding: 26px 24px 22px;
+    max-width: 420px;
+    width: 100%;
+    box-shadow: 0 12px 40px rgba(0,0,0,0.2);
+    position: relative;
+    animation: slideUp 0.25s cubic-bezier(0.3, 0.85, 0.4, 1);
+  }
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .modal-close {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: transparent;
+    border: none;
+    font-size: 22px;
+    color: var(--ink-soft);
+    cursor: pointer;
+  }
+  .modal-date {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    color: var(--ink-soft);
+    font-size: 14px;
+    margin-bottom: 6px;
+  }
+  .modal-lesson-title {
+    font-family: 'Fraunces', serif;
+    font-size: 24px;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 6px;
+    line-height: 1.2;
+  }
+  .modal-lesson-week {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 600;
+    color: white;
+    margin-bottom: 14px;
+    letter-spacing: 0.5px;
+  }
+  .modal-lesson-desc {
+    font-size: 14px;
+    color: var(--ink-soft);
+    line-height: 1.6;
+    margin-bottom: 18px;
+  }
+
+  .modal-actions {
+    display: flex;
+    gap: 10px;
+    flex-direction: column;
+  }
+  .modal-btn {
+    width: 100%;
+    padding: 13px;
+    border: 1.5px solid var(--cream-dark);
+    background: white;
+    color: var(--ink);
+    border-radius: 10px;
+    font-family: 'Noto Sans HK', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    text-decoration: none;
+    text-align: center;
+    transition: all 0.15s ease;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+  }
+  .modal-btn:hover { border-color: var(--terra); color: var(--terra); }
+  .modal-btn.primary {
+    background: var(--terra);
+    border-color: var(--terra);
+    color: white;
+  }
+  .modal-btn.primary:hover {
+    background: var(--terra-dark);
+    color: white;
+  }
+  .modal-btn.completed {
+    background: var(--sage);
+    border-color: var(--sage);
+    color: white;
+  }
+  .modal-btn.completed:hover {
+    background: #5a6d5e;
+    color: white;
+  }
+
+  /* Footer note */
+  .footer-note {
+    margin-top: 40px;
+    text-align: center;
+    color: var(--ink-soft);
+    font-size: 12px;
+    font-style: italic;
+  }
+  .footer-note a {
+    color: var(--terra);
+    text-decoration: none;
+  }
+
+  /* Scroll to today button */
+  .scroll-to-today {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: var(--terra);
+    color: white;
+    border: none;
+    border-radius: 50px;
+    padding: 12px 18px;
+    font-family: 'Noto Sans HK', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 4px 14px rgba(200, 107, 74, 0.4);
+    z-index: 50;
+    -webkit-tap-highlight-color: transparent;
+    transition: all 0.15s ease;
+  }
+  .scroll-to-today:hover {
+    background: var(--terra-dark);
+    transform: translateY(-1px);
+  }
+  .scroll-to-today:active { transform: translateY(0); }
+
+  /* Reset progress button */
+  .reset-btn {
+    margin: 30px auto 0;
+    display: block;
+    background: transparent;
+    border: 1.5px solid var(--cream-dark);
+    color: var(--ink-soft);
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-family: 'Noto Sans HK', sans-serif;
+    font-size: 12px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+  .reset-btn:hover { border-color: var(--terra); color: var(--terra); }
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <div class="header">
+    <div class="ornament">· · ·</div>
+    <h1>Hannah 學習進度</h1>
+    <div class="subtitle">Learning Calendar · 2026</div>
+    <div class="date-info">
+      由 <strong id="start-date">2026-04-22</strong> 開始 · 一三五學一個 lesson · 17 個 lessons
+    </div>
+  </div>
+
+  <!-- Stats -->
+  <div class="stats">
+    <div class="stat-card completed">
+      <div class="stat-num" id="stat-completed">0</div>
+      <div class="stat-label">已完成 ✓</div>
+    </div>
+    <div class="stat-card progress">
+      <div class="stat-num" id="stat-percent">0%</div>
+      <div class="stat-label">完成率</div>
+    </div>
+    <div class="stat-card upcoming">
+      <div class="stat-num" id="stat-upcoming">17</div>
+      <div class="stat-label">未做嘅 lessons</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num" id="stat-days-left">—</div>
+      <div class="stat-label">餘下日數</div>
+    </div>
+  </div>
+
+  <!-- Progress bar -->
+  <div class="progress-section">
+    <div class="progress-bar-outer">
+      <div class="progress-bar-inner" id="progress-bar" style="width: 0%"></div>
+    </div>
+    <div class="progress-info">
+      <span><strong id="progress-current">0</strong> / 17 lessons</span>
+      <span id="progress-end-date">完成日期：—</span>
+    </div>
+  </div>
+
+  <!-- Legend -->
+  <div class="legend">
+    <div class="legend-item"><div class="legend-dot week-1"></div>Week 1 · 自我介紹</div>
+    <div class="legend-item"><div class="legend-dot week-2"></div>Week 2 · 購物</div>
+    <div class="legend-item"><div class="legend-dot week-3"></div>Week 3 · Café</div>
+    <div class="legend-item"><div class="legend-dot completed"></div>已完成 ✓</div>
+    <div class="legend-item"><div class="legend-dot today"></div>今日</div>
+  </div>
+
+  <!-- Months grid -->
+  <div class="months" id="months-container"></div>
+
+  <button class="reset-btn" onclick="resetProgress()">↻ 重設進度（清空所有 ✓）</button>
+
+  <div class="footer-note">
+    Calendar 自動 save 喺呢部裝置 · Made with ❤️ for Hannah's English journey
+  </div>
+
+</div>
+
+<!-- Lesson detail modal -->
+<div class="modal-backdrop" id="modal-backdrop" onclick="closeModal(event)">
+  <div class="modal" onclick="event.stopPropagation()">
+    <button class="modal-close" onclick="closeModal()">×</button>
+    <div class="modal-date" id="modal-date"></div>
+    <div class="modal-lesson-title" id="modal-title"></div>
+    <div class="modal-lesson-week" id="modal-week"></div>
+    <div class="modal-lesson-desc" id="modal-desc"></div>
+    <div class="modal-actions">
+      <a class="modal-btn primary" id="modal-open" target="_blank">📚 開始呢一課 →</a>
+      <button class="modal-btn" id="modal-toggle" onclick="toggleCompleted()">✓ Mark 完成</button>
+    </div>
+  </div>
+</div>
+
+<button class="scroll-to-today" onclick="scrollToToday()">📍 跳到今日</button>
+
+<script>
+// ============================================================
+// Lesson catalog — every lesson with metadata
+// ============================================================
+const LESSONS = [
+  // Week 1
+  { id: 'lesson1-introduction', title: '自我介紹', desc: 'I am... My name is... 基本介紹用語', week: 'week-1', weekLabel: 'Week 1' },
+  { id: 'lesson2-greetings', title: '打招呼', desc: 'Hello / Good morning / How are you 等日常問候', week: 'week-1', weekLabel: 'Week 1' },
+  { id: 'lesson3-goodbyes', title: '道別', desc: 'Goodbye / See you / Thanks 等告別語句', week: 'week-1', weekLabel: 'Week 1' },
+  { id: 'lesson4-questions', title: '問問題', desc: 'What / Where / When / How 基本疑問詞', week: 'week-1', weekLabel: 'Week 1' },
+  { id: 'lesson5-week1-review', title: 'Week 1 總溫習', desc: '統合 Lesson 1-4 嘅內容', week: 'week-1', weekLabel: 'Week 1' },
+
+  // Week 2 — shopping
+  { id: 'week2-day1-shopping', title: '購物入門', desc: '基本購物對話 + 英鎊認識', week: 'week-2', weekLabel: 'Week 2' },
+  { id: 'week2-day2-dairy', title: '🥛 奶製品', desc: 'Milk / cheese / yogurt 等乳品詞彙', week: 'week-2', weekLabel: 'Week 2' },
+  { id: 'week2-day3-meat', title: '🥩 肉類', desc: 'Beef / chicken / pork 等肉類用詞', week: 'week-2', weekLabel: 'Week 2' },
+  { id: 'week2-day4-seafood', title: '🐟 海鮮', desc: 'Fish / prawns / salmon 等海鮮詞彙', week: 'week-2', weekLabel: 'Week 2' },
+  { id: 'week2-day5-produce', title: '🥕 蔬果', desc: 'Vegetables / fruits 名稱', week: 'week-2', weekLabel: 'Week 2' },
+  { id: 'week2-day6-review', title: 'Week 2 大溫習', desc: '購物全套溫習 + 角色扮演', week: 'week-2', weekLabel: 'Week 2' },
+
+  // Week 3 — cafe
+  { id: 'week3-day1-cafe', title: '☕ Café 入門', desc: '入 cafe 點嘢飲嘅基本對話', week: 'week-3', weekLabel: 'Week 3' },
+  { id: 'week3-day2-tea', title: '🍵 茶', desc: 'English breakfast / Earl grey 等茶款', week: 'week-3', weekLabel: 'Week 3' },
+  { id: 'week3-day3-coffee', title: '☕ 咖啡', desc: 'Latte / cappuccino / flat white', week: 'week-3', weekLabel: 'Week 3' },
+  { id: 'week3-day4-pastries', title: '🥐 糕點', desc: 'Croissant / scone / muffin 等', week: 'week-3', weekLabel: 'Week 3' },
+  { id: 'week3-day5-sandwiches', title: '🥪 三文治', desc: 'Sandwich / panini / wrap', week: 'week-3', weekLabel: 'Week 3' },
+  { id: 'week3-day6-review', title: 'Week 3 大溫習', desc: 'Café 全套溫習 + 完整訂餐', week: 'week-3', weekLabel: 'Week 3' },
+];
+
+// ============================================================
+// Schedule: Mon / Wed / Fri only — gentle pace with weekend rest
+// ============================================================
+// Hannah started on 2026-04-22 (Wed); today 2026-05-04 (Mon) = Week 2 Day 1
+const START_DATE = new Date(2026, 3, 22); // April 22 (Wed) — month is 0-indexed
+START_DATE.setHours(0, 0, 0, 0);
+
+// Build schedule: { 'YYYY-MM-DD': lessonObject }
+// Schedule lessons on Mon (1), Wed (3), Fri (5) only
+const SCHEDULE = {};
+const STUDY_DAYS = [1, 3, 5]; // Mon, Wed, Fri (0=Sun, 6=Sat)
+let currentDate = new Date(START_DATE);
+let lessonIdx = 0;
+
+// If start date is not a study day, advance to next study day
+while (!STUDY_DAYS.includes(currentDate.getDay())) {
+  currentDate.setDate(currentDate.getDate() + 1);
+}
+
+while (lessonIdx < LESSONS.length) {
+  if (STUDY_DAYS.includes(currentDate.getDay())) {
+    const dateKey = formatDate(currentDate);
+    SCHEDULE[dateKey] = LESSONS[lessonIdx];
+    lessonIdx++;
+  }
+  currentDate.setDate(currentDate.getDate() + 1);
+}
+
+// Last lesson date (find the last entry in schedule)
+const scheduleKeys = Object.keys(SCHEDULE).sort();
+const LAST_LESSON_DATE = new Date(scheduleKeys[scheduleKeys.length - 1] + 'T00:00:00');
+
+// ============================================================
+// Helpers
+// ============================================================
+function formatDate(d) {
+  const y = d.getFullYear();
+  const m = String(d.getMonth() + 1).padStart(2, '0');
+  const day = String(d.getDate()).padStart(2, '0');
+  return `${y}-${m}-${day}`;
+}
+
+function formatDateLong(d) {
+  const monthsZh = ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'];
+  const weekdaysZh = ['日', '一', '二', '三', '四', '五', '六'];
+  return `${d.getFullYear()}年 ${monthsZh[d.getMonth()]} ${d.getDate()}日（星期${weekdaysZh[d.getDay()]}）`;
+}
+
+function isSameDay(d1, d2) {
+  return d1.getFullYear() === d2.getFullYear() &&
+         d1.getMonth() === d2.getMonth() &&
+         d1.getDate() === d2.getDate();
+}
+
+const TODAY = new Date();
+TODAY.setHours(0, 0, 0, 0);
+
+// ============================================================
+// Progress storage (localStorage)
+// ============================================================
+const STORAGE_KEY = 'hannah_progress_calendar_v1';
+
+function loadProgress() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    return raw ? JSON.parse(raw) : {};
+  } catch (e) {
+    return {};
+  }
+}
+
+function saveProgress(progress) {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(progress));
+  } catch (e) {
+    console.error('Could not save progress', e);
+  }
+}
+
+let completedLessons = loadProgress();
+
+// Auto-init on first visit: mark all lessons scheduled BEFORE today as completed
+// (Hannah has already done them — today is her current lesson)
+const INIT_MARKER_KEY = 'hannah_progress_calendar_initialized_v2';
+if (!localStorage.getItem(INIT_MARKER_KEY)) {
+  // First time visiting — auto-mark past lessons as done
+  const todayKey = formatDate(TODAY);
+  Object.keys(SCHEDULE).forEach(dateKey => {
+    if (dateKey < todayKey) {
+      const lesson = SCHEDULE[dateKey];
+      if (lesson && !completedLessons[lesson.id]) {
+        completedLessons[lesson.id] = new Date(dateKey + 'T00:00:00').toISOString();
+      }
+    }
+  });
+  saveProgress(completedLessons);
+  localStorage.setItem(INIT_MARKER_KEY, 'true');
+  console.log('[Calendar] Auto-marked', Object.keys(completedLessons).length, 'past lessons as completed');
+}
+
+function isCompleted(lessonId) {
+  return !!completedLessons[lessonId];
+}
+
+function setCompleted(lessonId, value) {
+  if (value) {
+    completedLessons[lessonId] = new Date().toISOString();
+  } else {
+    delete completedLessons[lessonId];
+  }
+  saveProgress(completedLessons);
+}
+
+// ============================================================
+// Render months
+// ============================================================
+function renderCalendar() {
+  const container = document.getElementById('months-container');
+  container.innerHTML = '';
+
+  // Show calendar from the start date month (so Hannah can see her completed lessons in past months)
+  const startMonth = START_DATE.getMonth();
+  const startYear = START_DATE.getFullYear();
+  const endMonth = 11; // December
+  const endYear = 2026;
+
+  // Iterate months from current month to end of 2026
+  let year = startYear;
+  let month = startMonth;
+  while (year < endYear || (year === endYear && month <= endMonth)) {
+    container.appendChild(renderMonth(year, month));
+    month++;
+    if (month > 11) {
+      month = 0;
+      year++;
+    }
+  }
+
+  updateStats();
+}
+
+function renderMonth(year, month) {
+  const monthsZh = ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'];
+  const weekdayShort = ['日', '一', '二', '三', '四', '五', '六'];
+
+  const wrapper = document.createElement('div');
+  wrapper.className = 'month';
+  wrapper.id = `month-${year}-${month}`;
+
+  // Title
+  const title = document.createElement('div');
+  title.className = 'month-title';
+  title.innerHTML = `${monthsZh[month]} <span class="year">${year}</span>`;
+  wrapper.appendChild(title);
+
+  // Weekday headers
+  const weekdays = document.createElement('div');
+  weekdays.className = 'weekdays';
+  weekdayShort.forEach((d, i) => {
+    const h = document.createElement('div');
+    h.className = 'weekday-name' + (i === 0 || i === 6 ? ' weekend' : '');
+    h.textContent = d;
+    weekdays.appendChild(h);
+  });
+  wrapper.appendChild(weekdays);
+
+  // Days grid
+  const days = document.createElement('div');
+  days.className = 'days';
+
+  const firstDay = new Date(year, month, 1);
+  const lastDay = new Date(year, month + 1, 0);
+  const startDayOfWeek = firstDay.getDay(); // 0=Sunday
+
+  // Empty cells before month starts
+  for (let i = 0; i < startDayOfWeek; i++) {
+    const empty = document.createElement('div');
+    empty.className = 'day empty';
+    days.appendChild(empty);
+  }
+
+  // Actual day cells
+  for (let day = 1; day <= lastDay.getDate(); day++) {
+    const date = new Date(year, month, day);
+    date.setHours(0, 0, 0, 0);
+    const dateKey = formatDate(date);
+    const lesson = SCHEDULE[dateKey];
+    const isToday = isSameDay(date, TODAY);
+    const isPast = date < TODAY;
+
+    const cell = document.createElement('div');
+    cell.className = 'day';
+    if (isToday) cell.classList.add('today');
+    if (isPast) cell.classList.add('past');
+
+    if (lesson) {
+      cell.classList.add('has-lesson', lesson.week);
+      if (isCompleted(lesson.id)) {
+        cell.classList.add('completed');
+      }
+      cell.dataset.lessonId = lesson.id;
+      cell.dataset.dateKey = dateKey;
+      cell.title = `${lesson.title}（${lesson.weekLabel}）`;
+      cell.onclick = () => openLessonModal(dateKey);
+
+      // Day number
+      const numEl = document.createElement('div');
+      numEl.className = 'day-num';
+      numEl.textContent = day;
+      cell.appendChild(numEl);
+
+      // Mini label
+      const mini = document.createElement('div');
+      mini.className = 'lesson-mini';
+      mini.textContent = lesson.weekLabel.replace('Week ', 'W').replace('Bonus', 'B');
+      cell.appendChild(mini);
+    } else {
+      cell.textContent = day;
+    }
+
+    days.appendChild(cell);
+  }
+
+  wrapper.appendChild(days);
+  return wrapper;
+}
+
+// ============================================================
+// Stats
+// ============================================================
+function updateStats() {
+  const total = LESSONS.length;
+  const done = LESSONS.filter(l => isCompleted(l.id)).length;
+  const pct = total > 0 ? Math.round((done / total) * 100) : 0;
+
+  document.getElementById('stat-completed').textContent = done;
+  document.getElementById('stat-percent').textContent = pct + '%';
+  document.getElementById('stat-upcoming').textContent = total - done;
+
+  // Days remaining (until LAST_LESSON_DATE)
+  const msPerDay = 1000 * 60 * 60 * 24;
+  const daysLeft = Math.max(0, Math.ceil((LAST_LESSON_DATE - TODAY) / msPerDay));
+  document.getElementById('stat-days-left').textContent = daysLeft;
+
+  // Progress bar
+  document.getElementById('progress-bar').style.width = pct + '%';
+  document.getElementById('progress-current').textContent = done;
+  document.getElementById('progress-end-date').textContent = '完成日期：' + formatDateLong(LAST_LESSON_DATE);
+}
+
+// ============================================================
+// Modal
+// ============================================================
+let currentModalLessonId = null;
+
+function openLessonModal(dateKey) {
+  const lesson = SCHEDULE[dateKey];
+  if (!lesson) return;
+  currentModalLessonId = lesson.id;
+
+  const date = new Date(dateKey + 'T00:00:00');
+  document.getElementById('modal-date').textContent = formatDateLong(date);
+  document.getElementById('modal-title').textContent = lesson.title;
+
+  const weekBadge = document.getElementById('modal-week');
+  weekBadge.textContent = lesson.weekLabel;
+  // Clear existing color classes
+  weekBadge.style.background = '';
+  if (lesson.week === 'week-1') weekBadge.style.background = 'var(--terra)';
+  else if (lesson.week === 'week-bonus') weekBadge.style.background = 'var(--berry)';
+  else if (lesson.week === 'week-2') weekBadge.style.background = 'var(--gold)';
+  else if (lesson.week === 'week-3') weekBadge.style.background = 'var(--sage)';
+  else if (lesson.week === 'week-4') weekBadge.style.background = 'var(--blue)';
+
+  document.getElementById('modal-desc').textContent = lesson.desc;
+
+  // Lesson link — points to dev URL by default
+  const baseUrl = 'https://louyuenlam.github.io/Learn-English/lessons/';
+  document.getElementById('modal-open').href = baseUrl + lesson.id + '.html';
+
+  // Toggle button
+  const toggleBtn = document.getElementById('modal-toggle');
+  if (isCompleted(lesson.id)) {
+    toggleBtn.textContent = '↻ 取消完成';
+    toggleBtn.className = 'modal-btn completed';
+  } else {
+    toggleBtn.textContent = '✓ Mark 完成';
+    toggleBtn.className = 'modal-btn';
+  }
+
+  document.getElementById('modal-backdrop').classList.add('show');
+}
+
+function closeModal(e) {
+  if (e && e.target.id !== 'modal-backdrop') return;
+  document.getElementById('modal-backdrop').classList.remove('show');
+  currentModalLessonId = null;
+}
+
+document.querySelector('.modal-close').addEventListener('click', () => closeModal());
+
+function toggleCompleted() {
+  if (!currentModalLessonId) return;
+  const wasCompleted = isCompleted(currentModalLessonId);
+  setCompleted(currentModalLessonId, !wasCompleted);
+  // Update UI
+  renderCalendar();
+  // Update modal button
+  const toggleBtn = document.getElementById('modal-toggle');
+  if (!wasCompleted) {
+    toggleBtn.textContent = '↻ 取消完成';
+    toggleBtn.className = 'modal-btn completed';
+  } else {
+    toggleBtn.textContent = '✓ Mark 完成';
+    toggleBtn.className = 'modal-btn';
+  }
+}
+
+// ============================================================
+// Reset
+// ============================================================
+function resetProgress() {
+  if (!confirm('確定要清空所有完成記錄？呢個冇得 undo。')) return;
+  completedLessons = {};
+  saveProgress(completedLessons);
+  renderCalendar();
+}
+
+// ============================================================
+// Scroll to today
+// ============================================================
+function scrollToToday() {
+  const todayEl = document.querySelector('.day.today');
+  if (todayEl) {
+    todayEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+}
+
+// ============================================================
+// Init
+// ============================================================
+document.getElementById('start-date').textContent = formatDate(START_DATE);
+renderCalendar();
+
+// Auto-scroll to today after render
+setTimeout(scrollToToday, 200);
+
+// ESC closes modal
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') closeModal();
+});
+</script>
+
+</body>
+</html>
