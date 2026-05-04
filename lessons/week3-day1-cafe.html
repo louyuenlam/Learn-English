@@ -5,13 +5,13 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
-<!-- Cache version: v2-week2-batch-2026-04-27 -->
+<!-- Cache version: v2-single-voice-2026-04-27 -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="theme-color" content="#faf6ef">
-<link rel="apple-touch-icon" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%23faf6ef'/><text x='50' y='68' text-anchor='middle' font-size='42'>D2</text></svg>">
-<title>Module 2 · Day 2：奶類 & 早餐 · Dairy & Breakfast</title>
+<link rel="apple-touch-icon" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%23faf6ef'/><text x='50' y='70' text-anchor='middle' font-size='58'>6</text></svg>">
+<title>Module 3 · Day 1：Café 入門 · Cafe Basics</title>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400&family=Noto+Sans+HK:wght@400;500;600;700&family=Lora:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -58,7 +58,8 @@
     display: grid;
     grid-template-columns: var(--sidebar-w) 1fr;
     height: 100vh;
-    /* No position:relative or z-index — would trap sidebar below backdrop */
+    /* No position:relative or z-index here — would create a stacking context
+       that traps the sidebar's z-index below the backdrop on mobile */
   }
 
   .sidebar {
@@ -576,9 +577,9 @@
   <aside class="sidebar">
     <div class="sidebar-header">
       <div class="ornament">· · ·</div>
-      <div class="lesson-num">Module 2 · Day 2</div>
-      <h1>奶類 & 早餐 🥛</h1>
-      <div class="subtitle">Dairy & Breakfast</div>
+      <div class="lesson-num">Module 3 · Day 1</div>
+      <h1>Café 入門</h1>
+      <div class="subtitle">Cafe Basics</div>
     </div>
 
     <div class="progress-compact">
@@ -593,10 +594,10 @@
 
     <nav class="steps-nav">
       <div class="steps-label">學習步驟</div>
-      <button class="step-btn active" data-step="1" onclick="goToStep(1)"><span class="step-num">1</span><span>熱身 & 場景</span></button>
-      <button class="step-btn" data-step="2" onclick="goToStep(2)"><span class="step-num">2</span><span>聽力 · 完整對話</span></button>
-      <button class="step-btn" data-step="3" onclick="goToStep(3)"><span class="step-num">3</span><span>5 句套語拆解</span></button>
-      <button class="step-btn" data-step="4" onclick="goToStep(4)"><span class="step-num">4</span><span>🥛 食材字詞</span></button>
+      <button class="step-btn active" data-step="1" onclick="goToStep(1)"><span class="step-num">1</span><span>熱身 · Cafe 文化</span></button>
+      <button class="step-btn" data-step="2" onclick="goToStep(2)"><span class="step-num">2</span><span>聽力 · 點嘢飲</span></button>
+      <button class="step-btn" data-step="3" onclick="goToStep(3)"><span class="step-num">3</span><span>6 句套語拆解</span></button>
+      <button class="step-btn" data-step="4" onclick="goToStep(4)"><span class="step-num">4</span><span>Eat in vs Takeaway</span></button>
       <button class="step-btn" data-step="5" onclick="goToStep(5)"><span class="step-num">5</span><span>角色扮演</span></button>
       <button class="step-btn" data-step="6" onclick="goToStep(6)"><span class="step-num">6</span><span>🏆 完成</span></button>
     </nav>
@@ -616,8 +617,8 @@
 
     <div class="mobile-top-bar">
       <div class="lesson-info">
-        <div class="lesson-tag">Module 2 · Day 2</div>
-        <h1>奶類 & 早餐 🥛</h1>
+        <div class="lesson-tag">Module 3 · Day 1</div>
+        <h1>Café 入門</h1>
       </div>
       <div class="step-indicator" id="mobile-step-indicator">1 <span class="total">/ 6</span></div>
       <button class="menu-btn" onclick="openMobileSidebar()" aria-label="設定">☰</button>
@@ -631,136 +632,123 @@
 
       <!-- STEP 1 -->
       <div class="step-content" data-step="1">
-        <div class="section-label">Part 1 · 熱身 & 場景 (2 分鐘)</div>
-        <h2>買早餐食材！🥛</h2>
-        <div class="card-sub">奶、蛋、麵包、cheese...</div>
+        <div class="section-label">Part 1 · 熱身 & 文化 (2 分鐘)</div>
+        <h2>歡迎入嚟英國嘅 Café！☕</h2>
+        <div class="card-sub">學識點嘢飲、坐定、攞走</div>
 
         <div class="scene-card">
           <div class="scene-title">📍 今日嘅場景</div>
-          <div class="scene-text">想像你嘅雪櫃空咗，要入 <strong>Tesco</strong> 買一星期嘅早餐食材：奶、蛋、麵包、cheese... 但 Tesco 啲嘢好多種類，唔知點揀？呢堂教你識問識揀 ✨</div>
+          <div class="scene-text">想像你入咗附近一間 <strong>Costa</strong> 或者 <strong>Caffè Nero</strong>。你想叫一杯熱嘅嘢飲，可能仲想坐低慢慢飲。但唔知點同 barista 講？呢堂教你由 walk in 到攞嘢嘅完整流程 ✨</div>
         </div>
 
-        <div class="subsection-title">🎯 你今日會學到</div>
+        <div class="subsection-title">🇬🇧 英國 Café 文化</div>
         <div class="goals-grid">
-          <div class="goal-card"><div class="goal-num">1</div><div class="goal-text">識 <strong>奶類</strong>嘢食嘅英文名</div></div>
-          <div class="goal-card"><div class="goal-num">2</div><div class="goal-text">識分 <strong>whole / semi-skimmed / skimmed</strong> 奶</div></div>
-          <div class="goal-card"><div class="goal-num">3</div><div class="goal-text">識問 <strong>"邊個係..."</strong> 同 <strong>"喺邊度"</strong></div></div>
-          <div class="goal-card"><div class="goal-num">4</div><div class="goal-text">完成<strong>買早餐食材</strong> roleplay</div></div>
+          <div class="goal-card"><div class="goal-num">1</div><div class="goal-text">英國 cafe <strong>多數要 counter order</strong>（喺 counter 點同俾錢，唔係坐低等人嚟問）</div></div>
+          <div class="goal-card"><div class="goal-num">2</div><div class="goal-text">店員一定會問 <strong>"Eat in or takeaway?"</strong>（堂食定外賣？）</div></div>
+          <div class="goal-card"><div class="goal-num">3</div><div class="goal-text">畀錢之後攞個 <strong>buzzer / number</strong>，叫到先攞嘢飲</div></div>
+          <div class="goal-card"><div class="goal-num">4</div><div class="goal-text">小費 <strong>唔強制</strong>，但 counter 通常有個 tip jar</div></div>
         </div>
 
-        <div class="callback">💡 <strong>用返 Day 1 學過嘅</strong>：今日繼續用 "How much?"、"I'll take this"、"Receipt, please" —— 只係換左買嘅嘢！</div>
+        <div class="callback">💡 <strong>記住 Module 1 學過嘅</strong>：今日會用返 "Hello", "Thank you", "Please" — 呢啲都係 cafe 入面嘅必備套語！</div>
 
-        <div class="teacher-note"><strong>👩‍🏫 老師 tips：</strong>英國人嘅 breakfast 多數係 <strong>cereal + milk</strong> 或者 <strong>toast + butter + jam</strong>。超市啲奶有幾種 fat 度數，揀錯味道唔同！</div>
+        <div class="teacher-note"><strong>👩‍🏫 老師 tips：</strong>英國 cafe 嘅 barista 通常都好友善，唔使緊張。即使講錯都唔緊要。最緊要係肯開口同講出個 size（small/medium/large）。如果想簡單啲，可以直接指住 menu 講 "<strong>This one, please.</strong>"</div>
       </div>
 
       <!-- STEP 2 -->
       <div class="step-content hidden" data-step="2">
         <div class="section-label">Part 2 · 聽力 · 完整對話 (4 分鐘)</div>
-        <h2>👂 Tesco 奶類區 → Hannah 問員工</h2>
+        <h2>聽聽 Hannah 點咖啡 👂</h2>
         <div class="card-sub">先聽完整對話，再逐句拆解</div>
 
-        <div class="instruction"><strong>🎧 點樣聽：</strong>先 㩒 "聽全段"，唔使理解曬。再 㩒每句嘅 ▶️ 聽 或 🐢 極慢。聽 2-3 次先。</div>
+        <div class="instruction"><strong>🎧 點樣聽：</strong>先 㩒 "聽全段"，唔使理解曬。再 㩒每句嘅 ▶️ 慢慢聽。聽 2-3 次先。</div>
 
         <button class="play-btn blue" onclick="toggleFullDialogue()">🔊 聽全段對話</button>
 
         <div class="dialogue-card" style="margin-top: 14px;">
-          <div class="dialogue-line"><div class="dialogue-avatar shop">🏪</div><div class="dialogue-bubble"><div class="dialogue-text">Hi! Can I help you find something?</div><div class="dialogue-zh">你好！要幫你搵嘢嗎？</div><button class="play-btn small" onclick="speak(`Hi! Can I help you find something?`)">▶️ 聽</button> <button class="play-btn small blue" onclick="speak(`Hi! Can I help you find something?`, 0.3, 'shop')">🐢 極慢</button></div></div>
-          <div class="dialogue-line"><div class="dialogue-avatar you">😊</div><div class="dialogue-bubble you"><div class="dialogue-text">Yes, please. Where is the milk?</div><div class="dialogue-zh">係，唔該。奶喺邊？</div><button class="play-btn small" onclick="speak(`Yes, please. Where is the milk?`)">▶️ 聽</button> <button class="play-btn small blue" onclick="speak(`Yes, please. Where is the milk?`, 0.3, 'you')">🐢 極慢</button></div></div>
-          <div class="dialogue-line"><div class="dialogue-avatar shop">🏪</div><div class="dialogue-bubble"><div class="dialogue-text">Right here. What kind would you like?</div><div class="dialogue-zh">就喺呢度。你想要邊種？</div><button class="play-btn small" onclick="speak(`Right here. What kind would you like?`)">▶️ 聽</button> <button class="play-btn small blue" onclick="speak(`Right here. What kind would you like?`, 0.3, 'shop')">🐢 極慢</button></div></div>
-          <div class="dialogue-line"><div class="dialogue-avatar you">😊</div><div class="dialogue-bubble you"><div class="dialogue-text">Which one is semi-skimmed?</div><div class="dialogue-zh">邊個係半脂？</div><button class="play-btn small" onclick="speak(`Which one is semi-skimmed?`)">▶️ 聽</button> <button class="play-btn small blue" onclick="speak(`Which one is semi-skimmed?`, 0.3, 'you')">🐢 極慢</button></div></div>
-          <div class="dialogue-line"><div class="dialogue-avatar shop">🏪</div><div class="dialogue-bubble"><div class="dialogue-text">The green one. It has 1.7% fat.</div><div class="dialogue-zh">綠色嗰個。1.7% 脂肪。</div><button class="play-btn small" onclick="speak(`The green one. It has 1.7% fat.`)">▶️ 聽</button> <button class="play-btn small blue" onclick="speak(`The green one. It has 1.7% fat.`, 0.3, 'shop')">🐢 極慢</button></div></div>
-          <div class="dialogue-line"><div class="dialogue-avatar you">😊</div><div class="dialogue-bubble you"><div class="dialogue-text">OK, I'll take two of those, please.</div><div class="contraction-notes"><span class="contraction-note"><span class="cn-icon">ⓘ</span><strong>I'll</strong> = I will</span></div><div class="dialogue-zh">好，我要兩支，唔該。</div><button class="play-btn small" onclick="speak(`OK, I'll take two of those, please.`)">▶️ 聽</button> <button class="play-btn small blue" onclick="speak(`OK, I'll take two of those, please.`, 0.3, 'you')">🐢 極慢</button></div></div>
-          <div class="dialogue-line"><div class="dialogue-avatar shop">🏪</div><div class="dialogue-bubble"><div class="dialogue-text">Anything else?</div><div class="dialogue-zh">仲要其他嘢嗎？</div><button class="play-btn small" onclick="speak(`Anything else?`)">▶️ 聽</button> <button class="play-btn small blue" onclick="speak(`Anything else?`, 0.3, 'shop')">🐢 極慢</button></div></div>
-          <div class="dialogue-line"><div class="dialogue-avatar you">😊</div><div class="dialogue-bubble you"><div class="dialogue-text">Yes, where is the bread section?</div><div class="dialogue-zh">係，麵包區喺邊？</div><button class="play-btn small" onclick="speak(`Yes, where is the bread section?`)">▶️ 聽</button> <button class="play-btn small blue" onclick="speak(`Yes, where is the bread section?`, 0.3, 'you')">🐢 極慢</button></div></div>
+          <div class="dialogue-line"><div class="dialogue-avatar shop">☕</div><div class="dialogue-bubble"><div class="dialogue-text">Hi there! What can I get you?</div><div class="dialogue-zh">你好！你想要啲咩？</div><button class="play-btn small" onclick="speak('Hi there! What can I get you?')">▶️ 聽</button> <button class="play-btn small blue" onclick="speak('Hi there! What can I get you?', 0.3, 'shop')">🐢 極慢</button></div></div>
+          <div class="dialogue-line"><div class="dialogue-avatar you">😊</div><div class="dialogue-bubble you"><div class="dialogue-text">Hello! Can I have a small latte, please?</div><div class="dialogue-zh">你好！可唔可以要一杯細杯 latte？</div><button class="play-btn small" onclick="speak('Hello! Can I have a small latte, please?')">▶️ 聽</button> <button class="play-btn small blue" onclick="speak('Hello! Can I have a small latte, please?', 0.3, 'you')">🐢 極慢</button></div></div>
+          <div class="dialogue-line"><div class="dialogue-avatar shop">☕</div><div class="dialogue-bubble"><div class="dialogue-text">Sure. Eat in or takeaway?</div><div class="dialogue-zh">當然得。堂食定外賣？</div><button class="play-btn small" onclick="speak('Sure. Eat in or takeaway?')">▶️ 聽</button> <button class="play-btn small blue" onclick="speak('Sure. Eat in or takeaway?', 0.3, 'shop')">🐢 極慢</button></div></div>
+          <div class="dialogue-line"><div class="dialogue-avatar you">😊</div><div class="dialogue-bubble you"><div class="dialogue-text">Eat in, please.</div><div class="dialogue-zh">堂食，唔該。</div><button class="play-btn small" onclick="speak('Eat in, please.')">▶️ 聽</button> <button class="play-btn small blue" onclick="speak('Eat in, please.', 0.3, 'you')">🐢 極慢</button></div></div>
+          <div class="dialogue-line"><div class="dialogue-avatar shop">☕</div><div class="dialogue-bubble"><div class="dialogue-text">Anything else?</div><div class="dialogue-zh">仲要其他嘢嗎？</div><button class="play-btn small" onclick="speak('Anything else?')">▶️ 聽</button> <button class="play-btn small blue" onclick="speak('Anything else?', 0.3, 'shop')">🐢 極慢</button></div></div>
+          <div class="dialogue-line"><div class="dialogue-avatar you">😊</div><div class="dialogue-bubble you"><div class="dialogue-text">No, that's all, thanks.</div><div class="contraction-notes"><span class="contraction-note"><span class="cn-icon">ⓘ</span><strong>that's</strong> = that is</span></div><div class="dialogue-zh">唔使，就咁多，唔該。</div><button class="play-btn small" onclick="speak(`No, that's all, thanks.`)">▶️ 聽</button> <button class="play-btn small blue" onclick="speak(`No, that's all, thanks.`, 0.3, 'you')">🐢 極慢</button></div></div>
+          <div class="dialogue-line"><div class="dialogue-avatar shop">☕</div><div class="dialogue-bubble"><div class="dialogue-text">That's three pounds fifty. What name shall I put on the cup?</div><div class="contraction-notes"><span class="contraction-note"><span class="cn-icon">ⓘ</span><strong>That's</strong> = That is</span></div><div class="dialogue-zh">三鎊五。杯上面寫咩名？</div><button class="play-btn small" onclick="speak(`That's three pounds fifty. What name shall I put on the cup?`)">▶️ 聽</button> <button class="play-btn small blue" onclick="speak(`That's three pounds fifty. What name shall I put on the cup?`, 0.3, 'shop')">🐢 極慢</button></div></div>
+          <div class="dialogue-line"><div class="dialogue-avatar you">😊</div><div class="dialogue-bubble you"><div class="dialogue-text">Hannah. Thanks!</div><div class="dialogue-zh">Hannah。多謝！</div><button class="play-btn small" onclick="speak('Hannah. Thanks!')">▶️ 聽</button> <button class="play-btn small blue" onclick="speak('Hannah. Thanks!', 0.3, 'you')">🐢 極慢</button></div></div>
         </div>
 
-        <div class="teacher-note"><strong>👩‍🏫 注意：</strong>呢段對話教你點喺超市問路線 + 揀嘢。留意 <strong>"Which one is..."</strong>（邊個係...）— 超好用！</div>
+        <div class="teacher-note"><strong>👩‍🏫 注意：</strong>有啲 cafe 會問你個名（寫喺杯上），方便叫你嚟攞。你只需要講你個名就得。</div>
       </div>
 
       <!-- STEP 3 -->
       <div class="step-content hidden" data-step="3">
-        <div class="section-label">Part 3 · 5 句套語拆解 (5 分鐘)</div>
+        <div class="section-label">Part 3 · 6 句套語拆解 (5 分鐘)</div>
         <h2>逐句學識 ✏️</h2>
         <div class="card-sub">每句聽 2-3 次，跟住讀</div>
 
         <div class="phrases-list">
-          <div class="phrase-card"><div class="phrase-num">1</div><div class="phrase-en">Where is the milk?</div><div class="phrase-zh">奶喺邊？</div><div class="phrase-context">📍 用喺：搵唔到嘢食嘅位置（換「milk」做其他嘢都得）</div><div class="phrase-actions"><button class="play-btn small" onclick="speak(`Where is the milk?`)">▶️ 聽</button> <button class="play-btn small blue" onclick="speak(`Where is the milk?`, 0.3)">🐢 極慢</button></div></div>
-          <div class="phrase-card"><div class="phrase-num">2</div><div class="phrase-en">Which one is semi-skimmed?</div><div class="phrase-zh">邊個係半脂？</div><div class="phrase-context">📍 用喺：見到幾種揀唔到，問員工</div><div class="phrase-actions"><button class="play-btn small" onclick="speak(`Which one is semi-skimmed?`)">▶️ 聽</button> <button class="play-btn small blue" onclick="speak(`Which one is semi-skimmed?`, 0.3)">🐢 極慢</button></div></div>
-          <div class="phrase-card"><div class="phrase-num">3</div><div class="phrase-en">Do you have fresh eggs?</div><div class="phrase-zh">有冇新鮮蛋？</div><div class="phrase-context">📍 用喺：問有冇特定嘢食（fresh = 新鮮）</div><div class="phrase-actions"><button class="play-btn small" onclick="speak(`Do you have fresh eggs?`)">▶️ 聽</button> <button class="play-btn small blue" onclick="speak(`Do you have fresh eggs?`, 0.3)">🐢 極慢</button></div></div>
-          <div class="phrase-card"><div class="phrase-num">4</div><div class="phrase-en">Where is the bread section?</div><div class="phrase-zh">麵包區喺邊？</div><div class="phrase-context">📍 用喺：搵 "section"（區）（換 dairy / meat / fruit section 都得）</div><div class="phrase-actions"><button class="play-btn small" onclick="speak(`Where is the bread section?`)">▶️ 聽</button> <button class="play-btn small blue" onclick="speak(`Where is the bread section?`, 0.3)">🐢 極慢</button></div></div>
-          <div class="phrase-card"><div class="phrase-num">5</div><div class="phrase-en">I'll take two of those, please.</div><div class="contraction-notes"><span class="contraction-note"><span class="cn-icon">ⓘ</span><strong>I'll</strong> = I will</span></div><div class="phrase-zh">我要兩件嗰啲，唔該。</div><div class="phrase-context">📍 用喺：指住啲嘢數量咁買</div><div class="phrase-actions"><button class="play-btn small" onclick="speak(`I'll take two of those, please.`)">▶️ 聽</button> <button class="play-btn small blue" onclick="speak(`I'll take two of those, please.`, 0.3)">🐢 極慢</button></div></div>
+          <div class="phrase-card"><div class="phrase-num">1</div><div class="phrase-en">Can I have a small latte, please?</div><div class="phrase-zh">可唔可以要一杯細杯 latte？</div><div class="phrase-context">📍 用喺：點嘢飲嘅萬用句。Replace "latte" 同 "small" 就得。</div><div class="phrase-actions"><button class="play-btn small" onclick="speak('Can I have a small latte, please?')">▶️ 聽</button> <button class="play-btn small blue" onclick="speak('Can I have a small latte, please?', 0.3)">🐢 極慢</button></div></div>
+          <div class="phrase-card"><div class="phrase-num">2</div><div class="phrase-en">Eat in, please. / Takeaway, please.</div><div class="phrase-zh">堂食 / 外賣，唔該。</div><div class="phrase-context">📍 用喺：店員問 "Eat in or takeaway?" 嘅回應</div><div class="phrase-actions"><button class="play-btn small" onclick="speak('Eat in, please.')">▶️ 聽 Eat in</button> <button class="play-btn small blue" onclick="speak('Takeaway, please.')">▶️ 聽 Takeaway</button></div></div>
+          <div class="phrase-card"><div class="phrase-num">3</div><div class="phrase-en">What's in the [croissant]?</div><div class="contraction-notes"><span class="contraction-note"><span class="cn-icon">ⓘ</span><strong>What's</strong> = What is</span></div><div class="phrase-zh">[牛角包] 入面有咩？</div><div class="phrase-context">📍 用喺：唔識嘅食物，問成分。Replace 中括號入面嘅字。</div><div class="phrase-actions"><button class="play-btn small" onclick="speak(`What's in the croissant?`)">▶️ 聽</button> <button class="play-btn small blue" onclick="speak(`What's in the croissant?`, 0.3)">🐢 極慢</button></div></div>
+          <div class="phrase-card"><div class="phrase-num">4</div><div class="phrase-en">Could I have some milk on the side?</div><div class="phrase-zh">可唔可以畀啲奶我（另上）？</div><div class="phrase-context">📍 用喺：想要奶但分開上（自己加幾多）</div><div class="phrase-actions"><button class="play-btn small" onclick="speak('Could I have some milk on the side?')">▶️ 聽</button> <button class="play-btn small blue" onclick="speak('Could I have some milk on the side?', 0.3)">🐢 極慢</button></div></div>
+          <div class="phrase-card"><div class="phrase-num">5</div><div class="phrase-en">No, that's all, thanks.</div><div class="contraction-notes"><span class="contraction-note"><span class="cn-icon">ⓘ</span><strong>that's</strong> = that is</span></div><div class="phrase-zh">唔使，就咁多，唔該。</div><div class="phrase-context">📍 用喺：店員問 "Anything else?" 嘅回應</div><div class="phrase-actions"><button class="play-btn small" onclick="speak(`No, that's all, thanks.`)">▶️ 聽</button> <button class="play-btn small blue" onclick="speak(`No, that's all, thanks.`, 0.3)">🐢 極慢</button></div></div>
+          <div class="phrase-card"><div class="phrase-num">6</div><div class="phrase-en">Where can I sit?</div><div class="phrase-zh">我可以坐邊度？</div><div class="phrase-context">📍 用喺：唔肯定邊度有得坐</div><div class="phrase-actions"><button class="play-btn small" onclick="speak('Where can I sit?')">▶️ 聽</button> <button class="play-btn small blue" onclick="speak('Where can I sit?', 0.3)">🐢 極慢</button></div></div>
         </div>
 
-        <div class="teacher-note"><strong>👩‍🏫 <strong>發音 tips：</strong><br>• "Semi-skimmed" 讀 "semi-SKIMD"<br>• "Fresh" 發音有個清脆嘅 "sh" 尾音<br>• "Section" 讀 "SEK-shun"</strong></div>
+        <div class="teacher-note"><strong>👩‍🏫 發音 tips：</strong><br>• "<strong>Latte</strong>" 讀 "LAH-tay"（唔係 lay-tee）<br>• "<strong>Croissant</strong>" 英國人多數讀 "kwah-SAHN"（法文發音）<br>• 句尾加 "please" 永遠都唔錯</div>
       </div>
 
       <!-- STEP 4 -->
       <div class="step-content hidden" data-step="4">
-        <div class="section-label">Part 4 · 🥛 食材字詞 (4 分鐘)</div>
-        <h2>🥛 食材字詞</h2>
-        <div class="card-sub">認識早餐常見嘢食</div>
+        <div class="section-label">Part 4 · Eat in vs Takeaway (4 分鐘)</div>
+        <h2>堂食 vs 外賣 — 重要分別 📦</h2>
+        <div class="card-sub">兩個字必記</div>
 
-        <div class="instruction"><strong>📖 英國超市嘅奶分 3 種：</strong><br>• <strong>Whole milk</strong>（全脂，藍色蓋）<br>• <strong>Semi-skimmed</strong>（半脂，綠色蓋）— <strong>最普遍！</strong><br>• <strong>Skimmed</strong>（脫脂，紅色蓋）<br>中國人多數鍾意 semi-skimmed（味道中間）。</div>
+        <div class="instruction"><strong>📖 點解咁重要？</strong>英國 cafe <strong>一定會問你呢條問題</strong>。聽錯就會出錯誤決定（坐低 vs 拎住走）。仲有，takeaway 通常用 paper cup，eat in 用 ceramic mug，兩個經驗完全唔同。</div>
 
-        <div class="subsection-title">🥛 奶類 Dairy</div>
-        <div class="money-grid">
-          <div class="money-card"><div class="price">🥛</div><div class="price-en">Whole milk</div><div class="price-zh">全脂奶（最濃）</div><button class="play-btn small" onclick="speak(`Whole milk`)">▶️ 聽</button> <button class="play-btn small blue" onclick="speak(`Whole milk`, 0.3)">🐢 極慢</button></div>
-          <div class="money-card"><div class="price">🥛</div><div class="price-en">Semi-skimmed</div><div class="price-zh">半脂奶（最普遍）</div><button class="play-btn small" onclick="speak(`Semi-skimmed`)">▶️ 聽</button> <button class="play-btn small blue" onclick="speak(`Semi-skimmed`, 0.3)">🐢 極慢</button></div>
-          <div class="money-card"><div class="price">🥛</div><div class="price-en">Skimmed milk</div><div class="price-zh">脫脂奶</div><button class="play-btn small" onclick="speak(`Skimmed milk`)">▶️ 聽</button> <button class="play-btn small blue" onclick="speak(`Skimmed milk`, 0.3)">🐢 極慢</button></div>
-          <div class="money-card"><div class="price">🧈</div><div class="price-en">Butter</div><div class="price-zh">牛油</div><button class="play-btn small" onclick="speak(`Butter`)">▶️ 聽</button> <button class="play-btn small blue" onclick="speak(`Butter`, 0.3)">🐢 極慢</button></div>
-          <div class="money-card"><div class="price">🧀</div><div class="price-en">Cheese</div><div class="price-zh">芝士</div><button class="play-btn small" onclick="speak(`Cheese`)">▶️ 聽</button> <button class="play-btn small blue" onclick="speak(`Cheese`, 0.3)">🐢 極慢</button></div>
-          <div class="money-card"><div class="price">🥛</div><div class="price-en">Yogurt</div><div class="price-zh">乳酪</div><button class="play-btn small" onclick="speak(`Yogurt`)">▶️ 聽</button> <button class="play-btn small blue" onclick="speak(`Yogurt`, 0.3)">🐢 極慢</button></div>
+        <div class="phrases-list">
+          <div class="phrase-card"><div class="phrase-num">📍</div><div class="phrase-en">Eat in</div><div class="phrase-zh">堂食 — 喺 cafe 入面飲</div><div class="phrase-context">🪑 攞 ceramic mug、有得坐、可以慢慢飲</div><div class="phrase-actions"><button class="play-btn small" onclick="speak('Eat in')">▶️ 聽</button> <button class="play-btn small blue" onclick="speak('Eat in', 0.3)">🐢 極慢</button></div></div>
+          <div class="phrase-card"><div class="phrase-num">📍</div><div class="phrase-en">Takeaway</div><div class="phrase-zh">外賣 — 拎走</div><div class="phrase-context">🥤 攞 paper cup with lid、即場走、慳啲時間</div><div class="phrase-actions"><button class="play-btn small" onclick="speak('Takeaway')">▶️ 聽</button> <button class="play-btn small blue" onclick="speak('Takeaway', 0.3)">🐢 極慢</button></div></div>
+          <div class="phrase-card"><div class="phrase-num">📍</div><div class="phrase-en">To go</div><div class="phrase-zh">外賣（美式講法）</div><div class="phrase-context">🇺🇸 美國通常用呢個，英國有啲 cafe 都接受。意思一樣。</div><div class="phrase-actions"><button class="play-btn small" onclick="speak('To go')">▶️ 聽</button> <button class="play-btn small blue" onclick="speak('To go', 0.3)">🐢 極慢</button></div></div>
         </div>
 
-        <div class="subsection-title">🍳 早餐嘢食 Breakfast</div>
-        <div class="money-grid">
-          <div class="money-card"><div class="price">🥚</div><div class="price-en">Eggs</div><div class="price-zh">蛋</div><button class="play-btn small" onclick="speak(`Eggs`)">▶️ 聽</button> <button class="play-btn small blue" onclick="speak(`Eggs`, 0.3)">🐢 極慢</button></div>
-          <div class="money-card"><div class="price">🍞</div><div class="price-en">Bread</div><div class="price-zh">麵包</div><button class="play-btn small" onclick="speak(`Bread`)">▶️ 聽</button> <button class="play-btn small blue" onclick="speak(`Bread`, 0.3)">🐢 極慢</button></div>
-          <div class="money-card"><div class="price">🥣</div><div class="price-en">Cereal</div><div class="price-zh">麥片</div><button class="play-btn small" onclick="speak(`Cereal`)">▶️ 聽</button> <button class="play-btn small blue" onclick="speak(`Cereal`, 0.3)">🐢 極慢</button></div>
-          <div class="money-card"><div class="price">🌾</div><div class="price-en">Porridge</div><div class="price-zh">燕麥粥</div><button class="play-btn small" onclick="speak(`Porridge`)">▶️ 聽</button> <button class="play-btn small blue" onclick="speak(`Porridge`, 0.3)">🐢 極慢</button></div>
-          <div class="money-card"><div class="price">🍯</div><div class="price-en">Honey</div><div class="price-zh">蜜糖</div><button class="play-btn small" onclick="speak(`Honey`)">▶️ 聽</button> <button class="play-btn small blue" onclick="speak(`Honey`, 0.3)">🐢 極慢</button></div>
-          <div class="money-card"><div class="price">🍓</div><div class="price-en">Jam</div><div class="price-zh">果醬</div><button class="play-btn small" onclick="speak(`Jam`)">▶️ 聽</button> <button class="play-btn small blue" onclick="speak(`Jam`, 0.3)">🐢 極慢</button></div>
-        </div>
+        <div class="callback">💡 <strong>價錢可能會唔同！</strong>有啲 cafe 收 takeaway 嘅 paper cup tax (10p)，而 Pret 反而 takeaway 平 50p。畀錢之前望下 menu 寫住嘅價錢有冇 "eat in" / "takeaway" 兩個 columns。</div>
 
-        <div class="callback">💡 <strong>Hannah 小貼士：</strong>英國嘅麵包有 <strong>white</strong>（白），<strong>brown / wholemeal</strong>（全麥，更有益），<strong>seeded</strong>（含種子）。wholemeal 係最健康揀擇！</div>
-
-        <div class="teacher-note"><strong>👩‍🏫 <strong>奶嘅顏色：</strong>記住英國超市奶嘅蓋顏色<br>• 🔵 藍 = whole<br>• 🟢 綠 = semi-skimmed（半脂）<br>• 🔴 紅 = skimmed（脫脂）</strong></div>
+        <div class="teacher-note"><strong>👩‍🏫 老師 tips：</strong>如果你帶咗 reusable cup，可以講 "<strong>I have my own cup.</strong>"（我有自己嘅杯）。好多 cafe 會減 25p-50p，仲環保！</div>
       </div>
 
       <!-- STEP 5 -->
       <div class="step-content hidden" data-step="5">
         <div class="section-label">Part 5 · 角色扮演 (4 分鐘)</div>
         <h2>到你開口啦！🎭</h2>
-        <div class="card-sub">扮 Hannah，買早餐食材</div>
+        <div class="card-sub">扮 Hannah，喺 Costa 點杯細杯 latte 堂食</div>
 
         <div class="instruction"><strong>📋 點玩：</strong>每句店員講完，到你諗點答。先諗，再 㩒 "💡 提示" 睇建議答案，最後 㩒 ▶️ 對比讀音。</div>
 
         <div class="roleplay-card">
-          <div class="roleplay-prompt"><div class="who">🏪 員工</div><div class="what">Hi! Can I help?</div><div class="what-zh">你好！要幫手嗎？</div><button class="play-btn small blue" onclick="speak(`Hi! Can I help?`)">▶️ 聽</button> <button class="play-btn small" onclick="speak(`Hi! Can I help?`, 0.3)">🐢 極慢</button></div>
-          <div class="roleplay-your-turn"><div class="label">👉 你嘅回應</div><div class="hint" id="hint1">問奶喺邊 →</div><button class="play-btn small" onclick="showHint(1, `Yes, where is the milk?`, `係，奶喺邊？`)">💡 提示</button></div>
+          <div class="roleplay-prompt"><div class="who">☕ Barista</div><div class="what">Hi there! What can I get you?</div><div class="what-zh">你好！你想要啲咩？</div><button class="play-btn small blue" onclick="speak('Hi there! What can I get you?')">▶️ 聽店員</button> <button class="play-btn small" onclick="speak('Hi there! What can I get you?', 0.3)">🐢 極慢</button></div>
+          <div class="roleplay-your-turn"><div class="label">👉 你嘅回應</div><div class="hint" id="hint1">先諗：點要一杯細杯 latte？</div><button class="play-btn small" onclick="showHint(1, 'Hello! Can I have a small latte, please?', '你好！可唔可以要一杯細杯 latte？')">💡 提示</button></div>
         </div>
 
         <div class="roleplay-card">
-          <div class="roleplay-prompt"><div class="who">🏪 員工</div><div class="what">Right here. Which one?</div><div class="what-zh">就呢度。邊個？</div><button class="play-btn small blue" onclick="speak(`Right here. Which one?`)">▶️ 聽</button> <button class="play-btn small" onclick="speak(`Right here. Which one?`, 0.3)">🐢 極慢</button></div>
-          <div class="roleplay-your-turn"><div class="label">👉 你嘅回應</div><div class="hint" id="hint2">問邊個係半脂 →</div><button class="play-btn small" onclick="showHint(2, `Which one is semi-skimmed?`, `邊個係半脂？`)">💡 提示</button></div>
+          <div class="roleplay-prompt"><div class="who">☕ Barista</div><div class="what">Sure. Eat in or takeaway?</div><div class="what-zh">當然。堂食定外賣？</div><button class="play-btn small blue" onclick="speak('Sure. Eat in or takeaway?')">▶️ 聽店員</button> <button class="play-btn small" onclick="speak('Sure. Eat in or takeaway?', 0.3)">🐢 極慢</button></div>
+          <div class="roleplay-your-turn"><div class="label">👉 你嘅回應</div><div class="hint" id="hint2">你想坐低慢慢飲 → 點答？</div><button class="play-btn small" onclick="showHint(2, 'Eat in, please.', '堂食，唔該。')">💡 提示</button></div>
         </div>
 
         <div class="roleplay-card">
-          <div class="roleplay-prompt"><div class="who">🏪 員工</div><div class="what">The green one.</div><div class="what-zh">綠色嗰個。</div><button class="play-btn small blue" onclick="speak(`The green one.`)">▶️ 聽</button> <button class="play-btn small" onclick="speak(`The green one.`, 0.3)">🐢 極慢</button></div>
-          <div class="roleplay-your-turn"><div class="label">👉 你嘅回應</div><div class="hint" id="hint3">你要兩支 →</div><button class="play-btn small" onclick="showHint(3, `I\'ll take two of those, please.`, `我要兩支，唔該。`)">💡 提示</button></div>
+          <div class="roleplay-prompt"><div class="who">☕ Barista</div><div class="what">Anything else?</div><div class="what-zh">仲要其他嘢嗎？</div><button class="play-btn small blue" onclick="speak('Anything else?')">▶️ 聽店員</button> <button class="play-btn small" onclick="speak('Anything else?', 0.3)">🐢 極慢</button></div>
+          <div class="roleplay-your-turn"><div class="label">👉 你嘅回應</div><div class="hint" id="hint3">已經夠晒 → 點禮貌咁拒絕？</div><button class="play-btn small" onclick="showHint(3, `No, that's all, thanks.`, '唔使，就咁多，唔該。')">💡 提示</button></div>
         </div>
 
         <div class="roleplay-card">
-          <div class="roleplay-prompt"><div class="who">🏪 員工</div><div class="what">Anything else?</div><div class="what-zh">仲要嗎？</div><button class="play-btn small blue" onclick="speak(`Anything else?`)">▶️ 聽</button> <button class="play-btn small" onclick="speak(`Anything else?`, 0.3)">🐢 極慢</button></div>
-          <div class="roleplay-your-turn"><div class="label">👉 你嘅回應</div><div class="hint" id="hint4">問麵包區 →</div><button class="play-btn small" onclick="showHint(4, `Where is the bread section?`, `麵包區喺邊？`)">💡 提示</button></div>
+          <div class="roleplay-prompt"><div class="who">☕ Barista</div><div class="what">That's three pounds fifty. What name shall I put on the cup?</div><div class="contraction-notes"><span class="contraction-note"><span class="cn-icon">ⓘ</span><strong>That's</strong> = That is</span></div><div class="what-zh">三鎊五。杯上面寫咩名？</div><button class="play-btn small blue" onclick="speak(`That's three pounds fifty. What name shall I put on the cup?`)">▶️ 聽店員</button> <button class="play-btn small" onclick="speak(`That's three pounds fifty. What name shall I put on the cup?`, 0.3)">🐢 極慢</button></div>
+          <div class="roleplay-your-turn"><div class="label">👉 你嘅回應</div><div class="hint" id="hint4">講你個名 + 多謝</div><button class="play-btn small" onclick="showHint(4, 'Hannah. Thanks!', 'Hannah。多謝！')">💡 提示</button></div>
         </div>
 
         <div class="roleplay-card">
-          <div class="roleplay-prompt"><div class="who">🏪 員工</div><div class="what">Aisle 3. Here's a map!</div><div class="contraction-notes"><span class="contraction-note"><span class="cn-icon">ⓘ</span><strong>Here's</strong> = Here is</span></div><div class="what-zh">第 3 行。呢張地圖！</div><button class="play-btn small blue" onclick="speak(`Aisle 3. Here's a map!`)">▶️ 聽</button> <button class="play-btn small" onclick="speak(`Aisle 3. Here's a map!`, 0.3)">🐢 極慢</button></div>
-          <div class="roleplay-your-turn"><div class="label">👉 你嘅回應</div><div class="hint" id="hint5">點禮貌回應？</div><button class="play-btn small" onclick="showHint(5, `Thank you so much!`, `真係好多謝你！`)">💡 提示</button></div>
+          <div class="roleplay-prompt"><div class="who">☕ Barista</div><div class="what">Great. We'll call your name when it's ready. Have a seat anywhere!</div><div class="contraction-notes"><span class="contraction-note"><span class="cn-icon">ⓘ</span><strong>We'll</strong> = We will</span><span class="contraction-note"><span class="cn-icon">ⓘ</span><strong>it's</strong> = it is</span></div><div class="what-zh">好。整好我哋會叫你個名。揀位坐就得！</div><button class="play-btn small blue" onclick="speak(`Great. We'll call your name when it's ready. Have a seat anywhere!`)">▶️ 聽店員</button> <button class="play-btn small" onclick="speak(`Great. We'll call your name when it's ready. Have a seat anywhere!`, 0.3)">🐢 極慢</button></div>
+          <div class="roleplay-your-turn"><div class="label">👉 你嘅回應</div><div class="hint" id="hint5">點禮貌咁回應？</div><button class="play-btn small" onclick="showHint(5, 'Thank you!', '多謝！')">💡 提示</button></div>
         </div>
 
-        <div class="teacher-note"><strong>👩‍🏫 記住 <strong>"Which one is..."</strong> 同 <strong>"Where is..."</strong> — 呢兩個 pattern 可以問超市任何嘢！</strong></div>
+        <div class="teacher-note"><strong>👩‍🏫 練多次！</strong>第一次唔識唔緊要。試 2-3 次，每次都用唔同嘅嘢飲（換做 cappuccino, tea, hot chocolate）。練到自動講出嚟為止。</div>
       </div>
 
       <!-- STEP 6 -->
@@ -768,34 +756,32 @@
         <div class="section-label">Part 6 · 完成 (1 分鐘)</div>
         <div class="complete-screen">
           <div class="complete-trophy">🏆</div>
-          <div class="complete-title">完成 Module 2 · Day 2！</div>
-          <div class="complete-sub">你識得點買早餐材料喇 🥛</div>
+          <div class="complete-title">完成 Module 3 · Day 1！☕</div>
+          <div class="complete-sub">你而家識得喺英國 cafe 點嘢飲喇 ✨</div>
         </div>
 
         <div class="summary-box">
           <h3>✏️ 今日學咗</h3>
           <ul class="summary-list">
-            <li>Where is the milk? — 奶喺邊？</li>
-            <li>Which one is semi-skimmed? — 邊個係半脂？</li>
-            <li>Do you have fresh eggs? — 有冇新鮮蛋？</li>
-            <li>Where is the bread section? — 麵包區喺邊？</li>
-            <li>I'll take two of those, please. — 我要兩件嗰啲，唔該。</li>
-            <li>奶類 + 早餐字詞（milk, eggs, bread, cheese, jam...）</li>
-            <li>3 種奶嘅分別（whole, semi-skimmed, skimmed）</li>
-            <li>完整買早餐食材 roleplay</li>
+            <li>Can I have a [size] [drink], please? — 點嘢飲嘅萬用句</li>
+            <li>Eat in / Takeaway — 堂食 / 外賣</li>
+            <li>What's in the [item]? — 問食物成分</li>
+            <li>Could I have some milk on the side? — 奶另上</li>
+            <li>No, that's all, thanks. — 就咁多，唔該</li>
+            <li>Where can I sit? — 我坐邊度？</li>
+            <li>英國 cafe 文化（counter order, 寫名喺杯上）</li>
           </ul>
         </div>
 
         <div class="homework-card">
-          <h3>📝 今日嘅 homework</h3>
-          <div class="homework-item"><div class="homework-num">1.</div><div>今個星期入<strong>一次 Tesco</strong>，用今日學嘅句買奶 + 蛋 + 麵包。</div></div>
-          <div class="homework-item"><div class="homework-num">2.</div><div>記住奶嘅<strong>顏色代號</strong>：🔵 全脂、🟢 半脂、🔴 脫脂。</div></div>
-          <div class="homework-item"><div class="homework-num">3.</div><div>每日讀一次 5 句套語，練到口講流利。</div></div>
+          <h3>📝 呢個 module 嘅 homework</h3>
+          <div class="homework-item"><div class="homework-num">1.</div><div>呢個星期入<strong>一次 cafe</strong>（Costa / Caffè Nero / Pret 都得），用今日學嘅句點杯細杯 latte 或者 hot chocolate。</div></div>
+          <div class="homework-item"><div class="homework-num">2.</div><div>記低你聽唔明嘅句，下堂講畀老師聽，可以一齊拆解。</div></div>
+          <div class="homework-item"><div class="homework-num">3.</div><div>下堂會學唔同嘅<strong>茶</strong>款（English breakfast, Earl Grey...） — 期待下！🍵</div></div>
         </div>
 
-        <div class="teacher-note" style="margin-top: 14px;"><strong>👩‍🏫 next：</strong>Day 3 — 肉類！我哋會去 butcher 買 beef、chicken 同 sausages 🥩</div>
+        <div class="teacher-note keep-inline" style="margin-top: 14px;"><strong>👩‍🏫 great job！</strong>cafe 係英國日常生活嘅一部分。識咗呢套套語，以後出街飲嘢輕鬆好多 ✨</div>
       </div>
-
     </div>
 
     <div class="footer-nav">
@@ -818,14 +804,14 @@ const completedSteps = new Set();
 const TOTAL_STEPS = 6;
 
 const FULL_DIALOGUE = [
-  "Hi! Can I help you find something?",
-  "Yes, please. Where is the milk?",
-  "Right here. What kind would you like?",
-  "Which one is semi-skimmed?",
-  "The green one. It has 1.7% fat.",
-  "OK, I'll take two of those, please.",
-  "Anything else?",
-  "Yes, where is the bread section?"
+  "Hello! Can I help you?",
+  "Hello! How much is this hot chocolate?",
+  "It's two pounds fifty.",
+  "OK, I'll take this, please. And one biscuit.",
+  "That's four pounds. Do you take cards?",
+  "Yes. Can I have a bag, please?",
+  "Sure. Here you are. Have a nice day!",
+  "Thank you! You too!"
 ];
 
 // ============ SPEECH (dual voice) ============
@@ -834,6 +820,7 @@ let englishVoice = null;
 function loadVoices() {
   const voices = speechSynthesis.getVoices();
 
+  // Known female voice names across iOS / Android / Chrome / macOS / Windows
   const FEMALE_NAMES = [
     'Samantha', 'Karen', 'Moira', 'Kate', 'Serena', 'Victoria', 'Tessa',
     'Fiona', 'Veena', 'Allison', 'Ava', 'Susan', 'Zoe', 'Martha',
@@ -842,6 +829,7 @@ function loadVoices() {
     'Female', 'female'
   ];
 
+  // High-quality iOS local voice names (sound clearer than cloud voices)
   const IOS_LOCAL_FEMALES = ['Samantha', 'Karen', 'Moira', 'Tessa', 'Kate', 'Serena', 'Fiona', 'Victoria', 'Martha'];
 
   function isFemale(voice) {
@@ -862,14 +850,17 @@ function loadVoices() {
     return voice.name.toLowerCase().startsWith('google');
   }
 
-  // PRIORITY: Enhanced > en-GB local > en-AU Karen > en-IE Moira > en-ZA Tessa > others > cloud
+  // Single voice — pick the best English female voice available
+  // PRIORITY: Enhanced > en-GB local > en-AU Karen > en-IE Moira > en-ZA > others > cloud
+  // Note: Karen (en-AU) sounds closer to British English than Moira (en-IE Irish accent)
+  // which has rolled R's and different rhythm that's harder for A1 learners
   englishVoice =
     voices.find(v => isFemale(v) && isEnhanced(v) && v.lang.startsWith('en-')) ||
     voices.find(v => v.lang === 'en-GB' && isIosLocal(v)) ||
     voices.find(v => v.lang === 'en-AU' && isIosLocal(v)) ||  // Karen — closer to UK
-    voices.find(v => v.lang === 'en-IE' && isIosLocal(v)) ||  // Moira
-    voices.find(v => v.lang === 'en-ZA' && isIosLocal(v)) ||  // Tessa
-    voices.find(v => v.lang.startsWith('en-') && isIosLocal(v)) ||
+    voices.find(v => v.lang === 'en-IE' && isIosLocal(v)) ||  // Moira — Irish accent
+    voices.find(v => v.lang === 'en-ZA' && isIosLocal(v)) ||  // Tessa — South African
+    voices.find(v => v.lang.startsWith('en-') && isIosLocal(v)) ||  // Samantha (US)
     voices.find(v => v.lang.startsWith('en-') && isFemale(v) && !isGoogleCloud(v)) ||
     voices.find(v => v.lang.startsWith('en-') && isFemale(v)) ||
     voices.find(v => v.lang === 'en-GB') ||
@@ -888,6 +879,7 @@ function loadVoices() {
     console.log('[Voice] No voice available!');
   }
 
+  // Show voice info on page (debug indicator)
   showVoiceIndicator(englishVoice);
 }
 
@@ -923,7 +915,7 @@ if (typeof speechSynthesis !== 'undefined') {
 
 // Main speak() — accepts optional voice param (shop/you/null=default)
 function speak(text, rate, voiceKind) {
-  // voiceKind kept for backward compat but ignored — single voice
+  // voiceKind kept for backward compat with existing calls but ignored — single voice
   speechSynthesis.cancel();
   const u = new SpeechSynthesisUtterance(text);
   u.rate = rate || currentSpeed || 0.7;
@@ -935,6 +927,7 @@ function speak(text, rate, voiceKind) {
   } else {
     u.lang = 'en-GB';
   }
+  // DEBUG: log actual rate used
   console.log('[speak]', 'rate=' + u.rate, 'currentSpeed=' + currentSpeed, 'text=' + text.substring(0, 30));
   speechSynthesis.speak(u);
 }
@@ -945,6 +938,7 @@ function setSpeed(speed, btn) {
   document.querySelectorAll('.speed-btn').forEach(b => b.classList.remove('active'));
   if (btn) btn.classList.add('active');
 }
+
 // ============ FULL DIALOGUE TOGGLE ============
 let FULL_DIALOGUE_DATA = [];  // populated from DOM on first play
 let dialogueTimers = [];
@@ -1074,7 +1068,7 @@ function goToStep(step) {
   prevBtn.style.visibility = step === 1 ? 'hidden' : 'visible';
   if (step === TOTAL_STEPS) {
     nextText.textContent = '🎉 完成';
-    nextBtn.onclick = () => alert('恭喜完成 Day 2！記得做 homework 喇 🥛');
+    nextBtn.onclick = () => alert('恭喜完成 Day 1！記得做 homework 喇 🛍️');
   } else if (step === 1) {
     nextText.textContent = '開始學習';
     nextBtn.onclick = goNext;
@@ -1090,7 +1084,7 @@ function goToStep(step) {
   if (mobileNextText && mobileNextBtn) {
     if (step === TOTAL_STEPS) {
       mobileNextText.textContent = '🎉 完成';
-      mobileNextBtn.onclick = () => alert('恭喜完成 Day 2！記得做 homework 喇 🥛');
+      mobileNextBtn.onclick = () => alert('恭喜完成 Day 1！記得做 homework 喇 🛍️');
     } else if (step === 1) {
       mobileNextText.textContent = '開始學習 →';
       mobileNextBtn.onclick = goNext;
@@ -1101,6 +1095,8 @@ function goToStep(step) {
   }
 
   document.querySelector('.main-inner').scrollTop = 0;
+  // Auto-close sidebar on mobile after navigating
+  if (window.innerWidth <= 768) setTimeout(closeMobileSidebar, 150);
 }
 
 function goNext() { if (currentStep < TOTAL_STEPS) goToStep(currentStep + 1); }
@@ -1333,9 +1329,13 @@ function pagerGo(stepNum, delta) {
 }
 
 function setupAllPaginators() {
+  // Step 2: dialogues (8 lines, paginate them as 1 line per page)
   setupPagination(2, '.dialogue-line', '句對話');
+  // Step 3: phrase cards (6 phrases)
   setupPagination(3, '.phrase-card', '句套語');
+  // Step 4: money/price cards (6 prices)
   setupPagination(4, '.money-card', '個字詞');
+  // Step 5: roleplay cards (5 turns)
   setupPagination(5, '.roleplay-card', '個練習');
 }
 window.addEventListener('DOMContentLoaded', setupAllPaginators);

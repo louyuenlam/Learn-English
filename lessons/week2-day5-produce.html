@@ -527,6 +527,41 @@
     }
   }
 
+
+  /* ============ CONTRACTION EXPANSION NOTE ============ */
+  .contraction-notes {
+    margin-top: 6px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .contraction-note {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 11px;
+    color: var(--blue, #5a7a8b);
+    background: rgba(90, 122, 139, 0.1);
+    padding: 2px 8px;
+    border-radius: 100px;
+    font-weight: 500;
+    letter-spacing: 0.2px;
+    white-space: nowrap;
+  }
+  .contraction-note .cn-icon {
+    font-size: 11px;
+    opacity: 0.8;
+  }
+  .contraction-note strong {
+    color: var(--blue, #5a7a8b);
+    font-weight: 700;
+  }
+  @media (min-width: 768px) {
+    .contraction-note {
+      font-size: 12px;
+    }
+  }
+
 </style>
 </head>
 <body>
@@ -631,7 +666,7 @@
         <div class="dialogue-card" style="margin-top: 14px;">
           <div class="dialogue-line"><div class="dialogue-avatar shop">🥕</div><div class="dialogue-bubble"><div class="dialogue-text">Hi there! Finding everything OK?</div><div class="dialogue-zh">你好！揾到嘢嗎？</div><button class="play-btn small" onclick="speak(`Hi there! Finding everything OK?`)">▶️ 聽</button> <button class="play-btn small blue" onclick="speak(`Hi there! Finding everything OK?`, 0.3, 'shop')">🐢 極慢</button></div></div>
           <div class="dialogue-line"><div class="dialogue-avatar you">😊</div><div class="dialogue-bubble you"><div class="dialogue-text">Yes, thanks. Could I have a bunch of bananas?</div><div class="dialogue-zh">係，多謝。唔該一梳香蕉。</div><button class="play-btn small" onclick="speak(`Yes, thanks. Could I have a bunch of bananas?`)">▶️ 聽</button> <button class="play-btn small blue" onclick="speak(`Yes, thanks. Could I have a bunch of bananas?`, 0.3, 'you')">🐢 極慢</button></div></div>
-          <div class="dialogue-line"><div class="dialogue-avatar shop">🥕</div><div class="dialogue-bubble"><div class="dialogue-text">Sure! How about some strawberries? They're on sale.</div><div class="dialogue-zh">好！要唔要士多啤梨？特價。</div><button class="play-btn small" onclick="speak(`Sure! How about some strawberries? They're on sale.`)">▶️ 聽</button> <button class="play-btn small blue" onclick="speak(`Sure! How about some strawberries? They're on sale.`, 0.3, 'shop')">🐢 極慢</button></div></div>
+          <div class="dialogue-line"><div class="dialogue-avatar shop">🥕</div><div class="dialogue-bubble"><div class="dialogue-text">Sure! How about some strawberries? They're on sale.</div><div class="contraction-notes"><span class="contraction-note"><span class="cn-icon">ⓘ</span><strong>They're</strong> = They are</span></div><div class="dialogue-zh">好！要唔要士多啤梨？特價。</div><button class="play-btn small" onclick="speak(`Sure! How about some strawberries? They're on sale.`)">▶️ 聽</button> <button class="play-btn small blue" onclick="speak(`Sure! How about some strawberries? They're on sale.`, 0.3, 'shop')">🐢 極慢</button></div></div>
           <div class="dialogue-line"><div class="dialogue-avatar you">😊</div><div class="dialogue-bubble you"><div class="dialogue-text">Are these strawberries sweet?</div><div class="dialogue-zh">啲士多啤梨甜嗎？</div><button class="play-btn small" onclick="speak(`Are these strawberries sweet?`)">▶️ 聽</button> <button class="play-btn small blue" onclick="speak(`Are these strawberries sweet?`, 0.3, 'you')">🐢 極慢</button></div></div>
           <div class="dialogue-line"><div class="dialogue-avatar shop">🥕</div><div class="dialogue-bubble"><div class="dialogue-text">Yes, very sweet! Fresh from this morning.</div><div class="dialogue-zh">好甜！今朝先到。</div><button class="play-btn small" onclick="speak(`Yes, very sweet! Fresh from this morning.`)">▶️ 聽</button> <button class="play-btn small blue" onclick="speak(`Yes, very sweet! Fresh from this morning.`, 0.3, 'shop')">🐢 極慢</button></div></div>
           <div class="dialogue-line"><div class="dialogue-avatar you">😊</div><div class="dialogue-bubble you"><div class="dialogue-text">OK, one box please. How much per kilo for apples?</div><div class="dialogue-zh">好，一盒。蘋果一公斤幾錢？</div><button class="play-btn small" onclick="speak(`OK, one box please. How much per kilo for apples?`)">▶️ 聽</button> <button class="play-btn small blue" onclick="speak(`OK, one box please. How much per kilo for apples?`, 0.3, 'you')">🐢 極慢</button></div></div>

@@ -528,6 +528,41 @@
     }
   }
 
+
+  /* ============ CONTRACTION EXPANSION NOTE ============ */
+  .contraction-notes {
+    margin-top: 6px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .contraction-note {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 11px;
+    color: var(--blue, #5a7a8b);
+    background: rgba(90, 122, 139, 0.1);
+    padding: 2px 8px;
+    border-radius: 100px;
+    font-weight: 500;
+    letter-spacing: 0.2px;
+    white-space: nowrap;
+  }
+  .contraction-note .cn-icon {
+    font-size: 11px;
+    opacity: 0.8;
+  }
+  .contraction-note strong {
+    color: var(--blue, #5a7a8b);
+    font-weight: 700;
+  }
+  @media (min-width: 768px) {
+    .contraction-note {
+      font-size: 12px;
+    }
+  }
+
 </style>
 </head>
 <body>
@@ -632,9 +667,9 @@
         <div class="dialogue-card" style="margin-top: 14px;">
           <div class="dialogue-line"><div class="dialogue-avatar shop">🏪</div><div class="dialogue-bubble"><div class="dialogue-text">Hello! Can I help you?</div><div class="dialogue-zh">你好！需要幫手嗎？</div><button class="play-btn small" onclick="speak('Hello! Can I help you?')">▶️ 聽</button> <button class="play-btn small blue" onclick="speak('Hello! Can I help you?', 0.3, 'shop')">🐢 極慢</button></div></div>
           <div class="dialogue-line"><div class="dialogue-avatar you">😊</div><div class="dialogue-bubble you"><div class="dialogue-text">Hello! How much is this hot chocolate?</div><div class="dialogue-zh">你好！呢杯熱朱古力幾錢？</div><button class="play-btn small" onclick="speak('Hello! How much is this hot chocolate?')">▶️ 聽</button> <button class="play-btn small blue" onclick="speak('Hello! How much is this hot chocolate?', 0.3, 'you')">🐢 極慢</button></div></div>
-          <div class="dialogue-line"><div class="dialogue-avatar shop">🏪</div><div class="dialogue-bubble"><div class="dialogue-text">It's two pounds fifty.</div><div class="dialogue-zh">兩鎊五（£2.50）。</div><button class="play-btn small" onclick="speak(`It's two pounds fifty.`)">▶️ 聽</button> <button class="play-btn small blue" onclick="speak(`It's two pounds fifty.`, 0.3, 'shop')">🐢 極慢</button></div></div>
-          <div class="dialogue-line"><div class="dialogue-avatar you">😊</div><div class="dialogue-bubble you"><div class="dialogue-text">OK, I'll take this, please. And one biscuit.</div><div class="dialogue-zh">好，我要呢個，唔該。仲要一塊餅。</div><button class="play-btn small" onclick="speak(`OK, I'll take this, please. And one biscuit.`)">▶️ 聽</button> <button class="play-btn small blue" onclick="speak(`OK, I'll take this, please. And one biscuit.`, 0.3, 'you')">🐢 極慢</button></div></div>
-          <div class="dialogue-line"><div class="dialogue-avatar shop">🏪</div><div class="dialogue-bubble"><div class="dialogue-text">That's four pounds. Do you take cards?</div><div class="dialogue-zh">總共四鎊。收唔收 card？</div><button class="play-btn small" onclick="speak(`That's four pounds. Do you take cards?`)">▶️ 聽</button> <button class="play-btn small blue" onclick="speak(`That's four pounds. Do you take cards?`, 0.3, 'shop')">🐢 極慢</button></div></div>
+          <div class="dialogue-line"><div class="dialogue-avatar shop">🏪</div><div class="dialogue-bubble"><div class="dialogue-text">It's two pounds fifty.</div><div class="contraction-notes"><span class="contraction-note"><span class="cn-icon">ⓘ</span><strong>It's</strong> = It is</span></div><div class="dialogue-zh">兩鎊五（£2.50）。</div><button class="play-btn small" onclick="speak(`It's two pounds fifty.`)">▶️ 聽</button> <button class="play-btn small blue" onclick="speak(`It's two pounds fifty.`, 0.3, 'shop')">🐢 極慢</button></div></div>
+          <div class="dialogue-line"><div class="dialogue-avatar you">😊</div><div class="dialogue-bubble you"><div class="dialogue-text">OK, I'll take this, please. And one biscuit.</div><div class="contraction-notes"><span class="contraction-note"><span class="cn-icon">ⓘ</span><strong>I'll</strong> = I will</span></div><div class="dialogue-zh">好，我要呢個，唔該。仲要一塊餅。</div><button class="play-btn small" onclick="speak(`OK, I'll take this, please. And one biscuit.`)">▶️ 聽</button> <button class="play-btn small blue" onclick="speak(`OK, I'll take this, please. And one biscuit.`, 0.3, 'you')">🐢 極慢</button></div></div>
+          <div class="dialogue-line"><div class="dialogue-avatar shop">🏪</div><div class="dialogue-bubble"><div class="dialogue-text">That's four pounds. Do you take cards?</div><div class="contraction-notes"><span class="contraction-note"><span class="cn-icon">ⓘ</span><strong>That's</strong> = That is</span></div><div class="dialogue-zh">總共四鎊。收唔收 card？</div><button class="play-btn small" onclick="speak(`That's four pounds. Do you take cards?`)">▶️ 聽</button> <button class="play-btn small blue" onclick="speak(`That's four pounds. Do you take cards?`, 0.3, 'shop')">🐢 極慢</button></div></div>
           <div class="dialogue-line"><div class="dialogue-avatar you">😊</div><div class="dialogue-bubble you"><div class="dialogue-text">Yes. Can I have a bag, please?</div><div class="dialogue-zh">收。可唔可以畀個袋我，唔該？</div><button class="play-btn small" onclick="speak('Yes. Can I have a bag, please?')">▶️ 聽</button> <button class="play-btn small blue" onclick="speak('Yes. Can I have a bag, please?', 0.3, 'you')">🐢 極慢</button></div></div>
           <div class="dialogue-line"><div class="dialogue-avatar shop">🏪</div><div class="dialogue-bubble"><div class="dialogue-text">Sure. Here you are. Have a nice day!</div><div class="dialogue-zh">當然！畀你。祝你有美好一日！</div><button class="play-btn small" onclick="speak('Sure. Here you are. Have a nice day!')">▶️ 聽</button> <button class="play-btn small blue" onclick="speak('Sure. Here you are. Have a nice day!', 0.3, 'shop')">🐢 極慢</button></div></div>
           <div class="dialogue-line"><div class="dialogue-avatar you">😊</div><div class="dialogue-bubble you"><div class="dialogue-text">Thank you! You too!</div><div class="dialogue-zh">多謝！你都係！</div><button class="play-btn small" onclick="speak('Thank you! You too!')">▶️ 聽</button> <button class="play-btn small blue" onclick="speak('Thank you! You too!', 0.3, 'you')">🐢 極慢</button></div></div>
@@ -652,9 +687,9 @@
         <div class="phrases-list">
           <div class="phrase-card"><div class="phrase-num">1</div><div class="phrase-en">How much is this?</div><div class="phrase-zh">呢個幾錢？</div><div class="phrase-context">📍 用喺：指住件貨問價錢</div><div class="phrase-actions"><button class="play-btn small" onclick="speak('How much is this?')">▶️ 聽</button> <button class="play-btn small blue" onclick="speak('How much is this?', 0.3)">🐢 極慢</button></div></div>
           <div class="phrase-card"><div class="phrase-num">2</div><div class="phrase-en">Do you take cards?</div><div class="phrase-zh">收唔收 card？</div><div class="phrase-context">📍 用喺：俾錢之前確認可以用 card</div><div class="phrase-actions"><button class="play-btn small" onclick="speak('Do you take cards?')">▶️ 聽</button> <button class="play-btn small blue" onclick="speak('Do you take cards?', 0.3)">🐢 極慢</button></div></div>
-          <div class="phrase-card"><div class="phrase-num">3</div><div class="phrase-en">I'll take this, please.</div><div class="phrase-zh">我要呢個，唔該。</div><div class="phrase-context">📍 用喺：決定買乜，遞俾店員</div><div class="phrase-actions"><button class="play-btn small" onclick="speak(`I'll take this, please.`)">▶️ 聽</button> <button class="play-btn small blue" onclick="speak(`I'll take this, please.`, 0.3)">🐢 極慢</button></div></div>
+          <div class="phrase-card"><div class="phrase-num">3</div><div class="phrase-en">I'll take this, please.</div><div class="contraction-notes"><span class="contraction-note"><span class="cn-icon">ⓘ</span><strong>I'll</strong> = I will</span></div><div class="phrase-zh">我要呢個，唔該。</div><div class="phrase-context">📍 用喺：決定買乜，遞俾店員</div><div class="phrase-actions"><button class="play-btn small" onclick="speak(`I'll take this, please.`)">▶️ 聽</button> <button class="play-btn small blue" onclick="speak(`I'll take this, please.`, 0.3)">🐢 極慢</button></div></div>
           <div class="phrase-card"><div class="phrase-num">4</div><div class="phrase-en">Can I have a bag, please?</div><div class="phrase-zh">可唔可以畀個袋我，唔該？</div><div class="phrase-context">📍 用喺：英國要袋通常要俾 5p-10p</div><div class="phrase-actions"><button class="play-btn small" onclick="speak('Can I have a bag, please?')">▶️ 聽</button> <button class="play-btn small blue" onclick="speak('Can I have a bag, please?', 0.3)">🐢 極慢</button></div></div>
-          <div class="phrase-card"><div class="phrase-num">5</div><div class="phrase-en">That's everything, thanks.</div><div class="phrase-zh">就咁多，唔該。</div><div class="phrase-context">📍 用喺：店員問「仲要其他嘢嗎？」嘅回應</div><div class="phrase-actions"><button class="play-btn small" onclick="speak(`That's everything, thanks.`)">▶️ 聽</button> <button class="play-btn small blue" onclick="speak(`That's everything, thanks.`, 0.3)">🐢 極慢</button></div></div>
+          <div class="phrase-card"><div class="phrase-num">5</div><div class="phrase-en">That's everything, thanks.</div><div class="contraction-notes"><span class="contraction-note"><span class="cn-icon">ⓘ</span><strong>That's</strong> = That is</span></div><div class="phrase-zh">就咁多，唔該。</div><div class="phrase-context">📍 用喺：店員問「仲要其他嘢嗎？」嘅回應</div><div class="phrase-actions"><button class="play-btn small" onclick="speak(`That's everything, thanks.`)">▶️ 聽</button> <button class="play-btn small blue" onclick="speak(`That's everything, thanks.`, 0.3)">🐢 極慢</button></div></div>
           <div class="phrase-card"><div class="phrase-num">6</div><div class="phrase-en">Receipt, please.</div><div class="phrase-zh">唔該畀張單。</div><div class="phrase-context">📍 用喺：想要收據（讀 "ree-SEET"，silent "p"！）</div><div class="phrase-actions"><button class="play-btn small" onclick="speak('Receipt, please.')">▶️ 聽</button> <button class="play-btn small blue" onclick="speak('Receipt, please.', 0.3)">🐢 極慢</button></div></div>
         </div>
 
@@ -698,7 +733,7 @@
         </div>
 
         <div class="roleplay-card">
-          <div class="roleplay-prompt"><div class="who">🏪 店員</div><div class="what">It's two pounds fifty.</div><div class="what-zh">兩鎊五。</div><button class="play-btn small blue" onclick="speak(`It's two pounds fifty.`)">▶️ 聽店員</button> <button class="play-btn small" onclick="speak(`It's two pounds fifty.`, 0.3)">🐢 極慢</button></div>
+          <div class="roleplay-prompt"><div class="who">🏪 店員</div><div class="what">It's two pounds fifty.</div><div class="contraction-notes"><span class="contraction-note"><span class="cn-icon">ⓘ</span><strong>It's</strong> = It is</span></div><div class="what-zh">兩鎊五。</div><button class="play-btn small blue" onclick="speak(`It's two pounds fifty.`)">▶️ 聽店員</button> <button class="play-btn small" onclick="speak(`It's two pounds fifty.`, 0.3)">🐢 極慢</button></div>
           <div class="roleplay-your-turn"><div class="label">👉 你嘅回應</div><div class="hint" id="hint2">你決定買 → 點講？</div><button class="play-btn small" onclick="showHint(2, `OK, I'll take this, please.`, '好，我要呢個，唔該。')">💡 提示</button></div>
         </div>
 
@@ -708,7 +743,7 @@
         </div>
 
         <div class="roleplay-card">
-          <div class="roleplay-prompt"><div class="who">🏪 店員</div><div class="what">That's two pounds fifty. Do you take a bag?</div><div class="what-zh">總共兩鎊五。要袋嗎？</div><button class="play-btn small blue" onclick="speak(`That's two pounds fifty. Do you take a bag?`)">▶️ 聽店員</button> <button class="play-btn small" onclick="speak(`That's two pounds fifty. Do you take a bag?`, 0.3)">🐢 極慢</button></div>
+          <div class="roleplay-prompt"><div class="who">🏪 店員</div><div class="what">That's two pounds fifty. Do you take a bag?</div><div class="contraction-notes"><span class="contraction-note"><span class="cn-icon">ⓘ</span><strong>That's</strong> = That is</span></div><div class="what-zh">總共兩鎊五。要袋嗎？</div><button class="play-btn small blue" onclick="speak(`That's two pounds fifty. Do you take a bag?`)">▶️ 聽店員</button> <button class="play-btn small" onclick="speak(`That's two pounds fifty. Do you take a bag?`, 0.3)">🐢 極慢</button></div>
           <div class="roleplay-your-turn"><div class="label">👉 你嘅回應</div><div class="hint" id="hint4">你想要袋 → 點問？</div><button class="play-btn small" onclick="showHint(4, 'Yes, can I have a bag, please?', '要，可唔可以畀個袋我，唔該？')">💡 提示</button></div>
         </div>
 

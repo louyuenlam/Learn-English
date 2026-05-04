@@ -527,6 +527,41 @@
     }
   }
 
+
+  /* ============ CONTRACTION EXPANSION NOTE ============ */
+  .contraction-notes {
+    margin-top: 6px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .contraction-note {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 11px;
+    color: var(--blue, #5a7a8b);
+    background: rgba(90, 122, 139, 0.1);
+    padding: 2px 8px;
+    border-radius: 100px;
+    font-weight: 500;
+    letter-spacing: 0.2px;
+    white-space: nowrap;
+  }
+  .contraction-note .cn-icon {
+    font-size: 11px;
+    opacity: 0.8;
+  }
+  .contraction-note strong {
+    color: var(--blue, #5a7a8b);
+    font-weight: 700;
+  }
+  @media (min-width: 768px) {
+    .contraction-note {
+      font-size: 12px;
+    }
+  }
+
 </style>
 </head>
 <body>
@@ -634,7 +669,7 @@
           <div class="dialogue-line"><div class="dialogue-avatar shop">🐟</div><div class="dialogue-bubble"><div class="dialogue-text">Yes, we have fresh fillets. How much would you like?</div><div class="dialogue-zh">有，有新鮮魚柳。要幾多？</div><button class="play-btn small" onclick="speak(`Yes, we have fresh fillets. How much would you like?`)">▶️ 聽</button> <button class="play-btn small blue" onclick="speak(`Yes, we have fresh fillets. How much would you like?`, 0.3, 'shop')">🐢 極慢</button></div></div>
           <div class="dialogue-line"><div class="dialogue-avatar you">😊</div><div class="dialogue-bubble you"><div class="dialogue-text">Two fillets, please. Are these prawns cooked?</div><div class="dialogue-zh">兩塊，唔該。啲蝦熟咗未？</div><button class="play-btn small" onclick="speak(`Two fillets, please. Are these prawns cooked?`)">▶️ 聽</button> <button class="play-btn small blue" onclick="speak(`Two fillets, please. Are these prawns cooked?`, 0.3, 'you')">🐢 極慢</button></div></div>
           <div class="dialogue-line"><div class="dialogue-avatar shop">🐟</div><div class="dialogue-bubble"><div class="dialogue-text">Yes, these are cooked. Raw ones are over there.</div><div class="dialogue-zh">熟咗。生嘅喺嗰邊。</div><button class="play-btn small" onclick="speak(`Yes, these are cooked. Raw ones are over there.`)">▶️ 聽</button> <button class="play-btn small blue" onclick="speak(`Yes, these are cooked. Raw ones are over there.`, 0.3, 'shop')">🐢 極慢</button></div></div>
-          <div class="dialogue-line"><div class="dialogue-avatar you">😊</div><div class="dialogue-bubble you"><div class="dialogue-text">I'll take cooked ones, please. 200 grams.</div><div class="dialogue-zh">我要熟嘅，唔該。200 克。</div><button class="play-btn small" onclick="speak(`I'll take cooked ones, please. 200 grams.`)">▶️ 聽</button> <button class="play-btn small blue" onclick="speak(`I'll take cooked ones, please. 200 grams.`, 0.3, 'you')">🐢 極慢</button></div></div>
+          <div class="dialogue-line"><div class="dialogue-avatar you">😊</div><div class="dialogue-bubble you"><div class="dialogue-text">I'll take cooked ones, please. 200 grams.</div><div class="contraction-notes"><span class="contraction-note"><span class="cn-icon">ⓘ</span><strong>I'll</strong> = I will</span></div><div class="dialogue-zh">我要熟嘅，唔該。200 克。</div><button class="play-btn small" onclick="speak(`I'll take cooked ones, please. 200 grams.`)">▶️ 聽</button> <button class="play-btn small blue" onclick="speak(`I'll take cooked ones, please. 200 grams.`, 0.3, 'you')">🐢 極慢</button></div></div>
           <div class="dialogue-line"><div class="dialogue-avatar shop">🐟</div><div class="dialogue-bubble"><div class="dialogue-text">Sure! Can I clean the fish for you?</div><div class="dialogue-zh">好！要幫你劏魚嗎？</div><button class="play-btn small" onclick="speak(`Sure! Can I clean the fish for you?`)">▶️ 聽</button> <button class="play-btn small blue" onclick="speak(`Sure! Can I clean the fish for you?`, 0.3, 'shop')">🐢 極慢</button></div></div>
           <div class="dialogue-line"><div class="dialogue-avatar you">😊</div><div class="dialogue-bubble you"><div class="dialogue-text">Yes, please. Thank you so much!</div><div class="dialogue-zh">係，唔該。真係好多謝你！</div><button class="play-btn small" onclick="speak(`Yes, please. Thank you so much!`)">▶️ 聽</button> <button class="play-btn small blue" onclick="speak(`Yes, please. Thank you so much!`, 0.3, 'you')">🐢 極慢</button></div></div>
         </div>

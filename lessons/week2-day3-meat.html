@@ -527,6 +527,41 @@
     }
   }
 
+
+  /* ============ CONTRACTION EXPANSION NOTE ============ */
+  .contraction-notes {
+    margin-top: 6px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .contraction-note {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 11px;
+    color: var(--blue, #5a7a8b);
+    background: rgba(90, 122, 139, 0.1);
+    padding: 2px 8px;
+    border-radius: 100px;
+    font-weight: 500;
+    letter-spacing: 0.2px;
+    white-space: nowrap;
+  }
+  .contraction-note .cn-icon {
+    font-size: 11px;
+    opacity: 0.8;
+  }
+  .contraction-note strong {
+    color: var(--blue, #5a7a8b);
+    font-weight: 700;
+  }
+  @media (min-width: 768px) {
+    .contraction-note {
+      font-size: 12px;
+    }
+  }
+
 </style>
 </head>
 <body>
@@ -635,7 +670,7 @@
           <div class="dialogue-line"><div class="dialogue-avatar you">😊</div><div class="dialogue-bubble you"><div class="dialogue-text">Beef, please. Is it fresh?</div><div class="dialogue-zh">牛肉，唔該。新鮮嗎？</div><button class="play-btn small" onclick="speak(`Beef, please. Is it fresh?`)">▶️ 聽</button> <button class="play-btn small blue" onclick="speak(`Beef, please. Is it fresh?`, 0.3, 'you')">🐢 極慢</button></div></div>
           <div class="dialogue-line"><div class="dialogue-avatar shop">🥩</div><div class="dialogue-bubble"><div class="dialogue-text">Yes, very fresh. From today.</div><div class="dialogue-zh">係，好新鮮。今日嘅。</div><button class="play-btn small" onclick="speak(`Yes, very fresh. From today.`)">▶️ 聽</button> <button class="play-btn small blue" onclick="speak(`Yes, very fresh. From today.`, 0.3, 'shop')">🐢 極慢</button></div></div>
           <div class="dialogue-line"><div class="dialogue-avatar you">😊</div><div class="dialogue-bubble you"><div class="dialogue-text">Great. And two chicken thighs, please.</div><div class="dialogue-zh">好。仲要兩隻雞腿，唔該。</div><button class="play-btn small" onclick="speak(`Great. And two chicken thighs, please.`)">▶️ 聽</button> <button class="play-btn small blue" onclick="speak(`Great. And two chicken thighs, please.`, 0.3, 'you')">🐢 極慢</button></div></div>
-          <div class="dialogue-line"><div class="dialogue-avatar shop">🥩</div><div class="dialogue-bubble"><div class="dialogue-text">Right. That's six pounds total.</div><div class="dialogue-zh">好。總共六鎊。</div><button class="play-btn small" onclick="speak(`Right. That's six pounds total.`)">▶️ 聽</button> <button class="play-btn small blue" onclick="speak(`Right. That's six pounds total.`, 0.3, 'shop')">🐢 極慢</button></div></div>
+          <div class="dialogue-line"><div class="dialogue-avatar shop">🥩</div><div class="dialogue-bubble"><div class="dialogue-text">Right. That's six pounds total.</div><div class="contraction-notes"><span class="contraction-note"><span class="cn-icon">ⓘ</span><strong>That's</strong> = That is</span></div><div class="dialogue-zh">好。總共六鎊。</div><button class="play-btn small" onclick="speak(`Right. That's six pounds total.`)">▶️ 聽</button> <button class="play-btn small blue" onclick="speak(`Right. That's six pounds total.`, 0.3, 'shop')">🐢 極慢</button></div></div>
           <div class="dialogue-line"><div class="dialogue-avatar you">😊</div><div class="dialogue-bubble you"><div class="dialogue-text">Thank you!</div><div class="dialogue-zh">多謝！</div><button class="play-btn small" onclick="speak(`Thank you!`)">▶️ 聽</button> <button class="play-btn small blue" onclick="speak(`Thank you!`, 0.3, 'you')">🐢 極慢</button></div></div>
         </div>
 
@@ -721,7 +756,7 @@
         </div>
 
         <div class="roleplay-card">
-          <div class="roleplay-prompt"><div class="who">🥩 Butcher</div><div class="what">That's seven pounds total.</div><div class="what-zh">總共七鎊。</div><button class="play-btn small blue" onclick="speak(`That's seven pounds total.`)">▶️ 聽</button> <button class="play-btn small" onclick="speak(`That's seven pounds total.`, 0.3)">🐢 極慢</button></div>
+          <div class="roleplay-prompt"><div class="who">🥩 Butcher</div><div class="what">That's seven pounds total.</div><div class="contraction-notes"><span class="contraction-note"><span class="cn-icon">ⓘ</span><strong>That's</strong> = That is</span></div><div class="what-zh">總共七鎊。</div><button class="play-btn small blue" onclick="speak(`That's seven pounds total.`)">▶️ 聽</button> <button class="play-btn small" onclick="speak(`That's seven pounds total.`, 0.3)">🐢 極慢</button></div>
           <div class="roleplay-your-turn"><div class="label">👉 你嘅回應</div><div class="hint" id="hint5">結帳收單 →</div><button class="play-btn small" onclick="showHint(5, `Here you are. Receipt, please.`, `畀你。唔該畀張單。`)">💡 提示</button></div>
         </div>
 
