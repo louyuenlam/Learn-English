@@ -1,557 +1,1400 @@
 <!DOCTYPE html>
-<html lang="zh-HK">
+<html lang="zh-yue">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="default">
-<meta name="theme-color" content="#faf6ef">
-<title>Hannah 英文</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2, viewport-fit=cover">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<title>Hannah 英文 · 主頁</title>
+
 <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32.png">
 <link rel="apple-touch-icon" sizes="180x180" href="images/app-icon.png">
 <link rel="icon" type="image/png" sizes="512x512" href="images/app-icon-512.png">
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400&family=Noto+Sans+HK:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400&family=Noto+Sans+HK:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
 <style>
   :root {
     --cream: #faf6ef;
-    --cream-dark: #f2ebdc;
-    --paper: #fffdf7;
+    --cream-dark: #ede4d3;
+    --paper: #fffbf3;
     --ink: #2a2420;
-    --ink-soft: #4a3f38;
+    --ink-soft: #6b5d54;
     --terra: #c86b4a;
-    --terra-dark: #a8512f;
-    --sage: #7a8471;
-    --sage-dark: #5a6451;
+    --terra-dark: #a85638;
+    --terra-soft: #f4d4c5;
     --gold: #c9a84c;
-    --gold-dark: #a88828;
+    --gold-soft: #f0e3b8;
+    --sage: #7a8471;
+    --sage-soft: #d8dfd2;
     --blue: #5a7a8b;
-    --blue-dark: #3d5a6a;
-    --shadow: rgba(58, 40, 28, 0.12);
-    --safe-top: env(safe-area-inset-top, 0px);
-    --safe-bottom: env(safe-area-inset-bottom, 0px);
+    --blue-soft: #d4dee5;
+    --berry: #a04d6e;
+
+    --safe-top: env(safe-area-inset-top, 0);
+    --safe-bottom: env(safe-area-inset-bottom, 0);
   }
 
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  html, body {
-    min-height: 100%;
-    -webkit-tap-highlight-color: transparent;
-  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { -webkit-text-size-adjust: 100%; }
 
   body {
-    font-family: 'Noto Sans HK', 'Fraunces', serif;
-    background:
-      radial-gradient(ellipse at top left, rgba(200, 107, 74, 0.08), transparent 50%),
-      radial-gradient(ellipse at bottom right, rgba(122, 132, 113, 0.08), transparent 50%),
-      var(--cream);
+    font-family: 'Noto Sans HK', -apple-system, sans-serif;
+    background: var(--cream);
     color: var(--ink);
     line-height: 1.5;
-    padding: calc(20px + var(--safe-top)) 20px calc(20px + var(--safe-bottom));
+    font-size: 16px;
     min-height: 100vh;
-    min-height: 100dvh;
+    padding-top: calc(var(--safe-top));
+    padding-bottom: calc(var(--safe-bottom));
   }
 
+  /* Decorative pattern background */
   body::before {
     content: '';
-    position: fixed; inset: 0; pointer-events: none;
-    background-image: repeating-linear-gradient(45deg, rgba(139, 115, 85, 0.015) 0 1px, transparent 1px 4px);
+    position: fixed; inset: 0;
+    pointer-events: none;
+    background-image: repeating-linear-gradient(45deg, rgba(139, 115, 85, 0.02) 0 1px, transparent 1px 6px);
     z-index: 0;
   }
 
   .container {
-    max-width: 640px;
+    max-width: 1200px;
     margin: 0 auto;
+    padding: 24px 18px 80px;
     position: relative;
     z-index: 1;
   }
 
-  /* ============ GREETING HEADER ============ */
-  .greeting {
+  /* ============ HEADER ============ */
+  .header {
     text-align: center;
-    padding: 16px 0 28px;
+    margin-bottom: 28px;
   }
-  .greeting .ornament {
-    font-family: 'Fraunces', serif;
-    font-size: 18px;
+  .header .ornament {
     color: var(--gold);
+    font-size: 16px;
     letter-spacing: 8px;
-    margin-bottom: 10px;
+    margin-bottom: 8px;
   }
-  .greeting h1 {
+  .header h1 {
     font-family: 'Fraunces', serif;
     font-weight: 600;
-    font-size: 32px;
+    font-size: clamp(26px, 4.5vw, 38px);
     color: var(--ink);
-    line-height: 1.15;
-    margin-bottom: 6px;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
   }
-  .greeting .sub {
+  .header .sub {
     font-family: 'Fraunces', serif;
     font-style: italic;
     color: var(--ink-soft);
-    font-size: 18px;
-  }
-
-  /* ============ MAIN BOXES ============ */
-  .main-boxes {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 16px;
-  }
-
-  .main-box {
-    background: var(--paper);
-    border: 2px solid var(--cream-dark);
-    border-radius: 24px;
-    padding: 32px 24px;
-    text-align: center;
-    cursor: pointer;
-    transition: all 0.2s cubic-bezier(0.3, 0.8, 0.4, 1);
-    box-shadow: 0 3px 0 var(--cream-dark);
-    position: relative;
-    overflow: hidden;
-    min-height: 180px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    font-family: inherit;
-    color: var(--ink);
-  }
-  .main-box::before {
-    content: '';
-    position: absolute;
-    left: 0; right: 0; top: 0;
-    height: 6px;
-    background: var(--accent);
-    transition: height 0.2s ease;
-  }
-  .main-box:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 20px var(--shadow), 0 3px 0 var(--cream-dark);
-    border-color: var(--accent);
-  }
-  .main-box:hover::before { height: 10px; }
-  .main-box:active { transform: translateY(0); }
-
-  .main-box[data-color="terra"] { --accent: var(--terra); }
-  .main-box[data-color="gold"] { --accent: var(--gold); }
-
-  .main-box .box-emoji {
-    font-size: 56px;
-    line-height: 1;
-    margin-bottom: 4px;
-  }
-  .main-box h2 {
-    font-family: 'Fraunces', serif;
-    font-weight: 600;
-    font-size: 28px;
-    color: var(--ink);
-    line-height: 1.1;
-    margin: 0;
-  }
-  .main-box .box-desc {
-    font-size: 15px;
-    color: var(--ink-soft);
-    font-family: 'Fraunces', serif;
-    font-style: italic;
-  }
-  .main-box .box-arrow {
-    font-size: 24px;
-    color: var(--accent);
-    font-family: 'Fraunces', serif;
+    font-size: clamp(14px, 1.6vw, 17px);
     margin-top: 4px;
   }
 
-  /* ============ LESSONS MODAL ============ */
-  .modal-backdrop {
-    position: fixed;
-    inset: 0;
-    background: rgba(42, 36, 32, 0.5);
-    display: none;
-    align-items: flex-end;
-    justify-content: center;
-    z-index: 100;
-    padding: 20px 0 0;
-  }
-  .modal-backdrop.open { display: flex; }
-
-  .modal-sheet {
-    background: var(--paper);
-    width: 100%;
-    max-width: 640px;
-    max-height: 85vh;
-    border-radius: 24px 24px 0 0;
-    overflow-y: auto;
-    padding: 20px 24px calc(24px + var(--safe-bottom));
-    animation: slideUp 0.3s cubic-bezier(0.3, 0.85, 0.4, 1);
-  }
-  @keyframes slideUp {
-    from { transform: translateY(100%); }
-    to { transform: translateY(0); }
-  }
-  .modal-handle {
-    width: 44px;
-    height: 5px;
-    background: var(--cream-dark);
-    border-radius: 3px;
-    margin: 0 auto 16px;
-  }
-  .modal-title {
-    font-family: 'Fraunces', serif;
-    font-weight: 600;
-    font-size: 24px;
-    color: var(--ink);
-    text-align: center;
-    margin-bottom: 4px;
-  }
-  .modal-sub {
-    font-family: 'Fraunces', serif;
-    font-style: italic;
-    color: var(--ink-soft);
-    font-size: 15px;
-    text-align: center;
-    margin-bottom: 18px;
-  }
-
-  .lesson-list {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-  .week-separator {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin: 6px 0 4px;
-    padding: 0 4px;
-  }
-  .week-separator .label {
-    font-family: 'Fraunces', serif;
-    font-style: italic;
-    font-size: 13px;
-    color: var(--terra-dark);
-    font-weight: 600;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    flex-shrink: 0;
-  }
-  .week-separator .line {
-    flex: 1;
-    height: 1px;
-    background: var(--cream-dark);
-  }
-  .lesson-item.new-lesson {
+  /* ============ TODAY'S HERO CARD ============ */
+  .today-hero {
+    background: linear-gradient(135deg, #fff8ef, #fef0e0);
+    border: 2.5px solid var(--terra);
+    border-radius: 24px;
+    padding: 24px 22px;
+    margin-bottom: 24px;
+    box-shadow: 0 4px 16px rgba(200, 107, 74, 0.15);
     position: relative;
+    overflow: hidden;
+    text-align: center;
   }
-  .lesson-item.new-lesson::after {
-    content: 'NEW';
+  .today-hero::before {
+    content: '';
     position: absolute;
-    top: 6px;
-    right: 6px;
+    top: -30px; right: -30px;
+    width: 100px; height: 100px;
+    background: var(--terra-soft);
+    border-radius: 50%;
+    opacity: 0.6;
+  }
+  .today-hero::after {
+    content: '';
+    position: absolute;
+    bottom: -40px; left: -20px;
+    width: 80px; height: 80px;
+    background: var(--gold-soft);
+    border-radius: 50%;
+    opacity: 0.5;
+  }
+  .today-label {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    color: var(--terra);
+    font-size: 13px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+    position: relative;
+    z-index: 1;
+  }
+  .today-week {
+    font-size: 12px;
+    color: var(--ink-soft);
+    font-weight: 600;
+    margin-bottom: 12px;
+    position: relative;
+    z-index: 1;
+  }
+  .today-title {
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-size: clamp(28px, 5vw, 42px);
+    color: var(--ink);
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    margin-bottom: 8px;
+    position: relative;
+    z-index: 1;
+  }
+  .today-desc {
+    font-size: 14px;
+    color: var(--ink-soft);
+    margin-bottom: 18px;
+    position: relative;
+    z-index: 1;
+    line-height: 1.5;
+  }
+  .today-cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
     background: var(--terra);
     color: white;
-    font-family: 'Fraunces', serif;
-    font-size: 9px;
-    font-weight: 700;
-    padding: 2px 6px;
-    border-radius: 6px;
-    letter-spacing: 1px;
-  }
-  .lesson-item {
-    background: var(--cream);
-    border: 1.5px solid var(--cream-dark);
-    border-radius: 14px;
-    padding: 14px 18px;
-    display: flex;
-    align-items: center;
-    gap: 14px;
     text-decoration: none;
-    color: var(--ink);
-    transition: all 0.15s ease;
-  }
-  .lesson-item:hover {
-    border-color: var(--gold);
-    transform: translateX(3px);
-  }
-  .lesson-item .num {
-    flex-shrink: 0;
-    width: 44px;
-    height: 44px;
-    border-radius: 50%;
-    background: var(--terra);
-    color: var(--paper);
-    font-family: 'Fraunces', serif;
+    padding: 16px 32px;
+    border-radius: 100px;
+    font-size: 17px;
     font-weight: 700;
-    font-size: 18px;
+    box-shadow: 0 4px 12px rgba(200, 107, 74, 0.4);
+    transition: all 0.2s ease;
+    -webkit-tap-highlight-color: transparent;
+    position: relative;
+    z-index: 1;
+    min-height: 56px;
+  }
+  .today-cta:hover {
+    background: var(--terra-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(200, 107, 74, 0.5);
+  }
+  .today-cta:active { transform: translateY(0); }
+
+  /* When today has no lesson */
+  .today-hero.rest-day {
+    background: linear-gradient(135deg, #f8f5ee, #efe8d8);
+    border-color: var(--gold);
+  }
+  .today-hero.rest-day::before { background: var(--gold-soft); }
+  .today-hero.rest-day .today-label { color: var(--gold); }
+  .today-hero.rest-day .today-cta {
+    background: var(--gold);
+    box-shadow: 0 4px 12px rgba(201, 168, 76, 0.4);
+  }
+  .today-hero.rest-day .today-cta:hover { background: #a8893d; }
+
+  /* When all lessons completed */
+  .today-hero.all-done {
+    background: linear-gradient(135deg, #f0f5ec, #d8dfd2);
+    border-color: var(--sage);
+  }
+  .today-hero.all-done .today-label { color: var(--sage); }
+  .today-hero.all-done .today-cta {
+    background: var(--sage);
+    box-shadow: 0 4px 12px rgba(122, 132, 113, 0.4);
+  }
+
+  /* ============ PROGRESS BAR ============ */
+  .progress-section {
+    background: var(--paper);
+    border: 1.5px solid var(--cream-dark);
+    border-radius: 18px;
+    padding: 18px 20px;
+    margin-bottom: 24px;
+  }
+  .progress-header {
     display: flex;
-    align-items: center;
-    justify-content: center;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+    gap: 6px;
   }
-  .lesson-item.special .num { background: var(--sage); }
-  .lesson-item .meta {
-    flex: 1;
-    min-width: 0;
-  }
-  .lesson-item .title {
+  .progress-title {
     font-family: 'Fraunces', serif;
     font-weight: 600;
     font-size: 17px;
     color: var(--ink);
-    line-height: 1.2;
-    margin-bottom: 2px;
   }
-  .lesson-item .sub {
-    font-size: 13.5px;
+  .progress-stats {
+    font-size: 13px;
     color: var(--ink-soft);
-    font-style: italic;
   }
-  .lesson-item .arrow {
-    flex-shrink: 0;
-    color: var(--ink-soft);
-    font-size: 20px;
+  .progress-stats strong { color: var(--terra); font-weight: 700; font-size: 15px; }
+  .progress-bar-outer {
+    background: var(--cream-dark);
+    border-radius: 100px;
+    height: 14px;
+    overflow: hidden;
+  }
+  .progress-bar-inner {
+    background: linear-gradient(90deg, var(--terra), var(--gold));
+    height: 100%;
+    border-radius: 100px;
+    transition: width 0.6s cubic-bezier(0.3, 0.85, 0.4, 1);
+    box-shadow: 0 0 8px rgba(201, 168, 76, 0.5);
+    min-width: 6px;
   }
 
-  .modal-close {
-    width: 100%;
-    margin-top: 18px;
-    padding: 14px;
-    background: var(--ink);
-    color: var(--paper);
-    border: none;
-    border-radius: 12px;
-    font-family: inherit;
+  /* ============ MINI CALENDAR ============ */
+  .calendar-section {
+    background: var(--paper);
+    border: 1.5px solid var(--cream-dark);
+    border-radius: 18px;
+    padding: 20px;
+    margin-bottom: 24px;
+  }
+  .calendar-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 14px;
+  }
+  .calendar-title {
+    font-family: 'Fraunces', serif;
     font-weight: 600;
+    font-size: 18px;
+    color: var(--ink);
+  }
+  .calendar-nav {
+    display: flex;
+    gap: 4px;
+  }
+  .cal-nav-btn {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 1.5px solid var(--cream-dark);
+    background: white;
+    color: var(--ink-soft);
     font-size: 16px;
     cursor: pointer;
-    min-height: 50px;
+    -webkit-tap-highlight-color: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s ease;
   }
-  .modal-close:hover { background: var(--terra-dark); }
+  .cal-nav-btn:hover {
+    border-color: var(--terra);
+    color: var(--terra);
+  }
+  .cal-nav-btn:disabled { opacity: 0.3; cursor: not-allowed; }
+  .calendar-month-name {
+    font-family: 'Fraunces', serif;
+    font-size: 16px;
+    color: var(--ink);
+    text-align: center;
+    flex: 1;
+    font-weight: 500;
+  }
+  .calendar-month-name .year {
+    font-size: 12px;
+    color: var(--ink-soft);
+    font-style: italic;
+    margin-left: 6px;
+  }
 
-  /* ============ DESKTOP ============ */
-  @media (min-width: 769px) {
-    body { padding: 40px 20px; }
-    .greeting { padding: 24px 0 36px; }
-    .greeting h1 { font-size: 38px; }
-    .greeting .sub { font-size: 20px; }
+  .weekdays {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 4px;
+    margin-bottom: 6px;
+  }
+  .weekday-name {
+    text-align: center;
+    font-size: 10px;
+    color: var(--ink-soft);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 4px 0;
+  }
+  .weekday-name.weekend { color: var(--terra); }
 
-    /* 2-column layout on desktop */
-    .main-boxes {
-      grid-template-columns: 1fr 1fr;
+  .days {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 4px;
+  }
+  .day {
+    aspect-ratio: 1;
+    background: var(--cream);
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    color: var(--ink-soft);
+    position: relative;
+    transition: all 0.15s ease;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .day.empty {
+    background: transparent;
+    visibility: hidden;
+  }
+  .day.past:not(.has-lesson) { opacity: 0.4; }
+  .day.today {
+    background: white;
+    border: 2.5px solid var(--terra);
+    color: var(--ink);
+    font-weight: 700;
+    box-shadow: 0 0 0 3px rgba(200, 107, 74, 0.15);
+  }
+  .day.has-lesson {
+    cursor: pointer;
+    color: white;
+    font-weight: 600;
+  }
+  .day.has-lesson:hover {
+    transform: scale(1.08);
+    z-index: 2;
+  }
+  .day.has-lesson:active { transform: scale(0.96); }
+  .day.has-lesson.week-1 { background: var(--terra); }
+  .day.has-lesson.week-bonus { background: var(--berry); }
+  .day.has-lesson.week-2 { background: var(--gold); color: white; }
+  .day.has-lesson.week-3 { background: var(--sage); }
+  .day.has-lesson.completed {
+    background: linear-gradient(135deg, #7a8471, #5a6d5e) !important;
+    color: white;
+  }
+  .day.has-lesson.completed::before {
+    content: '✓';
+    position: absolute;
+    top: 2px; right: 4px;
+    font-size: 10px;
+    font-weight: 800;
+    color: white;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+  }
+  .day-num { font-size: 14px; line-height: 1; }
+  .day.has-lesson .day-num { font-size: 13px; }
+  .day .lesson-mini {
+    font-size: 9px;
+    line-height: 1;
+    margin-top: 3px;
+    opacity: 0.95;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+  }
+
+  .calendar-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: center;
+    margin-top: 14px;
+    padding-top: 14px;
+    border-top: 1px dashed var(--cream-dark);
+    font-size: 11px;
+    color: var(--ink-soft);
+  }
+  .calendar-legend-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  .legend-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 3px;
+  }
+  .legend-dot.w1 { background: var(--terra); }
+  .legend-dot.wb { background: var(--berry); }
+  .legend-dot.w2 { background: var(--gold); }
+  .legend-dot.w3 { background: var(--sage); }
+  .legend-dot.done { background: linear-gradient(135deg, #7a8471, #5a6d5e); }
+
+  /* Calendar full-link */
+  .calendar-link {
+    display: block;
+    text-align: center;
+    margin-top: 14px;
+    color: var(--terra);
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 8px;
+  }
+  .calendar-link:hover { text-decoration: underline; }
+
+  /* ============ BOTTOM ACTIONS ============ */
+  .bottom-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-bottom: 20px;
+  }
+  .action-btn {
+    background: var(--paper);
+    border: 1.5px solid var(--cream-dark);
+    border-radius: 16px;
+    padding: 18px 16px;
+    text-align: center;
+    cursor: pointer;
+    text-decoration: none;
+    color: var(--ink);
+    transition: all 0.2s ease;
+    -webkit-tap-highlight-color: transparent;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    min-height: 92px;
+    justify-content: center;
+  }
+  .action-btn:hover {
+    border-color: var(--terra);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(200, 107, 74, 0.1);
+  }
+  .action-btn:active { transform: translateY(0); }
+  .action-btn .icon { font-size: 28px; line-height: 1; }
+  .action-btn .label {
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-size: 17px;
+    color: var(--ink);
+  }
+  .action-btn .desc {
+    font-size: 12px;
+    color: var(--ink-soft);
+  }
+
+  /* ============ LESSON DETAIL MODAL ============ */
+  .modal-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(42, 36, 32, 0.6);
+    z-index: 200;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    -webkit-backdrop-filter: blur(6px);
+    backdrop-filter: blur(6px);
+  }
+  .modal-backdrop.show { display: flex; animation: fadeIn 0.2s ease; }
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+  .modal {
+    background: var(--paper);
+    border-radius: 18px;
+    padding: 26px 24px 22px;
+    max-width: 420px;
+    width: 100%;
+    box-shadow: 0 12px 40px rgba(0,0,0,0.2);
+    position: relative;
+    animation: slideUp 0.25s cubic-bezier(0.3, 0.85, 0.4, 1);
+  }
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .modal-close {
+    position: absolute; top: 12px; right: 12px;
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    background: transparent;
+    border: none;
+    font-size: 24px;
+    color: var(--ink-soft);
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .modal-date {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    color: var(--ink-soft);
+    font-size: 14px;
+    margin-bottom: 6px;
+  }
+  .modal-lesson-title {
+    font-family: 'Fraunces', serif;
+    font-size: 24px;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 6px;
+    line-height: 1.2;
+  }
+  .modal-lesson-week {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 600;
+    color: white;
+    margin-bottom: 14px;
+    letter-spacing: 0.5px;
+  }
+  .modal-lesson-desc {
+    font-size: 14px;
+    color: var(--ink-soft);
+    line-height: 1.6;
+    margin-bottom: 18px;
+  }
+  .modal-actions {
+    display: flex;
+    gap: 10px;
+    flex-direction: column;
+  }
+  .modal-btn {
+    width: 100%;
+    padding: 14px;
+    border: 1.5px solid var(--cream-dark);
+    background: white;
+    color: var(--ink);
+    border-radius: 12px;
+    font-family: 'Noto Sans HK', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    text-decoration: none;
+    text-align: center;
+    transition: all 0.15s ease;
+    min-height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+  }
+  .modal-btn:hover { border-color: var(--terra); color: var(--terra); }
+  .modal-btn.primary {
+    background: var(--terra);
+    border-color: var(--terra);
+    color: white;
+    font-size: 16px;
+  }
+  .modal-btn.primary:hover { background: var(--terra-dark); color: white; }
+  .modal-btn.completed {
+    background: var(--sage);
+    border-color: var(--sage);
+    color: white;
+  }
+  .modal-btn.completed:hover { background: #5a6d5e; color: white; }
+
+  /* ============ SIDEBAR ============ */
+  .menu-toggle {
+    position: fixed;
+    top: calc(12px + env(safe-area-inset-top, 0));
+    left: calc(12px + env(safe-area-inset-left, 0));
+    z-index: 150;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: rgba(255, 251, 243, 0.95);
+    border: 1.5px solid var(--cream-dark);
+    color: var(--ink);
+    font-size: 24px;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s ease;
+  }
+  .menu-toggle:hover {
+    background: white;
+    border-color: var(--terra);
+    color: var(--terra);
+    transform: scale(1.05);
+  }
+  .menu-toggle:active { transform: scale(0.92); }
+
+  .sidebar-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(42, 36, 32, 0.5);
+    z-index: 199;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    -webkit-backdrop-filter: blur(2px);
+    backdrop-filter: blur(2px);
+  }
+  .sidebar-backdrop.show {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 88%;
+    max-width: 360px;
+    background: var(--paper);
+    z-index: 200;
+    transform: translateX(-100%);
+    transition: transform 0.3s cubic-bezier(0.3, 0.85, 0.4, 1);
+    box-shadow: 4px 0 20px rgba(0,0,0,0.15);
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    padding: calc(16px + env(safe-area-inset-top, 0)) 16px calc(20px + env(safe-area-inset-bottom, 0));
+  }
+  .sidebar.open {
+    transform: translateX(0);
+  }
+
+  .sidebar-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 14px;
+    margin-bottom: 16px;
+    border-bottom: 1.5px solid var(--cream-dark);
+  }
+  .sidebar-title {
+    font-family: 'Fraunces', serif;
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--ink);
+  }
+  .sidebar-close {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: transparent;
+    border: none;
+    font-size: 26px;
+    color: var(--ink-soft);
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s ease;
+  }
+  .sidebar-close:hover {
+    background: var(--cream-dark);
+    color: var(--ink);
+  }
+
+  .sidebar-section {
+    margin-bottom: 22px;
+  }
+  .sidebar-section-title {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 13px;
+    color: var(--terra);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    padding: 0 4px;
+  }
+  .sidebar-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 14px;
+    color: var(--ink);
+    text-decoration: none;
+    border-radius: 12px;
+    margin-bottom: 4px;
+    -webkit-tap-highlight-color: transparent;
+    transition: all 0.15s ease;
+    min-height: 48px;
+    font-size: 15px;
+  }
+  .sidebar-item:hover {
+    background: var(--cream);
+    color: var(--terra);
+  }
+  .sidebar-item:active {
+    background: var(--cream-dark);
+  }
+  .sidebar-item.completed {
+    color: var(--ink-soft);
+  }
+  .sidebar-item.completed::after {
+    content: '✓';
+    margin-left: auto;
+    color: var(--sage);
+    font-weight: 700;
+    font-size: 16px;
+  }
+  .sidebar-item-icon {
+    font-size: 20px;
+    flex-shrink: 0;
+    width: 24px;
+    text-align: center;
+  }
+  .sidebar-item-week-badge {
+    margin-left: auto;
+    font-size: 10px;
+    padding: 2px 8px;
+    border-radius: 10px;
+    color: white;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+  }
+  .sidebar-item-week-badge.w1 { background: var(--terra); }
+  .sidebar-item-week-badge.w2 { background: var(--gold); }
+  .sidebar-item-week-badge.w3 { background: var(--sage); }
+  .sidebar-item-week-badge.bonus { background: var(--berry); }
+
+  /* ============ RESPONSIVE — iPad ============ */
+  @media (min-width: 768px) {
+    .container {
+      padding: 32px 28px 80px;
+      max-width: 900px;
+    }
+    .header { margin-bottom: 36px; }
+    .header h1 { font-size: 42px; }
+
+    /* Today hero — bigger */
+    .today-hero {
+      padding: 32px 28px;
+      margin-bottom: 28px;
+      border-radius: 28px;
+    }
+    .today-title { font-size: 44px; }
+    .today-desc { font-size: 16px; margin-bottom: 22px; }
+    .today-cta {
+      padding: 18px 38px;
+      font-size: 19px;
+      min-height: 60px;
+    }
+
+    /* Two-column layout: progress + calendar side by side on tablet+ */
+    .dashboard-row {
+      display: grid;
+      grid-template-columns: 1fr 1.3fr;
       gap: 20px;
+      margin-bottom: 24px;
     }
-    .main-box {
-      min-height: 220px;
-      padding: 40px 24px;
+    .dashboard-row > .progress-section,
+    .dashboard-row > .calendar-section {
+      margin-bottom: 0;
     }
-    .main-box .box-emoji { font-size: 64px; }
-    .main-box h2 { font-size: 32px; }
-    .main-box .box-desc { font-size: 16px; }
+    .progress-section { padding: 22px 24px; }
+    .calendar-section { padding: 22px; }
+    .calendar-title { font-size: 20px; }
+
+    /* Bigger day cells on iPad */
+    .day { font-size: 15px; }
+    .day-num { font-size: 16px; }
+    .day .lesson-mini { font-size: 10px; }
+    .weekday-name { font-size: 11px; }
+
+    /* Bottom actions — bigger */
+    .bottom-actions {
+      gap: 16px;
+    }
+    .action-btn {
+      padding: 22px 18px;
+      min-height: 110px;
+      border-radius: 18px;
+    }
+    .action-btn .icon { font-size: 36px; }
+    .action-btn .label { font-size: 19px; }
+    .action-btn .desc { font-size: 13px; }
+  }
+
+  /* ============ RESPONSIVE — Desktop ============ */
+  @media (min-width: 1024px) {
+    .container {
+      max-width: 1100px;
+      padding: 40px 32px 80px;
+    }
+    .header h1 { font-size: 46px; }
+
+    /* Today hero — extra spacious */
+    .today-hero { padding: 40px 36px; }
+    .today-title { font-size: 50px; }
   }
 </style>
 </head>
+
 <body>
 
 <div class="container">
 
-  <div class="greeting">
+  <!-- HEADER -->
+  <div class="header">
     <div class="ornament">· · ·</div>
     <h1 id="greeting-title">Hannah，早晨！</h1>
     <div class="sub">你今日想做咩？</div>
   </div>
 
-  <div class="main-boxes">
+  <!-- TODAY'S LESSON HERO -->
+  <div id="today-hero-container"></div>
 
-    <button class="main-box" data-color="terra" onclick="openLessons()">
-      <div class="box-emoji">📚</div>
-      <h2>課堂內容</h2>
-      <div class="box-desc">睇 lessons 學新嘢</div>
-      <div class="box-arrow">→</div>
-    </button>
+  <!-- PROGRESS + CALENDAR (side-by-side on iPad+) -->
+  <div class="dashboard-row">
 
-    <button class="main-box" data-color="gold" onclick="openGames()">
-      <div class="box-emoji">🎮</div>
-      <h2>溫習</h2>
-      <div class="box-desc">玩遊戲練熟套語</div>
-      <div class="box-arrow">→</div>
-    </button>
+    <!-- Progress section -->
+    <div class="progress-section">
+      <div class="progress-header">
+        <div class="progress-title">📊 學習進度</div>
+        <div class="progress-stats"><strong id="progress-done">0</strong> / <span id="progress-total">17</span> lessons · <span id="progress-pct">0%</span></div>
+      </div>
+      <div class="progress-bar-outer">
+        <div class="progress-bar-inner" id="progress-bar" style="width: 0%"></div>
+      </div>
+      <div style="font-size: 12px; color: var(--ink-soft); margin-top: 8px;" id="progress-info"></div>
+    </div>
+
+    <!-- Mini calendar -->
+    <div class="calendar-section">
+      <div class="calendar-header">
+        <button class="cal-nav-btn" id="cal-prev" onclick="changeMiniMonth(-1)">‹</button>
+        <div class="calendar-month-name" id="cal-month-name"></div>
+        <button class="cal-nav-btn" id="cal-next" onclick="changeMiniMonth(1)">›</button>
+      </div>
+      <div class="weekdays">
+        <div class="weekday-name weekend">日</div>
+        <div class="weekday-name">一</div>
+        <div class="weekday-name">二</div>
+        <div class="weekday-name">三</div>
+        <div class="weekday-name">四</div>
+        <div class="weekday-name">五</div>
+        <div class="weekday-name weekend">六</div>
+      </div>
+      <div class="days" id="mini-days"></div>
+      <div class="calendar-legend">
+        <div class="calendar-legend-item"><div class="legend-dot w1"></div>Week 1</div>
+        <div class="calendar-legend-item"><div class="legend-dot w2"></div>Week 2</div>
+        <div class="calendar-legend-item"><div class="legend-dot w3"></div>Week 3</div>
+        <div class="calendar-legend-item"><div class="legend-dot done"></div>已完成</div>
+      </div>
+      <a href="calendar.html" class="calendar-link">📅 睇完整 calendar →</a>
+    </div>
 
   </div>
 
+  <!-- Floating menu button (top-right) -->
+  <button class="menu-toggle" onclick="openSidebar()" aria-label="開 Menu">☰</button>
+
 </div>
 
-<!-- LESSONS MODAL -->
-<div class="modal-backdrop" id="lessons-modal" onclick="closeLessonsIfBackdrop(event)">
-  <div class="modal-sheet">
-    <div class="modal-handle"></div>
-    <h2 class="modal-title">📖 所有課堂</h2>
-    <p class="modal-sub">揀一堂去睇返內容</p>
+<!-- SIDEBAR -->
+<div class="sidebar-backdrop" id="sidebar-backdrop" onclick="closeSidebar()"></div>
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-header">
+    <div class="sidebar-title">📋 Menu</div>
+    <button class="sidebar-close" onclick="closeSidebar()" aria-label="關閉">×</button>
+  </div>
 
-    <div class="lesson-list">
-      <div class="week-separator">
-        <span class="label">Week 1 · 基礎社交</span>
-        <span class="line"></span>
-      </div>
-      <a class="lesson-item" href="lessons/lesson1-introduction.html">
-        <span class="num">1</span>
-        <div class="meta">
-          <div class="title">自我介紹</div>
-          <div class="sub">我叫... / 我嚟自... / 我住...</div>
-        </div>
-        <span class="arrow">→</span>
-      </a>
-      <a class="lesson-item" href="lessons/lesson2-greetings.html">
-        <span class="num">2</span>
-        <div class="meta">
-          <div class="title">問候語</div>
-          <div class="sub">早晨／下午好 / 你點呀？</div>
-        </div>
-        <span class="arrow">→</span>
-      </a>
-      <a class="lesson-item" href="lessons/lesson3-goodbyes.html">
-        <span class="num">3</span>
-        <div class="meta">
-          <div class="title">告別禮貌</div>
-          <div class="sub">再見 / 多謝 / 唔好意思</div>
-        </div>
-        <span class="arrow">→</span>
-      </a>
-      <a class="lesson-item" href="lessons/lesson4-questions.html">
-        <span class="num">4</span>
-        <div class="meta">
-          <div class="title">問簡單問題</div>
-          <div class="sub">你叫咩名？／你住邊？</div>
-        </div>
-        <span class="arrow">→</span>
-      </a>
-      <a class="lesson-item" href="lessons/lesson5-week1-review.html">
-        <span class="num">5</span>
-        <div class="meta">
-          <div class="title">Week 1 綜合評估</div>
-          <div class="sub">完整對話練習</div>
-        </div>
-        <span class="arrow">→</span>
-      </a>
-      <a class="lesson-item new-lesson" href="lessons/lesson5-5-contractions.html">
-        <span class="num" style="background: var(--gold); font-size: 14px;">🔤</span>
-        <div class="meta">
-          <div class="title">縮寫聽明白（Bonus）</div>
-          <div class="sub">I'm / It's / I'll 係乜意思？</div>
-        </div>
-        <span class="arrow">→</span>
-      </a>
+  <div class="sidebar-section">
+    <div class="sidebar-section-title">📚 所有 Lessons</div>
+    <div id="sidebar-lessons-list"></div>
+  </div>
 
-      <div class="week-separator">
-        <span class="label">Week 2 · 🛍️ 購物 Deep Dive</span>
-        <span class="line"></span>
-      </div>
-      <a class="lesson-item" href="lessons/week2-day1-shopping.html">
-        <span class="num">1</span>
-        <div class="meta">
-          <div class="title">🛒 Supermarket 基本</div>
-          <div class="sub">喺 Tesco 買嘢 · 問價錢 · 俾錢</div>
-        </div>
-        <span class="arrow">→</span>
-      </a>
-      <a class="lesson-item new-lesson" href="lessons/week2-day2-dairy.html">
-        <span class="num">2</span>
-        <div class="meta">
-          <div class="title">🥛 奶類 & 早餐</div>
-          <div class="sub">milk, eggs, bread, cheese...</div>
-        </div>
-        <span class="arrow">→</span>
-      </a>
-      <a class="lesson-item new-lesson" href="lessons/week2-day3-meat.html">
-        <span class="num">3</span>
-        <div class="meta">
-          <div class="title">🥩 肉類</div>
-          <div class="sub">beef, chicken, mince, sausages...</div>
-        </div>
-        <span class="arrow">→</span>
-      </a>
-      <a class="lesson-item new-lesson" href="lessons/week2-day4-seafood.html">
-        <span class="num">4</span>
-        <div class="meta">
-          <div class="title">🦐 海鮮</div>
-          <div class="sub">salmon, prawns, crab, mussels...</div>
-        </div>
-        <span class="arrow">→</span>
-      </a>
-      <a class="lesson-item new-lesson" href="lessons/week2-day5-produce.html">
-        <span class="num">5</span>
-        <div class="meta">
-          <div class="title">🍎 水果 & 🥕 蔬菜</div>
-          <div class="sub">apples, bananas, carrots, tomatoes...</div>
-        </div>
-        <span class="arrow">→</span>
-      </a>
-      <a class="lesson-item new-lesson" href="lessons/week2-day6-review.html">
-        <span class="num" style="background: var(--gold);">6</span>
-        <div class="meta">
-          <div class="title">🛒 Week 2 綜合 Review</div>
-          <div class="sub">完整買餸 roleplay + 測驗</div>
-        </div>
-        <span class="arrow">→</span>
-      </a>
+  <div class="sidebar-section">
+    <div class="sidebar-section-title">📌 Bonus 課程</div>
+    <div id="sidebar-bonus-list"></div>
+  </div>
 
-      <div class="week-separator">
-        <span class="label">其他</span>
-        <span class="line"></span>
-      </div>
-      <a class="lesson-item special" href="lessons/placement-test.html">
-        <span class="num">★</span>
-        <div class="meta">
-          <div class="title">入學評估測試</div>
-          <div class="sub">睇你而家嘅程度</div>
-        </div>
-        <span class="arrow">→</span>
-      </a>
+  <div class="sidebar-section">
+    <div class="sidebar-section-title">🎮 溫習遊戲</div>
+    <a href="tools/flashcard-game.html" class="sidebar-item">
+      <span class="sidebar-item-icon">🃏</span>
+      <span>Flashcard 遊戲</span>
+    </a>
+    <a href="tools/qa-game.html" class="sidebar-item">
+      <span class="sidebar-item-icon">💬</span>
+      <span>問答遊戲</span>
+    </a>
+    <a href="tools/test-game.html" class="sidebar-item">
+      <span class="sidebar-item-icon">🎯</span>
+      <span>測驗遊戲</span>
+    </a>
+  </div>
+
+  <div class="sidebar-section">
+    <div class="sidebar-section-title">📅 進度</div>
+    <a href="calendar.html" class="sidebar-item">
+      <span class="sidebar-item-icon">📅</span>
+      <span>完整 Calendar</span>
+    </a>
+  </div>
+</aside>
+
+<!-- LESSON DETAIL MODAL -->
+<div class="modal-backdrop" id="lesson-modal" onclick="closeLessonModal(event)">
+  <div class="modal" onclick="event.stopPropagation()">
+    <button class="modal-close" onclick="closeLessonModal()">×</button>
+    <div class="modal-date" id="modal-date"></div>
+    <div class="modal-lesson-title" id="modal-title"></div>
+    <div class="modal-lesson-week" id="modal-week"></div>
+    <div class="modal-lesson-desc" id="modal-desc"></div>
+    <div class="modal-actions">
+      <a class="modal-btn primary" id="modal-open">📚 開始呢一課 →</a>
+      <button class="modal-btn" id="modal-toggle" onclick="toggleCompleted()">✓ Mark 完成</button>
     </div>
+  </div>
+</div>
 
-    <button class="modal-close" onclick="closeLessons()">關閉</button>
+<!-- ALL LESSONS MODAL -->
+<div class="modal-backdrop" id="lessons-list-modal" onclick="closeLessonsModalIfBackdrop(event)">
+  <div class="modal" onclick="event.stopPropagation()" style="max-width: 500px; max-height: 80vh; overflow-y: auto;">
+    <button class="modal-close" onclick="closeLessonsModal()">×</button>
+    <div class="modal-lesson-title" style="margin-bottom: 4px;">📚 所有 Lessons</div>
+    <div class="modal-lesson-desc" style="margin-bottom: 16px;">揀邊一堂去上課</div>
+    <div id="lessons-list-container"></div>
   </div>
 </div>
 
 <!-- GAMES MODAL -->
-<div class="modal-backdrop" id="games-modal" onclick="closeGamesIfBackdrop(event)">
-  <div class="modal-sheet">
-    <div class="modal-handle"></div>
-    <h2 class="modal-title">🎮 揀個遊戲玩</h2>
-    <p class="modal-sub">玩遊戲 = 溫習</p>
-
-    <div class="lesson-list">
-      <a class="lesson-item" href="tools/flashcard-game.html">
-        <span class="num" style="background: var(--terra);">🌲</span>
-        <div class="meta">
-          <div class="title">套語森林</div>
-          <div class="sub">8 關闖關 · 認字 · 5-10 分鐘</div>
-        </div>
-        <span class="arrow">→</span>
-      </a>
-      <a class="lesson-item" href="tools/qa-game.html">
-        <span class="num" style="background: var(--gold);">🏘️</span>
-        <div class="meta">
-          <div class="title">對答小鎮</div>
-          <div class="sub">8 關 · 聽問題即刻答 · 5-10 分鐘</div>
-        </div>
-        <span class="arrow">→</span>
-      </a>
-      <a class="lesson-item" href="tools/test-game.html">
-        <span class="num" style="background: var(--sage);">🏔️</span>
-        <div class="meta">
-          <div class="title">評估山頂</div>
-          <div class="sub">5 站登山 · 5 種題型 · 10-15 分鐘</div>
-        </div>
-        <span class="arrow">→</span>
-      </a>
+<div class="modal-backdrop" id="games-modal" onclick="closeGamesModalIfBackdrop(event)">
+  <div class="modal" onclick="event.stopPropagation()">
+    <button class="modal-close" onclick="closeGamesModal()">×</button>
+    <div class="modal-lesson-title" style="margin-bottom: 4px;">🎮 溫習遊戲</div>
+    <div class="modal-lesson-desc" style="margin-bottom: 16px;">玩遊戲練熟啲套語</div>
+    <div class="modal-actions">
+      <a href="tools/flashcard-game.html" class="modal-btn primary">🃏 Flashcard 遊戲</a>
+      <a href="tools/qa-game.html" class="modal-btn">💬 問答遊戲</a>
+      <a href="tools/test-game.html" class="modal-btn">🎯 測驗遊戲</a>
     </div>
-
-    <button class="modal-close" onclick="closeGames()">關閉</button>
   </div>
 </div>
 
 <script>
-// Dynamic greeting based on time of day
+// ============================================================
+// LESSON CATALOG
+// ============================================================
+const LESSONS = [
+  { id: 'lesson1-introduction', title: '自我介紹', desc: 'I am... My name is... 基本介紹用語', week: 'week-1', weekLabel: 'Week 1', file: 'lessons/lesson1-introduction.html' },
+  { id: 'lesson2-greetings', title: '打招呼', desc: 'Hello / Good morning / How are you 等日常問候', week: 'week-1', weekLabel: 'Week 1', file: 'lessons/lesson2-greetings.html' },
+  { id: 'lesson3-goodbyes', title: '道別', desc: 'Goodbye / See you / Thanks 等告別語句', week: 'week-1', weekLabel: 'Week 1', file: 'lessons/lesson3-goodbyes.html' },
+  { id: 'lesson4-questions', title: '問問題', desc: 'What / Where / When / How 基本疑問詞', week: 'week-1', weekLabel: 'Week 1', file: 'lessons/lesson4-questions.html' },
+  { id: 'lesson5-week1-review', title: 'Week 1 總溫習', desc: '統合 Lesson 1-4 嘅內容', week: 'week-1', weekLabel: 'Week 1', file: 'lessons/lesson5-week1-review.html' },
+  { id: 'week2-day1-shopping', title: '🛍️ 購物入門', desc: '基本購物對話 + 英鎊認識', week: 'week-2', weekLabel: 'Week 2', file: 'lessons/week2-day1-shopping.html' },
+  { id: 'week2-day2-dairy', title: '🥛 奶製品', desc: 'Milk / cheese / yogurt 等乳品詞彙', week: 'week-2', weekLabel: 'Week 2', file: 'lessons/week2-day2-dairy.html' },
+  { id: 'week2-day3-meat', title: '🥩 肉類', desc: 'Beef / chicken / pork 等肉類用詞', week: 'week-2', weekLabel: 'Week 2', file: 'lessons/week2-day3-meat.html' },
+  { id: 'week2-day4-seafood', title: '🐟 海鮮', desc: 'Fish / prawns / salmon 等海鮮詞彙', week: 'week-2', weekLabel: 'Week 2', file: 'lessons/week2-day4-seafood.html' },
+  { id: 'week2-day5-produce', title: '🥕 蔬果', desc: 'Vegetables / fruits 名稱', week: 'week-2', weekLabel: 'Week 2', file: 'lessons/week2-day5-produce.html' },
+  { id: 'week2-day6-review', title: '🛒 Week 2 大溫習', desc: '購物全套溫習 + 角色扮演', week: 'week-2', weekLabel: 'Week 2', file: 'lessons/week2-day6-review.html' },
+  { id: 'week3-day1-cafe', title: '☕ Café 入門', desc: '入 cafe 點嘢飲嘅基本對話', week: 'week-3', weekLabel: 'Week 3', file: 'lessons/week3-day1-cafe.html' },
+  { id: 'week3-day2-tea', title: '🍵 茶', desc: 'English breakfast / Earl grey 等茶款', week: 'week-3', weekLabel: 'Week 3', file: 'lessons/week3-day2-tea.html' },
+  { id: 'week3-day3-coffee', title: '☕ 咖啡', desc: 'Latte / cappuccino / flat white', week: 'week-3', weekLabel: 'Week 3', file: 'lessons/week3-day3-coffee.html' },
+  { id: 'week3-day4-pastries', title: '🥐 糕點', desc: 'Croissant / scone / muffin 等', week: 'week-3', weekLabel: 'Week 3', file: 'lessons/week3-day4-pastries.html' },
+  { id: 'week3-day5-sandwiches', title: '🥪 三文治', desc: 'Sandwich / panini / wrap', week: 'week-3', weekLabel: 'Week 3', file: 'lessons/week3-day5-sandwiches.html' },
+  { id: 'week3-day6-review', title: '🎉 Week 3 大溫習', desc: 'Café 全套溫習 + 完整訂餐', week: 'week-3', weekLabel: 'Week 3', file: 'lessons/week3-day6-review.html' },
+];
+
+// Bonus lessons — independent, not part of the daily schedule
+// Hannah can do these anytime
+const BONUS_LESSONS = [
+  { id: 'lesson-numbers', title: '🔢 數字 1-100', desc: '由 1 到 100 完整數字學習', week: 'bonus', weekLabel: 'Bonus', file: 'lessons/lesson-numbers.html' },
+];
+
+// ============================================================
+// SCHEDULE — Mon/Wed/Fri starting 2026-04-20
+// ============================================================
+const START_DATE = new Date(2026, 3, 20);
+START_DATE.setHours(0, 0, 0, 0);
+const STUDY_DAYS = [1, 3, 5];
+
+const SCHEDULE = {};
+let cur = new Date(START_DATE);
+let li = 0;
+while (!STUDY_DAYS.includes(cur.getDay())) cur.setDate(cur.getDate() + 1);
+while (li < LESSONS.length) {
+  if (STUDY_DAYS.includes(cur.getDay())) {
+    SCHEDULE[formatDate(cur)] = LESSONS[li];
+    li++;
+  }
+  cur.setDate(cur.getDate() + 1);
+}
+const scheduleKeys = Object.keys(SCHEDULE).sort();
+const LAST_LESSON_DATE = new Date(scheduleKeys[scheduleKeys.length - 1] + 'T00:00:00');
+
+// ============================================================
+// HELPERS
+// ============================================================
+function formatDate(d) {
+  return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+}
+function formatDateLong(d) {
+  const monthsZh = ['一月','二月','三月','四月','五月','六月','七月','八月','九月','十月','十一月','十二月'];
+  const wd = ['日','一','二','三','四','五','六'];
+  return `${d.getFullYear()}年 ${monthsZh[d.getMonth()]} ${d.getDate()}日（星期${wd[d.getDay()]}）`;
+}
+function isSameDay(d1, d2) {
+  return d1.getFullYear() === d2.getFullYear() && d1.getMonth() === d2.getMonth() && d1.getDate() === d2.getDate();
+}
+
+const TODAY = new Date(); TODAY.setHours(0, 0, 0, 0);
+
+// ============================================================
+// PROGRESS STORAGE
+// ============================================================
+const STORAGE_KEY = 'hannah_progress_calendar_v1';
+const INIT_KEY = 'hannah_progress_calendar_initialized_v1';
+
+function loadProgress() {
+  try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}'); } catch(e) { return {}; }
+}
+function saveProgress(p) { localStorage.setItem(STORAGE_KEY, JSON.stringify(p)); }
+
+let completedLessons = loadProgress();
+
+// First-visit: auto-mark past lessons (Hannah is on Week 2 Day 1 today)
+if (!localStorage.getItem(INIT_KEY)) {
+  const todayKey = formatDate(TODAY);
+  Object.keys(SCHEDULE).forEach(dateKey => {
+    if (dateKey < todayKey) {
+      const lesson = SCHEDULE[dateKey];
+      if (lesson && !completedLessons[lesson.id]) {
+        completedLessons[lesson.id] = new Date(dateKey + 'T00:00:00').toISOString();
+      }
+    }
+  });
+  saveProgress(completedLessons);
+  localStorage.setItem(INIT_KEY, 'true');
+}
+
+function isCompleted(id) { return !!completedLessons[id]; }
+
+// ============================================================
+// HERO — Today's lesson
+// ============================================================
+function renderTodayHero() {
+  const container = document.getElementById('today-hero-container');
+  const todayKey = formatDate(TODAY);
+  const todayLesson = SCHEDULE[todayKey];
+
+  // Find next upcoming lesson
+  const upcomingKey = scheduleKeys.find(k => k >= todayKey);
+  const allCompleted = LESSONS.every(l => isCompleted(l.id));
+
+  let html = '';
+  if (allCompleted) {
+    html = `
+      <div class="today-hero all-done">
+        <div class="today-label">🎉 學完哂！</div>
+        <div class="today-title">恭喜 Hannah！</div>
+        <div class="today-desc">你已經完成全部 ${LESSONS.length} 個 lessons。多溫習 + 玩 games keep 住 ✨</div>
+        <a href="#" onclick="openGamesModal(); return false;" class="today-cta">🎮 去玩遊戲</a>
+      </div>`;
+  } else if (todayLesson) {
+    const isDone = isCompleted(todayLesson.id);
+    html = `
+      <div class="today-hero">
+        <div class="today-label">⭐ 今日嘅 lesson</div>
+        <div class="today-week">${todayLesson.weekLabel} · ${formatDateLong(TODAY)}</div>
+        <div class="today-title">${todayLesson.title}</div>
+        <div class="today-desc">${todayLesson.desc}</div>
+        <a href="${todayLesson.file}" class="today-cta">${isDone ? '↻ 再做一次' : '▶ 開始上堂'} →</a>
+      </div>`;
+  } else if (upcomingKey) {
+    const nextLesson = SCHEDULE[upcomingKey];
+    const nextDate = new Date(upcomingKey + 'T00:00:00');
+    const daysLeft = Math.round((nextDate - TODAY) / (1000 * 60 * 60 * 24));
+    html = `
+      <div class="today-hero rest-day">
+        <div class="today-label">🌱 今日休息日</div>
+        <div class="today-week">下次上堂：${formatDateLong(nextDate)}（${daysLeft} 日後）</div>
+        <div class="today-title">${nextLesson.title}</div>
+        <div class="today-desc">${nextLesson.desc}</div>
+        <a href="${nextLesson.file}" class="today-cta">📖 預習一下 →</a>
+      </div>`;
+  } else {
+    html = `
+      <div class="today-hero rest-day">
+        <div class="today-label">🌟 課程結束</div>
+        <div class="today-title">下一步？</div>
+        <div class="today-desc">準備緊新課程！住先可以溫習返已學嘅 lessons。</div>
+        <a href="#" onclick="openLessonsModal(); return false;" class="today-cta">📚 溫舊 lessons</a>
+      </div>`;
+  }
+  container.innerHTML = html;
+}
+
+// ============================================================
+// PROGRESS BAR
+// ============================================================
+function renderProgress() {
+  const total = LESSONS.length;
+  const done = LESSONS.filter(l => isCompleted(l.id)).length;
+  const pct = Math.round((done / total) * 100);
+  document.getElementById('progress-done').textContent = done;
+  document.getElementById('progress-total').textContent = total;
+  document.getElementById('progress-pct').textContent = pct + '%';
+  document.getElementById('progress-bar').style.width = pct + '%';
+
+  const remaining = total - done;
+  const msPerDay = 1000 * 60 * 60 * 24;
+  const daysLeft = Math.max(0, Math.ceil((LAST_LESSON_DATE - TODAY) / msPerDay));
+  let info;
+  if (remaining === 0) {
+    info = '🎉 全部完成！';
+  } else {
+    info = `仲有 ${remaining} 課 · 預計完成日期：${formatDateLong(LAST_LESSON_DATE)}`;
+  }
+  document.getElementById('progress-info').textContent = info;
+}
+
+// ============================================================
+// MINI CALENDAR
+// ============================================================
+let miniCalYear = TODAY.getFullYear();
+let miniCalMonth = TODAY.getMonth();
+
+function renderMiniCalendar() {
+  const monthsZh = ['一月','二月','三月','四月','五月','六月','七月','八月','九月','十月','十一月','十二月'];
+  document.getElementById('cal-month-name').innerHTML = `${monthsZh[miniCalMonth]} <span class="year">${miniCalYear}</span>`;
+
+  const days = document.getElementById('mini-days');
+  days.innerHTML = '';
+
+  const firstDay = new Date(miniCalYear, miniCalMonth, 1);
+  const lastDay = new Date(miniCalYear, miniCalMonth + 1, 0);
+  const startDayOfWeek = firstDay.getDay();
+
+  for (let i = 0; i < startDayOfWeek; i++) {
+    const empty = document.createElement('div');
+    empty.className = 'day empty';
+    days.appendChild(empty);
+  }
+  for (let day = 1; day <= lastDay.getDate(); day++) {
+    const date = new Date(miniCalYear, miniCalMonth, day);
+    date.setHours(0, 0, 0, 0);
+    const dateKey = formatDate(date);
+    const lesson = SCHEDULE[dateKey];
+    const isToday = isSameDay(date, TODAY);
+    const isPast = date < TODAY;
+
+    const cell = document.createElement('div');
+    cell.className = 'day';
+    if (isToday) cell.classList.add('today');
+    if (isPast) cell.classList.add('past');
+
+    if (lesson) {
+      cell.classList.add('has-lesson', lesson.week);
+      if (isCompleted(lesson.id)) cell.classList.add('completed');
+      cell.dataset.dateKey = dateKey;
+      cell.title = `${lesson.title}（${lesson.weekLabel}）`;
+      cell.onclick = () => openLessonModalFromCalendar(dateKey);
+      cell.innerHTML = `<div class="day-num">${day}</div><div class="lesson-mini">${lesson.weekLabel.replace('Week ', 'W').replace('Bonus', 'B')}</div>`;
+    } else {
+      cell.textContent = day;
+    }
+    days.appendChild(cell);
+  }
+}
+
+function changeMiniMonth(delta) {
+  miniCalMonth += delta;
+  if (miniCalMonth < 0) { miniCalMonth = 11; miniCalYear--; }
+  if (miniCalMonth > 11) { miniCalMonth = 0; miniCalYear++; }
+  renderMiniCalendar();
+}
+
+// ============================================================
+// LESSON MODAL (from calendar click)
+// ============================================================
+let currentModalLessonId = null;
+let currentModalDateKey = null;
+
+function openLessonModalFromCalendar(dateKey) {
+  const lesson = SCHEDULE[dateKey];
+  if (!lesson) return;
+  currentModalLessonId = lesson.id;
+  currentModalDateKey = dateKey;
+
+  const date = new Date(dateKey + 'T00:00:00');
+  document.getElementById('modal-date').textContent = formatDateLong(date);
+  document.getElementById('modal-title').textContent = lesson.title;
+
+  const weekBadge = document.getElementById('modal-week');
+  weekBadge.textContent = lesson.weekLabel;
+  weekBadge.style.background = '';
+  if (lesson.week === 'week-1') weekBadge.style.background = 'var(--terra)';
+  else if (lesson.week === 'week-bonus') weekBadge.style.background = 'var(--berry)';
+  else if (lesson.week === 'week-2') weekBadge.style.background = 'var(--gold)';
+  else if (lesson.week === 'week-3') weekBadge.style.background = 'var(--sage)';
+
+  document.getElementById('modal-desc').textContent = lesson.desc;
+  document.getElementById('modal-open').href = lesson.file;
+
+  const toggleBtn = document.getElementById('modal-toggle');
+  if (isCompleted(lesson.id)) {
+    toggleBtn.textContent = '↻ 取消完成';
+    toggleBtn.className = 'modal-btn completed';
+  } else {
+    toggleBtn.textContent = '✓ Mark 完成';
+    toggleBtn.className = 'modal-btn';
+  }
+  document.getElementById('lesson-modal').classList.add('show');
+}
+
+function closeLessonModal(e) {
+  if (e && e.target.id !== 'lesson-modal') return;
+  document.getElementById('lesson-modal').classList.remove('show');
+}
+document.querySelector('#lesson-modal .modal-close').addEventListener('click', () => closeLessonModal());
+
+function toggleCompleted() {
+  if (!currentModalLessonId) return;
+  const wasCompleted = isCompleted(currentModalLessonId);
+  if (wasCompleted) {
+    delete completedLessons[currentModalLessonId];
+  } else {
+    completedLessons[currentModalLessonId] = new Date().toISOString();
+  }
+  saveProgress(completedLessons);
+  renderAll();
+  // Update modal button
+  const toggleBtn = document.getElementById('modal-toggle');
+  if (!wasCompleted) {
+    toggleBtn.textContent = '↻ 取消完成';
+    toggleBtn.className = 'modal-btn completed';
+  } else {
+    toggleBtn.textContent = '✓ Mark 完成';
+    toggleBtn.className = 'modal-btn';
+  }
+}
+
+// ============================================================
+// ALL LESSONS MODAL
+// ============================================================
+function openLessonsModal() {
+  const container = document.getElementById('lessons-list-container');
+  container.innerHTML = LESSONS.map(l => {
+    const done = isCompleted(l.id);
+    const weekColor = l.week === 'week-1' ? 'var(--terra)' :
+                      l.week === 'week-bonus' ? 'var(--berry)' :
+                      l.week === 'week-2' ? 'var(--gold)' :
+                      l.week === 'week-3' ? 'var(--sage)' : 'var(--ink-soft)';
+    return `
+      <a href="${l.file}" class="modal-btn" style="justify-content: flex-start; gap: 14px; text-align: left; padding: 14px 16px; ${done ? 'background: rgba(122, 132, 113, 0.08);' : ''}">
+        <div style="width: 4px; height: 38px; background: ${weekColor}; border-radius: 2px; flex-shrink: 0;"></div>
+        <div style="flex: 1; line-height: 1.3;">
+          <div style="font-weight: 600; color: var(--ink);">${done ? '✓ ' : ''}${l.title}</div>
+          <div style="font-size: 12px; color: var(--ink-soft); font-weight: 400;">${l.weekLabel}</div>
+        </div>
+      </a>
+    `;
+  }).join('');
+  document.getElementById('lessons-list-modal').classList.add('show');
+}
+
+function closeLessonsModal() {
+  document.getElementById('lessons-list-modal').classList.remove('show');
+}
+
+function closeLessonsModalIfBackdrop(e) {
+  if (e.target.id === 'lessons-list-modal') closeLessonsModal();
+}
+
+// ============================================================
+// GAMES MODAL
+// ============================================================
+function openGamesModal() {
+  document.getElementById('games-modal').classList.add('show');
+}
+function closeGamesModal() {
+  document.getElementById('games-modal').classList.remove('show');
+}
+function closeGamesModalIfBackdrop(e) {
+  if (e.target.id === 'games-modal') closeGamesModal();
+}
+
+// ============================================================
+// RENDER ALL
+// ============================================================
+function renderAll() {
+  renderTodayHero();
+  renderProgress();
+  renderMiniCalendar();
+}
+
+// ESC closes modals
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    closeLessonModal();
+    closeLessonsModal();
+    closeGamesModal();
+  }
+});
+
+// ============================================================
+// SIDEBAR
+// ============================================================
+function openSidebar() {
+  document.getElementById('sidebar').classList.add('open');
+  document.getElementById('sidebar-backdrop').classList.add('show');
+  document.body.style.overflow = 'hidden';
+  populateSidebarLessons();
+}
+
+function closeSidebar() {
+  document.getElementById('sidebar').classList.remove('open');
+  document.getElementById('sidebar-backdrop').classList.remove('show');
+  document.body.style.overflow = '';
+}
+
+function populateSidebarLessons() {
+  const container = document.getElementById('sidebar-lessons-list');
+  container.innerHTML = LESSONS.map(l => {
+    const done = isCompleted(l.id);
+    const weekClass = l.week === 'week-1' ? 'w1' : l.week === 'week-2' ? 'w2' : 'w3';
+    return `
+      <a href="${l.file}" class="sidebar-item${done ? ' completed' : ''}">
+        <span class="sidebar-item-icon"></span>
+        <span style="flex: 1;">${l.title}</span>
+        <span class="sidebar-item-week-badge ${weekClass}">${l.weekLabel.replace('Week ', 'W')}</span>
+      </a>
+    `;
+  }).join('');
+
+  // Bonus lessons
+  const bonusContainer = document.getElementById('sidebar-bonus-list');
+  if (bonusContainer) {
+    bonusContainer.innerHTML = BONUS_LESSONS.map(l => {
+      const done = isCompleted(l.id);
+      return `
+        <a href="${l.file}" class="sidebar-item${done ? ' completed' : ''}">
+          <span class="sidebar-item-icon"></span>
+          <span style="flex: 1;">${l.title}</span>
+          <span class="sidebar-item-week-badge bonus">Bonus</span>
+        </a>
+      `;
+    }).join('');
+  }
+}
+
+// ESC closes sidebar too
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') closeSidebar();
+});
+
+// ============================================================
+// LEGACY MODAL FUNCTIONS (kept for backward compat — no longer triggered from index)
+// ============================================================
+function openLessonsModal() { openSidebar(); }  // redirect to sidebar
+function openGamesModal() { openSidebar(); }    // redirect to sidebar
+
+// Time-based greeting
 function setGreeting() {
   const hour = new Date().getHours();
   let greeting;
@@ -563,34 +1406,8 @@ function setGreeting() {
 }
 setGreeting();
 
-// Lessons modal
-function openLessons() {
-  document.getElementById('lessons-modal').classList.add('open');
-}
-function closeLessons() {
-  document.getElementById('lessons-modal').classList.remove('open');
-}
-function closeLessonsIfBackdrop(e) {
-  if (e.target.id === 'lessons-modal') closeLessons();
-}
-
-// Games modal
-function openGames() {
-  document.getElementById('games-modal').classList.add('open');
-}
-function closeGames() {
-  document.getElementById('games-modal').classList.remove('open');
-}
-function closeGamesIfBackdrop(e) {
-  if (e.target.id === 'games-modal') closeGames();
-}
-
-document.addEventListener('keydown', e => {
-  if (e.key === 'Escape') {
-    closeLessons();
-    closeGames();
-  }
-});
+// Init
+renderAll();
 </script>
 
 </body>
