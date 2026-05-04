@@ -1,0 +1,1314 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<!-- Cache version: v2-single-voice-2026-04-27 -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="theme-color" content="#faf6ef">
+<link rel="apple-touch-icon" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%23faf6ef'/><text x='50' y='70' text-anchor='middle' font-size='58'>6</text></svg>">
+<title>Bonus · 數字 1-100 · Numbers</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400&family=Noto+Sans+HK:wght@400;500;600;700&family=Lora:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #faf6ef;
+    --cream-dark: #f2ebdc;
+    --paper: #fffdf7;
+    --ink: #2a2420;
+    --ink-soft: #4a3f38;
+    --terra: #c86b4a;
+    --terra-dark: #a8512f;
+    --sage: #7a8471;
+    --sage-dark: #5a6451;
+    --gold: #c9a84c;
+    --gold-dark: #a88828;
+    --blue: #5a7a8b;
+    --blue-dark: #3d5a6a;
+    --burgundy: #8b3a3a;
+    --shadow: rgba(58, 40, 28, 0.12);
+    --sidebar-w: 300px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { height: 100%; overflow: hidden; }
+
+  body {
+    font-family: 'Noto Sans HK', 'Lora', serif;
+    background:
+      radial-gradient(ellipse at top left, rgba(200, 107, 74, 0.08), transparent 50%),
+      radial-gradient(ellipse at bottom right, rgba(122, 132, 113, 0.08), transparent 50%),
+      var(--cream);
+    color: var(--ink);
+    line-height: 1.5;
+    font-size: 15px;
+  }
+
+  body::before {
+    content: '';
+    position: fixed; inset: 0; pointer-events: none;
+    background-image: repeating-linear-gradient(45deg, rgba(139, 115, 85, 0.015) 0 1px, transparent 1px 4px);
+    z-index: 1;
+  }
+
+  .app-layout {
+    display: grid;
+    grid-template-columns: var(--sidebar-w) 1fr;
+    height: 100vh;
+    /* No position:relative or z-index here — would create a stacking context
+       that traps the sidebar's z-index below the backdrop on mobile */
+  }
+
+  .sidebar {
+    background: var(--paper);
+    border-right: 1px solid var(--cream-dark);
+    padding: 16px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .sidebar-header {
+    text-align: center;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--cream-dark);
+  }
+  .sidebar-header .ornament { font-family: 'Fraunces', serif; font-size: 14px; color: var(--gold); letter-spacing: 6px; margin-bottom: 4px; }
+  .sidebar-header .lesson-num { font-family: 'Fraunces', serif; font-style: italic; font-size: 12px; color: var(--terra-dark); margin-bottom: 2px; }
+  .sidebar-header h1 { font-family: 'Fraunces', serif; font-weight: 600; font-size: 22px; color: var(--ink); }
+  .sidebar-header .subtitle { font-family: 'Fraunces', serif; font-style: italic; font-size: 13px; color: var(--ink-soft); }
+
+  .progress-compact { padding: 12px 14px; background: var(--cream); border-radius: 10px; }
+  .progress-compact .label { display: flex; justify-content: space-between; font-size: 12px; color: var(--ink-soft); margin-bottom: 5px; }
+  .progress-compact .value { font-family: 'Fraunces', serif; color: var(--ink); font-weight: 500; }
+  .progress-bar { height: 6px; background: var(--cream-dark); border-radius: 4px; overflow: hidden; }
+  .progress-fill { height: 100%; background: linear-gradient(90deg, var(--terra), var(--gold)); border-radius: 4px; transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1); }
+
+  .steps-nav { display: flex; flex-direction: column; gap: 4px; }
+  .steps-label { font-family: 'Fraunces', serif; font-style: italic; font-size: 12px; color: var(--ink-soft); text-transform: uppercase; letter-spacing: 2px; padding: 4px 0; }
+  .step-btn { display: flex; align-items: center; gap: 10px; padding: 9px 12px; background: transparent; border: none; border-radius: 8px; text-align: left; cursor: pointer; font-family: 'Noto Sans HK', serif; font-size: 13px; color: var(--ink-soft); transition: all 0.2s ease; }
+  .step-btn:hover { background: var(--cream); color: var(--ink); }
+  .step-btn .step-num { display: inline-flex; align-items: center; justify-content: center; width: 22px; height: 22px; background: var(--cream-dark); color: var(--ink-soft); border-radius: 50%; font-size: 11px; font-weight: 700; flex-shrink: 0; }
+  .step-btn.active { background: linear-gradient(90deg, var(--terra), var(--gold)); color: white; font-weight: 600; }
+  .step-btn.active .step-num { background: rgba(255,255,255,0.25); color: white; }
+  .step-btn.completed .step-num { background: var(--sage); color: white; font-size: 0; }
+  .step-btn.completed .step-num::after { content: '✓'; font-size: 12px; }
+
+  .speed-panel { background: var(--cream); border-radius: 10px; padding: 12px; }
+  .speed-label { font-family: 'Fraunces', serif; font-style: italic; font-size: 12px; color: var(--terra-dark); margin-bottom: 8px; }
+  .speed-buttons { display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px; }
+  .speed-btn { padding: 6px 2px; background: var(--paper); border: 1px solid var(--cream-dark); border-radius: 6px; cursor: pointer; font-family: 'Noto Sans HK', serif; display: flex; flex-direction: column; align-items: center; gap: 1px; transition: all 0.15s ease; }
+  .speed-btn:hover { border-color: var(--terra); }
+  .speed-btn.active { background: var(--terra); border-color: var(--terra); color: white; }
+  .speed-btn .rate { font-size: 12px; font-weight: 700; }
+  .speed-btn .rate-label { font-size: 9px; opacity: 0.8; }
+
+  .main-area { overflow: hidden; display: flex; flex-direction: column; height: 100vh; }
+  .main-inner { flex: 1; overflow-y: auto; padding: 20px 28px; }
+
+  .section-label { font-family: 'Fraunces', serif; font-style: italic; font-size: 12px; color: var(--terra-dark); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 6px; }
+
+  .step-content { animation: fadeIn 0.3s ease; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+  .step-content h2 { font-family: 'Fraunces', serif; font-weight: 600; font-size: 24px; color: var(--ink); margin-bottom: 6px; line-height: 1.2; }
+  .card-sub { font-family: 'Fraunces', serif; font-style: italic; font-size: 14px; color: var(--ink-soft); margin-bottom: 16px; }
+
+  .instruction { background: var(--paper); border-left: 3px solid var(--gold); padding: 12px 16px; border-radius: 6px; font-size: 14px; line-height: 1.55; margin-bottom: 16px; color: var(--ink-soft); }
+  .instruction strong { color: var(--ink); font-weight: 600; }
+
+  .callback { background: rgba(122, 132, 113, 0.1); border-left: 3px solid var(--sage); padding: 10px 14px; border-radius: 6px; font-size: 13px; line-height: 1.5; margin-bottom: 14px; color: var(--ink-soft); }
+
+  .teacher-note { background: rgba(200, 107, 74, 0.07); border-left: 3px solid var(--terra); padding: 10px 14px; border-radius: 6px; font-size: 13px; line-height: 1.5; color: var(--ink-soft); margin-top: 12px; }
+  .teacher-note strong { color: var(--terra-dark); }
+
+  .scene-card { background: linear-gradient(135deg, var(--paper), var(--cream)); border-radius: 14px; padding: 18px; margin-bottom: 14px; border: 1px solid var(--cream-dark); }
+  .scene-card .scene-title { font-family: 'Fraunces', serif; font-weight: 600; font-size: 18px; color: var(--ink); margin-bottom: 6px; }
+  .scene-card .scene-text { font-size: 14px; color: var(--ink-soft); line-height: 1.55; }
+
+  .goals-grid { display: grid; grid-template-columns: 1fr; gap: 10px; }
+  .goal-card { background: var(--paper); border: 1px solid var(--cream-dark); border-radius: 12px; padding: 14px 16px; display: flex; align-items: center; gap: 12px; }
+  .goal-num { background: var(--gold); color: white; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; flex-shrink: 0; font-size: 14px; }
+  .goal-text { font-size: 15px; line-height: 1.4; }
+  .goal-text strong { color: var(--terra-dark); }
+
+  .subsection-title { font-family: 'Fraunces', serif; font-size: 18px; color: var(--ink); margin: 14px 0 8px; font-weight: 600; }
+
+  .dialogue-card { background: var(--paper); border-radius: 14px; padding: 16px; border: 1px solid var(--cream-dark); margin-bottom: 12px; }
+  .dialogue-line { display: flex; gap: 10px; margin-bottom: 12px; align-items: flex-start; }
+  .dialogue-line:last-child { margin-bottom: 0; }
+  .dialogue-avatar { width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; }
+  .dialogue-avatar.shop { background: linear-gradient(135deg, var(--blue), var(--blue-dark)); color: white; }
+  .dialogue-avatar.you { background: linear-gradient(135deg, var(--terra), var(--gold)); color: white; }
+  .dialogue-bubble { flex: 1; background: var(--cream); padding: 10px 12px; border-radius: 10px; }
+  .dialogue-bubble.you { background: rgba(200, 107, 74, 0.08); }
+  .dialogue-text { font-size: 16px; color: var(--ink); margin-bottom: 4px; line-height: 1.3; }
+  .dialogue-zh { font-size: 13px; color: var(--ink-soft); }
+
+  .play-btn { background: var(--terra); color: white; border: none; padding: 9px 14px; border-radius: 8px; cursor: pointer; font-family: inherit; font-size: 13px; font-weight: 600; display: inline-flex; align-items: center; gap: 6px; margin-top: 8px; }
+  .play-btn:hover { background: var(--terra-dark); }
+  .play-btn.blue { background: var(--blue); }
+  .play-btn.blue:hover { background: var(--blue-dark); }
+  .play-btn.small { padding: 6px 10px; font-size: 12px; }
+
+  .phrases-list { display: flex; flex-direction: column; gap: 12px; }
+  .phrase-card { background: var(--paper); border: 1px solid var(--cream-dark); border-radius: 12px; padding: 14px; }
+  .phrase-num { display: inline-flex; align-items: center; justify-content: center; width: 28px; height: 28px; background: var(--terra); color: white; border-radius: 50%; font-weight: 700; font-size: 13px; margin-bottom: 8px; }
+  .phrase-en { font-size: 18px; font-weight: 600; color: var(--ink); margin-bottom: 4px; line-height: 1.25; }
+  .phrase-zh { font-size: 14px; color: var(--ink-soft); margin-bottom: 8px; }
+  .phrase-context { font-size: 12px; color: var(--terra-dark); font-style: italic; margin-bottom: 8px; }
+  .phrase-actions { display: flex; gap: 6px; flex-wrap: wrap; }
+
+  .money-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 14px; }
+  .money-card { background: var(--paper); border: 1px solid var(--cream-dark); border-radius: 10px; padding: 12px; text-align: center; }
+  .money-card .price { font-family: 'Fraunces', serif; font-size: 20px; font-weight: 600; color: var(--terra-dark); margin-bottom: 4px; }
+  .money-card .price-en { font-size: 14px; color: var(--ink); margin-bottom: 6px; }
+  .money-card .price-zh { font-size: 12px; color: var(--ink-soft); margin-bottom: 8px; }
+
+  .roleplay-card { background: linear-gradient(135deg, rgba(200, 107, 74, 0.06), rgba(201, 168, 76, 0.06)); border: 1px solid var(--cream-dark); border-radius: 14px; padding: 16px; margin-bottom: 14px; }
+  .roleplay-prompt { background: var(--paper); border-left: 3px solid var(--blue); padding: 10px 12px; border-radius: 6px; margin-bottom: 10px; }
+  .roleplay-prompt .who { font-size: 11px; color: var(--blue-dark); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 3px; font-weight: 600; }
+  .roleplay-prompt .what { font-size: 15px; color: var(--ink); line-height: 1.35; }
+  .roleplay-prompt .what-zh { font-size: 12px; color: var(--ink-soft); margin-top: 3px; }
+  .roleplay-your-turn { background: rgba(200, 107, 74, 0.08); border: 2px dashed var(--terra); padding: 12px; border-radius: 8px; text-align: center; }
+  .roleplay-your-turn .label { font-family: 'Fraunces', serif; font-style: italic; font-size: 13px; color: var(--terra-dark); margin-bottom: 6px; }
+  .roleplay-your-turn .hint { font-size: 14px; color: var(--ink); margin-bottom: 8px; }
+
+  .complete-screen { text-align: center; padding: 20px 0; }
+  .complete-trophy { font-size: 56px; margin-bottom: 10px; }
+  .complete-title { font-family: 'Fraunces', serif; font-weight: 600; font-size: 24px; color: var(--ink); margin-bottom: 6px; }
+  .complete-sub { font-family: 'Fraunces', serif; font-style: italic; color: var(--ink-soft); font-size: 15px; margin-bottom: 18px; }
+  .summary-box { background: var(--paper); border: 1px solid var(--cream-dark); border-radius: 12px; padding: 16px; text-align: left; margin-bottom: 14px; }
+  .summary-box h3 { font-family: 'Fraunces', serif; font-size: 16px; color: var(--terra-dark); margin-bottom: 8px; }
+  .summary-list { list-style: none; padding: 0; font-size: 14px; line-height: 1.7; color: var(--ink-soft); }
+  .summary-list li::before { content: "✓ "; color: var(--sage); font-weight: 700; }
+  .homework-card { background: rgba(201, 168, 76, 0.1); border: 1px solid var(--gold); border-radius: 12px; padding: 14px; text-align: left; }
+  .homework-card h3 { font-family: 'Fraunces', serif; color: var(--gold-dark); font-size: 16px; margin-bottom: 8px; }
+  .homework-item { display: flex; gap: 10px; margin-bottom: 8px; font-size: 14px; color: var(--ink-soft); line-height: 1.4; }
+  .homework-num { color: var(--gold-dark); font-weight: 700; flex-shrink: 0; }
+
+  .footer-nav { display: flex; align-items: center; justify-content: space-between; padding: 12px 28px; background: var(--paper); border-top: 1px solid var(--cream-dark); flex-shrink: 0; }
+  .btn-primary { background: var(--terra); color: white; border: none; padding: 10px 20px; border-radius: 8px; font-family: 'Noto Sans HK', serif; font-size: 14px; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; transition: all 0.2s ease; }
+  .btn-primary:hover { background: var(--terra-dark); }
+  .btn-secondary { background: transparent; color: var(--ink-soft); border: 1px solid var(--cream-dark); padding: 10px 20px; border-radius: 8px; font-family: inherit; font-size: 14px; cursor: pointer; transition: all 0.2s ease; }
+  .btn-secondary:hover { border-color: var(--gold); color: var(--ink); }
+
+  .hidden { display: none !important; }
+
+  .mobile-top-bar { display: none; }
+  .mobile-progress { display: none; }
+  .mobile-nav-bar { display: none; }
+  .sidebar-backdrop { display: none; }
+
+  @media (max-width: 768px) {
+    :root { --safe-top: env(safe-area-inset-top, 0px); --safe-bottom: env(safe-area-inset-bottom, 0px); }
+    html, body { overflow: hidden; height: 100%; position: fixed; width: 100%; -webkit-tap-highlight-color: transparent; overscroll-behavior: none; }
+    body { font-size: 15px; }
+
+    .app-layout { display: flex; flex-direction: column; height: 100vh; height: 100dvh; grid-template-columns: none; }
+
+    .sidebar { position: fixed; top: 0; right: 0; bottom: 0; width: 86%; max-width: 360px; z-index: 100; transform: translateX(100%); transition: transform 0.3s cubic-bezier(0.3, 0.85, 0.4, 1); padding: calc(16px + var(--safe-top)) 18px calc(16px + var(--safe-bottom)); box-shadow: -4px 0 20px rgba(0,0,0,0.15); overflow-y: auto; -webkit-overflow-scrolling: touch; border-right: none; border-left: 1px solid var(--cream-dark); }
+    .sidebar.open { transform: translateX(0); }
+    .sidebar-backdrop { display: block; position: fixed; inset: 0; background: rgba(42, 36, 32, 0.4); z-index: 99; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
+    .sidebar-backdrop.show { opacity: 1; pointer-events: auto; }
+    .sidebar::before { content: "⚙️ 設定"; display: block; font-family: 'Fraunces', serif; font-weight: 600; font-size: 18px; color: var(--ink); padding-bottom: 12px; border-bottom: 1px solid var(--cream-dark); margin-bottom: 14px; }
+    .sidebar .sidebar-header { display: none; }
+    .sidebar .progress-compact { display: none; }
+    .sidebar .step-btn { padding: 12px 14px; font-size: 14px; min-height: 50px; }
+    .sidebar .speed-btn { padding: 9px 4px; min-height: 48px; }
+
+    .mobile-top-bar { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: calc(10px + var(--safe-top)) 14px 8px; background: var(--paper); border-bottom: 1px solid var(--cream-dark); flex-shrink: 0; z-index: 10; position: relative; }
+    .mobile-top-bar .lesson-info { flex: 1; min-width: 0; }
+    .mobile-top-bar .lesson-tag { font-family: 'Fraunces', serif; font-style: italic; font-size: 11px; color: var(--terra-dark); line-height: 1; margin-bottom: 2px; }
+    .mobile-top-bar h1 { font-family: 'Fraunces', serif; font-weight: 600; font-size: 16px; color: var(--ink); line-height: 1.1; margin: 0; }
+    .mobile-top-bar .step-indicator { background: var(--cream); border-radius: 14px; padding: 5px 11px; font-family: 'Fraunces', serif; font-size: 12px; color: var(--ink); font-weight: 600; flex-shrink: 0; }
+    .mobile-top-bar .step-indicator .total { color: var(--ink-soft); font-weight: 500; }
+    .mobile-top-bar .menu-btn { background: var(--cream); border: none; width: 42px; height: 42px; border-radius: 12px; font-size: 18px; cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: var(--ink); }
+    .mobile-top-bar .menu-btn:active { background: var(--cream-dark); }
+
+    .mobile-progress { display: block; height: 4px; background: var(--cream-dark); flex-shrink: 0; }
+    .mobile-progress .fill { height: 100%; background: linear-gradient(90deg, var(--terra), var(--gold)); transition: width 0.4s ease; }
+
+    .main-area { flex: 1; padding: 0; overflow: hidden; display: flex; flex-direction: column; gap: 0; }
+    .main-inner { padding: 14px 16px; padding-bottom: 14px; }
+
+    .footer-nav { display: none; }
+
+    .mobile-nav-bar { display: flex; background: var(--paper); border-top: 1px solid var(--cream-dark); padding: 8px 14px calc(8px + var(--safe-bottom)); gap: 10px; flex-shrink: 0; }
+    .mobile-nav-bar .nav-btn { flex: 1; padding: 13px 10px; border-radius: 12px; font-family: 'Noto Sans HK', serif; font-size: 15px; font-weight: 600; cursor: pointer; transition: all 0.2s ease; min-height: 48px; border: none; }
+    .mobile-nav-bar .nav-btn.prev { background: var(--cream); color: var(--ink); flex: 0 0 34%; }
+    .mobile-nav-bar .nav-btn.prev:active { background: var(--cream-dark); }
+    .mobile-nav-bar .nav-btn.next { background: var(--terra); color: white; }
+    .mobile-nav-bar .nav-btn.next:active { background: var(--terra-dark); }
+    .mobile-nav-bar .nav-btn.prev.disabled { opacity: 0.35; pointer-events: none; }
+
+    .step-content h2 { font-size: 22px !important; }
+    .money-grid { grid-template-columns: 1fr 1fr !important; }
+    .phrase-en { font-size: 17px; }
+  }
+
+  @media (min-width: 769px) {
+    .mobile-top-bar { display: none !important; }
+    .mobile-progress { display: none !important; }
+    .mobile-nav-bar { display: none !important; }
+    .sidebar-backdrop { display: none !important; }
+  }
+
+  /* Active highlight when auto-playing */
+  .dialogue-line.active .dialogue-bubble {
+    box-shadow: 0 0 0 2px var(--gold);
+    transition: box-shadow 0.2s ease;
+  }
+  .dialogue-line.active .dialogue-bubble.you {
+    box-shadow: 0 0 0 2px var(--terra);
+  }
+
+
+  /* ============ CLICKABLE WORDS ============ */
+  .word {
+    display: inline-block;
+    cursor: pointer;
+    padding: 1px 2px;
+    border-radius: 4px;
+    transition: all 0.15s ease;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .word:hover, .word:focus {
+    background: rgba(201, 168, 76, 0.25);
+    color: var(--terra);
+  }
+  .word.speaking {
+    background: var(--gold);
+    color: white;
+    transform: scale(1.08);
+  }
+
+  /* ============ INFO POPUP ============ */
+  .info-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 8px 14px;
+    background: white;
+    border: 1.5px solid var(--cream-dark);
+    border-radius: 20px;
+    color: var(--blue-dark);
+    font-family: 'Noto Sans HK', serif;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    margin: 4px 0 14px;
+    -webkit-tap-highlight-color: transparent;
+    transition: all 0.15s ease;
+    min-height: 36px;
+  }
+  .info-btn:hover, .info-btn:focus {
+    border-color: var(--blue);
+    background: rgba(90, 122, 139, 0.06);
+  }
+  .info-btn:active { transform: scale(0.96); }
+  .info-btn .icon { font-size: 16px; }
+
+  .info-btn-float {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    border-radius: 50%;
+    background: white;
+    border: 1.5px solid var(--cream-dark);
+    color: var(--blue-dark);
+    font-size: 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 5;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    -webkit-tap-highlight-color: transparent;
+    transition: all 0.15s ease;
+  }
+  .info-btn-float:hover, .info-btn-float:focus {
+    border-color: var(--blue);
+    color: var(--blue);
+  }
+  .info-btn-float:active { transform: scale(0.92); }
+
+  .step-content { position: relative; }
+
+  .info-modal-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(42, 36, 32, 0.55);
+    z-index: 200;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    -webkit-backdrop-filter: blur(4px);
+    backdrop-filter: blur(4px);
+  }
+  .info-modal-backdrop.show {
+    display: flex;
+    animation: modalFadeIn 0.18s ease;
+  }
+  @keyframes modalFadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  .info-modal {
+    background: var(--paper);
+    border-radius: 18px;
+    padding: 22px 22px 18px;
+    max-width: 480px;
+    width: 100%;
+    max-height: 80vh;
+    overflow-y: auto;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+    position: relative;
+    animation: modalSlideUp 0.22s cubic-bezier(0.3, 0.85, 0.4, 1);
+  }
+  @keyframes modalSlideUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .info-modal-header {
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 10px;
+    padding-right: 36px;
+    line-height: 1.3;
+  }
+  .info-modal-body {
+    font-size: 14.5px;
+    line-height: 1.65;
+    color: var(--ink);
+  }
+  .info-modal-body strong { color: var(--terra); }
+  .info-modal-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: transparent;
+    border: none;
+    font-size: 22px;
+    color: var(--ink-soft);
+    cursor: pointer;
+  }
+  .info-modal-ok {
+    margin-top: 16px;
+    width: 100%;
+    padding: 12px;
+    background: var(--terra);
+    border: none;
+    color: white;
+    border-radius: 10px;
+    font-family: 'Noto Sans HK', serif;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    min-height: 44px;
+  }
+  .info-modal-ok:hover { background: var(--terra-dark); }
+
+  /* ============ CARD PAGINATION ============ */
+  .card-page-hidden { display: none !important; }
+
+  .card-pager {
+    margin: 18px 0 8px;
+    padding: 14px 12px;
+    background: var(--paper);
+    border: 1.5px solid var(--cream-dark);
+    border-radius: 14px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+  .card-pager-progress {
+    display: flex;
+    gap: 5px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .card-pager-dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: var(--cream-dark);
+    transition: all 0.2s ease;
+  }
+  .card-pager-dot.active {
+    background: var(--terra);
+    transform: scale(1.3);
+  }
+  .card-pager-dot.completed { background: var(--gold); }
+  .card-pager-counter {
+    font-size: 13px;
+    color: var(--ink-soft);
+    font-weight: 600;
+  }
+  .card-pager-controls {
+    display: flex;
+    gap: 10px;
+    width: 100%;
+  }
+  .card-pager-btn {
+    flex: 1;
+    padding: 12px 10px;
+    border: 1.5px solid var(--cream-dark);
+    background: white;
+    color: var(--ink);
+    border-radius: 10px;
+    font-family: 'Noto Sans HK', serif;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    min-height: 44px;
+  }
+  .card-pager-btn:disabled { opacity: 0.35; cursor: not-allowed; }
+  .card-pager-btn.primary {
+    background: var(--terra);
+    border-color: var(--terra);
+    color: white;
+  }
+  .card-pager-btn.primary:hover:not(:disabled) {
+    background: var(--terra-dark);
+  }
+
+
+  /* ============ BACK TO HOME BUTTON ============ */
+  .back-home-btn {
+    position: fixed;
+    top: calc(12px + env(safe-area-inset-top, 0));
+    left: calc(12px + env(safe-area-inset-left, 0));
+    z-index: 150;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: rgba(255, 251, 243, 0.95);
+    border: 1.5px solid var(--cream-dark);
+    color: var(--ink);
+    font-size: 22px;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s ease;
+  }
+  .back-home-btn:hover {
+    background: white;
+    border-color: var(--terra);
+    color: var(--terra);
+    transform: scale(1.05);
+  }
+  .back-home-btn:active { transform: scale(0.92); }
+
+  /* On desktop, position at sidebar's top */
+  @media (min-width: 769px) {
+    .back-home-btn {
+      top: 16px;
+      left: 16px;
+    }
+  }
+
+</style>
+</head>
+<body>
+
+<a href="../index.html" class="back-home-btn" aria-label="返主頁" title="返主頁">←</a>
+
+
+<div class="sidebar-backdrop" id="sidebar-backdrop" onclick="closeMobileSidebar()"></div>
+
+<div class="app-layout">
+
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <div class="ornament">· · ·</div>
+      <div class="lesson-num">Bonus 課程</div>
+      <h1>數字 1-100</h1>
+      <div class="subtitle">Numbers · 1 to 100</div>
+    </div>
+
+    <div class="progress-compact">
+      <div class="label">
+        <span id="progress-text">第 1 部分 / 共 6 部分</span>
+        <span class="value" id="progress-time">2 分鐘</span>
+      </div>
+      <div class="progress-bar">
+        <div class="progress-fill" id="progress-fill" style="width: 16.7%;"></div>
+      </div>
+    </div>
+
+    <nav class="steps-nav">
+      <div class="steps-label">學習步驟</div>
+      <button class="step-btn active" data-step="1" onclick="goToStep(1)"><span class="step-num">1</span><span>熱身 · 點解學數字</span></button>
+      <button class="step-btn" data-step="2" onclick="goToStep(2)"><span class="step-num">2</span><span>1-10 基礎</span></button>
+      <button class="step-btn" data-step="3" onclick="goToStep(3)"><span class="step-num">3</span><span>11-20 不規則</span></button>
+      <button class="step-btn" data-step="4" onclick="goToStep(4)"><span class="step-num">4</span><span>整十 (20-100)</span></button>
+      <button class="step-btn" data-step="5" onclick="goToStep(5)"><span class="step-num">5</span><span>組合數字</span></button>
+      <button class="step-btn" data-step="6" onclick="goToStep(6)"><span class="step-num">6</span><span>🏆 完成</span></button>
+    </nav>
+
+    <div class="speed-panel">
+      <div class="speed-label">🐢 聲音速度</div>
+      <div class="speed-buttons">
+        <button class="speed-btn" data-speed="0.3" onclick="setSpeed(0.3, this)"><span class="rate">0.3x</span><span class="rate-label">極慢</span></button>
+        <button class="speed-btn" data-speed="0.5" onclick="setSpeed(0.5, this)"><span class="rate">0.5x</span><span class="rate-label">慢</span></button>
+        <button class="speed-btn active" data-speed="0.7" onclick="setSpeed(0.7, this)"><span class="rate">0.7x</span><span class="rate-label">稍慢</span></button>
+        <button class="speed-btn" data-speed="1.0" onclick="setSpeed(1.0, this)"><span class="rate">1.0x</span><span class="rate-label">正常</span></button>
+      </div>
+    </div>
+  </aside>
+
+  <main class="main-area">
+
+    <div class="mobile-top-bar">
+      <div class="lesson-info">
+        <div class="lesson-tag">Bonus 課程</div>
+        <h1>數字 1-100</h1>
+      </div>
+      <div class="step-indicator" id="mobile-step-indicator">1 <span class="total">/ 6</span></div>
+      <button class="menu-btn" onclick="openMobileSidebar()" aria-label="設定">☰</button>
+    </div>
+
+    <div class="mobile-progress">
+      <div class="fill" id="mobile-progress-fill" style="width: 16.7%;"></div>
+    </div>
+
+    <div class="main-inner">
+
+      <!-- STEP 1 -->
+      <div class="step-content" data-step="1">
+        <div class="section-label">Part 1 · 熱身 (1 分鐘)</div>
+
+        <div style="text-align: center; padding: 28px 16px 20px; background: linear-gradient(135deg, rgba(200, 107, 74, 0.08), rgba(201, 168, 76, 0.08)); border-radius: 18px; margin: 12px 0 20px;">
+          <div style="font-size: 28px; font-weight: 700; color: var(--ink); line-height: 1.3; margin-bottom: 10px;">
+            數字喺<span style="color: var(--terra);">日常生活</span>無處不在
+          </div>
+          <div style="font-size: 17px; color: var(--ink-soft); margin-bottom: 18px;">
+            價錢、年齡、樓層、電話、時間 — 全部都用數字 ✨
+          </div>
+          <button class="play-btn" onclick="speak('one, two, three, four, five')" style="margin: 4px;">▶️ 聽 1-5</button>
+          <button class="play-btn blue" onclick="speak('six, seven, eight, nine, ten')" style="margin: 4px;">▶️ 聽 6-10</button>
+        </div>
+
+        <div class="subsection-title" style="font-size: 17px; margin-bottom: 10px;">呢堂學咩？</div>
+        <div style="background: var(--paper); border: 1.5px solid var(--cream-dark); border-radius: 12px; padding: 14px 16px; margin-bottom: 10px;">
+          <div style="font-size: 15px; line-height: 1.6;">
+            ✅ <strong>1-10</strong> — 最基本嘅 10 個數字<br>
+            ✅ <strong>11-20</strong> — 唔少不規則，要記實<br>
+            ✅ <strong>整十 (20-100)</strong> — twenty, thirty, ninety...<br>
+            ✅ <strong>組合數字</strong> — 47 = forty-seven
+          </div>
+        </div>
+
+        <div class="teacher-note keep-inline" style="margin-top: 14px;">
+          <strong>👩‍🏫 放心：</strong>數字其實有 pattern，記咗 1-20 同 整十，就識讀全部 1-100 喇 🎯
+        </div>
+      </div>
+
+      <!-- STEP 2 -->
+      <div class="step-content hidden" data-step="2">
+        <div class="section-label">Part 2 · 1-10 基礎 (3 分鐘)</div>
+        <h2>學識頭 10 個 🔢</h2>
+        <div class="card-sub">每個聽 2-3 次，跟住讀</div>
+
+        <div class="instruction"><strong>🎧 點玩：</strong>每個數字㩒 ▶️ 聽，再 㩒 🐢 極慢聽清楚。睇完每個揗下一個。</div>
+
+        <div class="phrases-list">
+          <div class="phrase-card"><div class="phrase-num">1</div><div class="phrase-en">one</div><div class="phrase-zh">數字 1</div><div class="phrase-actions"><button class="play-btn small" onclick="speak('one')">▶️ 聽</button> <button class="play-btn small blue" onclick="speak('one', 0.3)">🐢 極慢</button></div></div>
+          <div class="phrase-card"><div class="phrase-num">2</div><div class="phrase-en">two</div><div class="phrase-zh">數字 2</div><div class="phrase-actions"><button class="play-btn small" onclick="speak('two')">▶️ 聽</button> <button class="play-btn small blue" onclick="speak('two', 0.3)">🐢 極慢</button></div></div>
+          <div class="phrase-card"><div class="phrase-num">3</div><div class="phrase-en">three</div><div class="phrase-zh">數字 3</div><div class="phrase-actions"><button class="play-btn small" onclick="speak('three')">▶️ 聽</button> <button class="play-btn small blue" onclick="speak('three', 0.3)">🐢 極慢</button></div></div>
+          <div class="phrase-card"><div class="phrase-num">4</div><div class="phrase-en">four</div><div class="phrase-zh">數字 4</div><div class="phrase-actions"><button class="play-btn small" onclick="speak('four')">▶️ 聽</button> <button class="play-btn small blue" onclick="speak('four', 0.3)">🐢 極慢</button></div></div>
+          <div class="phrase-card"><div class="phrase-num">5</div><div class="phrase-en">five</div><div class="phrase-zh">數字 5</div><div class="phrase-actions"><button class="play-btn small" onclick="speak('five')">▶️ 聽</button> <button class="play-btn small blue" onclick="speak('five', 0.3)">🐢 極慢</button></div></div>
+          <div class="phrase-card"><div class="phrase-num">6</div><div class="phrase-en">six</div><div class="phrase-zh">數字 6</div><div class="phrase-actions"><button class="play-btn small" onclick="speak('six')">▶️ 聽</button> <button class="play-btn small blue" onclick="speak('six', 0.3)">🐢 極慢</button></div></div>
+          <div class="phrase-card"><div class="phrase-num">7</div><div class="phrase-en">seven</div><div class="phrase-zh">數字 7</div><div class="phrase-actions"><button class="play-btn small" onclick="speak('seven')">▶️ 聽</button> <button class="play-btn small blue" onclick="speak('seven', 0.3)">🐢 極慢</button></div></div>
+          <div class="phrase-card"><div class="phrase-num">8</div><div class="phrase-en">eight</div><div class="phrase-zh">數字 8</div><div class="phrase-actions"><button class="play-btn small" onclick="speak('eight')">▶️ 聽</button> <button class="play-btn small blue" onclick="speak('eight', 0.3)">🐢 極慢</button></div></div>
+          <div class="phrase-card"><div class="phrase-num">9</div><div class="phrase-en">nine</div><div class="phrase-zh">數字 9</div><div class="phrase-actions"><button class="play-btn small" onclick="speak('nine')">▶️ 聽</button> <button class="play-btn small blue" onclick="speak('nine', 0.3)">🐢 極慢</button></div></div>
+          <div class="phrase-card"><div class="phrase-num">10</div><div class="phrase-en">ten</div><div class="phrase-zh">數字 10</div><div class="phrase-actions"><button class="play-btn small" onclick="speak('ten')">▶️ 聽</button> <button class="play-btn small blue" onclick="speak('ten', 0.3)">🐢 極慢</button></div></div>
+        </div>
+
+        <div class="teacher-note"><strong>👩‍🏫 發音 tips：</strong><br>• <strong>three</strong> 嘅 "th" 係咬住舌頭吹氣（唔係 "free" 或 "tree"）<br>• <strong>five</strong> 嘅 "v" 要震動嘴脣<br>• 練到識唔使諗就講得出 1-10</div>
+      </div>
+
+      <!-- STEP 3 -->
+      <div class="step-content hidden" data-step="3">
+        <div class="section-label">Part 3 · 11-20 (3 分鐘)</div>
+        <h2>11 到 20 — 留意 "-teen" 🎓</h2>
+        <div class="card-sub">11、12 係不規則，13-19 都加 "-teen"</div>
+
+        <div class="instruction"><strong>📖 規則：</strong>11、12 要硬記。13-19 通常係<strong>「個位 + teen」</strong>，但有 3 個唔規則：thirteen, fifteen, eighteen。</div>
+
+        <div class="phrases-list">
+          <div class="phrase-card"><div class="phrase-num">11</div><div class="phrase-en">eleven</div><div class="phrase-zh">數字 11</div><div class="phrase-context">📍 不規則</div><div class="phrase-actions"><button class="play-btn small" onclick="speak('eleven')">▶️ 聽</button> <button class="play-btn small blue" onclick="speak('eleven', 0.3)">🐢 極慢</button></div></div>
+          <div class="phrase-card"><div class="phrase-num">12</div><div class="phrase-en">twelve</div><div class="phrase-zh">數字 12</div><div class="phrase-context">📍 不規則</div><div class="phrase-actions"><button class="play-btn small" onclick="speak('twelve')">▶️ 聽</button> <button class="play-btn small blue" onclick="speak('twelve', 0.3)">🐢 極慢</button></div></div>
+          <div class="phrase-card"><div class="phrase-num">13</div><div class="phrase-en">thirteen</div><div class="phrase-zh">數字 13</div><div class="phrase-context">📍 13 = three + teen</div><div class="phrase-actions"><button class="play-btn small" onclick="speak('thirteen')">▶️ 聽</button> <button class="play-btn small blue" onclick="speak('thirteen', 0.3)">🐢 極慢</button></div></div>
+          <div class="phrase-card"><div class="phrase-num">14</div><div class="phrase-en">fourteen</div><div class="phrase-zh">數字 14</div><div class="phrase-context">📍 14 = four + teen</div><div class="phrase-actions"><button class="play-btn small" onclick="speak('fourteen')">▶️ 聽</button> <button class="play-btn small blue" onclick="speak('fourteen', 0.3)">🐢 極慢</button></div></div>
+          <div class="phrase-card"><div class="phrase-num">15</div><div class="phrase-en">fifteen</div><div class="phrase-zh">數字 15</div><div class="phrase-context">📍 15 = fif + teen 不係 five+teen</div><div class="phrase-actions"><button class="play-btn small" onclick="speak('fifteen')">▶️ 聽</button> <button class="play-btn small blue" onclick="speak('fifteen', 0.3)">🐢 極慢</button></div></div>
+          <div class="phrase-card"><div class="phrase-num">16</div><div class="phrase-en">sixteen</div><div class="phrase-zh">數字 16</div><div class="phrase-context">📍 16 = six + teen</div><div class="phrase-actions"><button class="play-btn small" onclick="speak('sixteen')">▶️ 聽</button> <button class="play-btn small blue" onclick="speak('sixteen', 0.3)">🐢 極慢</button></div></div>
+          <div class="phrase-card"><div class="phrase-num">17</div><div class="phrase-en">seventeen</div><div class="phrase-zh">數字 17</div><div class="phrase-context">📍 17 = seven + teen</div><div class="phrase-actions"><button class="play-btn small" onclick="speak('seventeen')">▶️ 聽</button> <button class="play-btn small blue" onclick="speak('seventeen', 0.3)">🐢 極慢</button></div></div>
+          <div class="phrase-card"><div class="phrase-num">18</div><div class="phrase-en">eighteen</div><div class="phrase-zh">數字 18</div><div class="phrase-context">📍 18 = eight + teen 注意拼寫！</div><div class="phrase-actions"><button class="play-btn small" onclick="speak('eighteen')">▶️ 聽</button> <button class="play-btn small blue" onclick="speak('eighteen', 0.3)">🐢 極慢</button></div></div>
+          <div class="phrase-card"><div class="phrase-num">19</div><div class="phrase-en">nineteen</div><div class="phrase-zh">數字 19</div><div class="phrase-context">📍 19 = nine + teen</div><div class="phrase-actions"><button class="play-btn small" onclick="speak('nineteen')">▶️ 聽</button> <button class="play-btn small blue" onclick="speak('nineteen', 0.3)">🐢 極慢</button></div></div>
+          <div class="phrase-card"><div class="phrase-num">20</div><div class="phrase-en">twenty</div><div class="phrase-zh">數字 20</div><div class="phrase-context">📍 整十</div><div class="phrase-actions"><button class="play-btn small" onclick="speak('twenty')">▶️ 聽</button> <button class="play-btn small blue" onclick="speak('twenty', 0.3)">🐢 極慢</button></div></div>
+        </div>
+
+        <div class="teacher-note"><strong>👩‍🏫 重音 tip：</strong>13-19 嘅重音通常喺<strong>「-teen」尾音</strong>（例：thir-<strong>TEEN</strong>）。對比 30、40 重音喺前（<strong>thir</strong>-ty）— 呢個分別好重要！</div>
+      </div>
+
+      <!-- STEP 4 -->
+      <div class="step-content hidden" data-step="4">
+        <div class="section-label">Part 4 · 整十 20 到 100 (3 分鐘)</div>
+        <h2>整十嘅單字 🔟</h2>
+        <div class="card-sub">每個都係 "個位 + ty"（除咗 100）</div>
+
+        <div class="instruction"><strong>📖 規則：</strong>20-90 都係<strong>「個位 + ty」</strong>。但有幾個拼寫要小心：<strong>forty</strong>（冇 u）、<strong>fifty</strong>、<strong>eighty</strong>（一個 t）。</div>
+
+        <div class="phrases-list">
+          <div class="phrase-card"><div class="phrase-num">20</div><div class="phrase-en">twenty</div><div class="phrase-zh">20</div><div class="phrase-context">📍 20</div><div class="phrase-actions"><button class="play-btn small" onclick="speak('twenty')">▶️ 聽</button> <button class="play-btn small blue" onclick="speak('twenty', 0.3)">🐢 極慢</button></div></div>
+          <div class="phrase-card"><div class="phrase-num">30</div><div class="phrase-en">thirty</div><div class="phrase-zh">30</div><div class="phrase-context">📍 注意：唔係 threety</div><div class="phrase-actions"><button class="play-btn small" onclick="speak('thirty')">▶️ 聽</button> <button class="play-btn small blue" onclick="speak('thirty', 0.3)">🐢 極慢</button></div></div>
+          <div class="phrase-card"><div class="phrase-num">40</div><div class="phrase-en">forty</div><div class="phrase-zh">40</div><div class="phrase-context">📍 注意：冇 u！唔係 fourty</div><div class="phrase-actions"><button class="play-btn small" onclick="speak('forty')">▶️ 聽</button> <button class="play-btn small blue" onclick="speak('forty', 0.3)">🐢 極慢</button></div></div>
+          <div class="phrase-card"><div class="phrase-num">50</div><div class="phrase-en">fifty</div><div class="phrase-zh">50</div><div class="phrase-context">📍 50 = fif + ty</div><div class="phrase-actions"><button class="play-btn small" onclick="speak('fifty')">▶️ 聽</button> <button class="play-btn small blue" onclick="speak('fifty', 0.3)">🐢 極慢</button></div></div>
+          <div class="phrase-card"><div class="phrase-num">60</div><div class="phrase-en">sixty</div><div class="phrase-zh">60</div><div class="phrase-actions"><button class="play-btn small" onclick="speak('sixty')">▶️ 聽</button> <button class="play-btn small blue" onclick="speak('sixty', 0.3)">🐢 極慢</button></div></div>
+          <div class="phrase-card"><div class="phrase-num">70</div><div class="phrase-en">seventy</div><div class="phrase-zh">70</div><div class="phrase-actions"><button class="play-btn small" onclick="speak('seventy')">▶️ 聽</button> <button class="play-btn small blue" onclick="speak('seventy', 0.3)">🐢 極慢</button></div></div>
+          <div class="phrase-card"><div class="phrase-num">80</div><div class="phrase-en">eighty</div><div class="phrase-zh">80</div><div class="phrase-context">📍 冇 t！唔係 eightty</div><div class="phrase-actions"><button class="play-btn small" onclick="speak('eighty')">▶️ 聽</button> <button class="play-btn small blue" onclick="speak('eighty', 0.3)">🐢 極慢</button></div></div>
+          <div class="phrase-card"><div class="phrase-num">90</div><div class="phrase-en">ninety</div><div class="phrase-zh">90</div><div class="phrase-actions"><button class="play-btn small" onclick="speak('ninety')">▶️ 聽</button> <button class="play-btn small blue" onclick="speak('ninety', 0.3)">🐢 極慢</button></div></div>
+          <div class="phrase-card"><div class="phrase-num">100</div><div class="phrase-en">one hundred</div><div class="phrase-zh">100</div><div class="phrase-context">📍 100 = one + hundred</div><div class="phrase-actions"><button class="play-btn small" onclick="speak('one hundred')">▶️ 聽</button> <button class="play-btn small blue" onclick="speak('one hundred', 0.3)">🐢 極慢</button></div></div>
+        </div>
+
+        <div class="teacher-note"><strong>👩‍🏫 拼寫陷阱：</strong><br>• <strong>40 = forty</strong>（唔係 fourty！）<br>• <strong>50 = fifty</strong>（不規則）<br>• <strong>80 = eighty</strong>（只有一個 t）</div>
+      </div>
+
+      <!-- STEP 5 -->
+      <div class="step-content hidden" data-step="5">
+        <div class="section-label">Part 5 · 組合數字 (4 分鐘)</div>
+        <h2>21-99 — 點組合？🧮</h2>
+        <div class="card-sub">「整十 + 個位」用 dash 連起</div>
+
+        <div class="instruction"><strong>📖 規則：</strong>21-99 嘅組合好簡單：<strong>整十 + 個位</strong>。例如：<br>• <strong>21</strong> = twenty-one<br>• <strong>47</strong> = forty-seven<br>• <strong>99</strong> = ninety-nine</div>
+
+        <div class="phrases-list">
+          <div class="phrase-card"><div class="phrase-num">21</div><div class="phrase-en">twenty-one</div><div class="phrase-zh">21 = twenty + one</div><div class="phrase-actions"><button class="play-btn small" onclick="speak('twenty-one')">▶️ 聽</button> <button class="play-btn small blue" onclick="speak('twenty-one', 0.3)">🐢 極慢</button></div></div>
+          <div class="phrase-card"><div class="phrase-num">35</div><div class="phrase-en">thirty-five</div><div class="phrase-zh">35 = thirty + five</div><div class="phrase-actions"><button class="play-btn small" onclick="speak('thirty-five')">▶️ 聽</button> <button class="play-btn small blue" onclick="speak('thirty-five', 0.3)">🐢 極慢</button></div></div>
+          <div class="phrase-card"><div class="phrase-num">47</div><div class="phrase-en">forty-seven</div><div class="phrase-zh">47 = forty + seven</div><div class="phrase-actions"><button class="play-btn small" onclick="speak('forty-seven')">▶️ 聽</button> <button class="play-btn small blue" onclick="speak('forty-seven', 0.3)">🐢 極慢</button></div></div>
+          <div class="phrase-card"><div class="phrase-num">52</div><div class="phrase-en">fifty-two</div><div class="phrase-zh">52 = fifty + two</div><div class="phrase-actions"><button class="play-btn small" onclick="speak('fifty-two')">▶️ 聽</button> <button class="play-btn small blue" onclick="speak('fifty-two', 0.3)">🐢 極慢</button></div></div>
+          <div class="phrase-card"><div class="phrase-num">68</div><div class="phrase-en">sixty-eight</div><div class="phrase-zh">68 = sixty + eight</div><div class="phrase-actions"><button class="play-btn small" onclick="speak('sixty-eight')">▶️ 聽</button> <button class="play-btn small blue" onclick="speak('sixty-eight', 0.3)">🐢 極慢</button></div></div>
+          <div class="phrase-card"><div class="phrase-num">73</div><div class="phrase-en">seventy-three</div><div class="phrase-zh">73 = seventy + three</div><div class="phrase-actions"><button class="play-btn small" onclick="speak('seventy-three')">▶️ 聽</button> <button class="play-btn small blue" onclick="speak('seventy-three', 0.3)">🐢 極慢</button></div></div>
+          <div class="phrase-card"><div class="phrase-num">89</div><div class="phrase-en">eighty-nine</div><div class="phrase-zh">89 = eighty + nine</div><div class="phrase-actions"><button class="play-btn small" onclick="speak('eighty-nine')">▶️ 聽</button> <button class="play-btn small blue" onclick="speak('eighty-nine', 0.3)">🐢 極慢</button></div></div>
+          <div class="phrase-card"><div class="phrase-num">99</div><div class="phrase-en">ninety-nine</div><div class="phrase-zh">99 = ninety + nine</div><div class="phrase-actions"><button class="play-btn small" onclick="speak('ninety-nine')">▶️ 聽</button> <button class="play-btn small blue" onclick="speak('ninety-nine', 0.3)">🐢 極慢</button></div></div>
+        </div>
+
+        <div class="callback">💡 <strong>實際應用：</strong><br>• <strong>價錢</strong> — £47 = forty-seven pounds<br>• <strong>年齡</strong> — I'm fifty-five years old<br>• <strong>樓層</strong> — 23rd floor = the twenty-third floor<br>• <strong>電話</strong> — 通常一個一個讀（07700 → "oh seven seven double oh"）</div>
+
+        <div class="teacher-note"><strong>👩‍🏫 練習：</strong>試下講出你嘅<strong>年齡</strong>同<strong>屋企地址嘅號碼</strong>！例：I am fifty-five. I live at number twenty-three.</div>
+      </div>
+
+      <!-- STEP 6 -->
+      <div class="step-content hidden" data-step="6">
+        <div class="section-label">Part 6 · 完成 (1 分鐘)</div>
+        <div class="complete-screen">
+          <div class="complete-trophy">🏆</div>
+          <div class="complete-title">完成 數字 1-100！🔢</div>
+          <div class="complete-sub">你而家識讀全部 1 到 100 嘅英文數字 ✨</div>
+        </div>
+
+        <div class="summary-box">
+          <h3>✏️ 今日學咗</h3>
+          <ul class="summary-list">
+            <li><strong>1-10</strong> — one, two, three... ten</li>
+            <li><strong>11-20</strong> — eleven, twelve, thirteen... twenty</li>
+            <li><strong>整十</strong> — twenty, thirty, forty... ninety, one hundred</li>
+            <li><strong>組合</strong> — 47 = forty-seven, 99 = ninety-nine</li>
+            <li><strong>實際應用</strong> — 價錢、年齡、樓層、電話</li>
+          </ul>
+        </div>
+
+        <div class="homework-card">
+          <h3>📝 練習建議</h3>
+          <div class="homework-item"><div class="homework-num">1.</div><div>每日數 1-100 一次（出聲）— 識唔使諗就講出嚟為止。</div></div>
+          <div class="homework-item"><div class="homework-num">2.</div><div>留意身邊嘅數字 — 巴士號、樓層、價錢，試下英文讀出。</div></div>
+          <div class="homework-item"><div class="homework-num">3.</div><div>用 Week 2 課堂買嘢時，留意店員講嘅價錢數字。</div></div>
+        </div>
+
+        <div class="teacher-note keep-inline" style="margin-top: 14px;"><strong>👩‍🏫 great job！</strong>數字係日常英文嘅基礎 — 識咗 1-100，以後學時間、日期、購物全部都更易！👍</div>
+      </div>
+    </div>
+
+    <div class="footer-nav">
+      <button class="btn-secondary" id="prev-btn" onclick="goPrev()">← 上一步</button>
+      <div style="font-family: 'Fraunces', serif; font-style: italic; color: var(--ink-soft); font-size: 13px;" id="step-indicator">Step 1 of 6</div>
+      <button class="btn-primary" id="next-btn" onclick="goNext()"><span id="next-btn-text">開始學習</span><span>→</span></button>
+    </div>
+
+    <div class="mobile-nav-bar">
+      <button class="nav-btn prev disabled" id="mobile-prev-btn" onclick="goPrev()">← 返</button>
+      <button class="nav-btn next" id="mobile-next-btn" onclick="goNext()"><span id="mobile-next-btn-text">開始學習 →</span></button>
+    </div>
+  </main>
+</div>
+
+<script>
+let currentStep = 1;
+let currentSpeed = 0.7;
+const completedSteps = new Set();
+const TOTAL_STEPS = 6;
+
+const FULL_DIALOGUE = [
+  "Hello! Can I help you?",
+  "Hello! How much is this hot chocolate?",
+  "It's two pounds fifty.",
+  "OK, I'll take this, please. And one biscuit.",
+  "That's four pounds. Do you take cards?",
+  "Yes. Can I have a bag, please?",
+  "Sure. Here you are. Have a nice day!",
+  "Thank you! You too!"
+];
+
+// ============ SPEECH (dual voice) ============
+let englishVoice = null;
+
+function loadVoices() {
+  const voices = speechSynthesis.getVoices();
+
+  // Known female voice names across iOS / Android / Chrome / macOS / Windows
+  const FEMALE_NAMES = [
+    'Samantha', 'Karen', 'Moira', 'Kate', 'Serena', 'Victoria', 'Tessa',
+    'Fiona', 'Veena', 'Allison', 'Ava', 'Susan', 'Zoe', 'Martha',
+    'Google UK English Female', 'Google US English',
+    'Hazel', 'Zira', 'Eva', 'Catherine',
+    'Female', 'female'
+  ];
+
+  // High-quality iOS local voice names (sound clearer than cloud voices)
+  const IOS_LOCAL_FEMALES = ['Samantha', 'Karen', 'Moira', 'Tessa', 'Kate', 'Serena', 'Fiona', 'Victoria', 'Martha'];
+
+  function isFemale(voice) {
+    if (!voice || !voice.name) return false;
+    return FEMALE_NAMES.some(name => voice.name.includes(name));
+  }
+  function isEnhanced(voice) {
+    if (!voice || !voice.name) return false;
+    const n = voice.name.toLowerCase();
+    return n.includes('enhanced') || n.includes('premium') || n.includes('siri');
+  }
+  function isIosLocal(voice) {
+    if (!voice || !voice.name) return false;
+    return IOS_LOCAL_FEMALES.some(name => voice.name.includes(name));
+  }
+  function isGoogleCloud(voice) {
+    if (!voice || !voice.name) return false;
+    return voice.name.toLowerCase().startsWith('google');
+  }
+
+  // Single voice — pick the best English female voice available
+  // PRIORITY: Enhanced > en-GB local > en-AU Karen > en-IE Moira > en-ZA > others > cloud
+  // Note: Karen (en-AU) sounds closer to British English than Moira (en-IE Irish accent)
+  // which has rolled R's and different rhythm that's harder for A1 learners
+  englishVoice =
+    voices.find(v => isFemale(v) && isEnhanced(v) && v.lang.startsWith('en-')) ||
+    voices.find(v => v.lang === 'en-GB' && isIosLocal(v)) ||
+    voices.find(v => v.lang === 'en-AU' && isIosLocal(v)) ||  // Karen — closer to UK
+    voices.find(v => v.lang === 'en-IE' && isIosLocal(v)) ||  // Moira — Irish accent
+    voices.find(v => v.lang === 'en-ZA' && isIosLocal(v)) ||  // Tessa — South African
+    voices.find(v => v.lang.startsWith('en-') && isIosLocal(v)) ||  // Samantha (US)
+    voices.find(v => v.lang.startsWith('en-') && isFemale(v) && !isGoogleCloud(v)) ||
+    voices.find(v => v.lang.startsWith('en-') && isFemale(v)) ||
+    voices.find(v => v.lang === 'en-GB') ||
+    voices.find(v => v.lang.startsWith('en-')) ||
+    voices[0];
+
+  window._voiceIsFemale = englishVoice ? isFemale(englishVoice) : false;
+
+  if (englishVoice) {
+    console.log('[Voice]', englishVoice.name, '(' + englishVoice.lang + ')',
+                'Female:', window._voiceIsFemale,
+                '| Enhanced:', isEnhanced(englishVoice),
+                '| iOS local:', isIosLocal(englishVoice),
+                '| Google cloud:', isGoogleCloud(englishVoice));
+  } else {
+    console.log('[Voice] No voice available!');
+  }
+
+  // Show voice info on page (debug indicator)
+  showVoiceIndicator(englishVoice);
+}
+
+function showVoiceIndicator(voice) {
+  let el = document.getElementById('voice-indicator');
+  if (!el) {
+    el = document.createElement('div');
+    el.id = 'voice-indicator';
+    el.style.cssText = 'position: fixed; bottom: 8px; left: 8px; z-index: 999; background: rgba(42, 36, 32, 0.85); color: white; padding: 6px 10px; border-radius: 8px; font-size: 11px; font-family: monospace; max-width: 240px; line-height: 1.4; cursor: pointer; -webkit-tap-highlight-color: transparent;';
+    el.title = '㩒一㩒收埋';
+    el.onclick = () => { el.style.display = 'none'; };
+    document.body.appendChild(el);
+  }
+  if (!voice) {
+    el.innerHTML = '⚠️ 冇 voice';
+    return;
+  }
+  const name = voice.name || '';
+  const nameLower = name.toLowerCase();
+  const isEnh = nameLower.includes('enhanced') || nameLower.includes('premium') || nameLower.includes('siri');
+  const isIos = ['Samantha', 'Karen', 'Moira', 'Tessa', 'Kate', 'Serena', 'Fiona', 'Victoria', 'Martha'].some(n => name.includes(n));
+  const isCloud = nameLower.startsWith('google');
+  const tags = [];
+  if (isEnh) tags.push('💎 Enhanced');
+  if (isIos) tags.push('📱 iOS');
+  if (isCloud) tags.push('☁️ Cloud');
+  el.innerHTML = `🎙️ <b>${name}</b><br>${voice.lang} · ${tags.join(' · ') || 'standard'}`;
+}
+if (typeof speechSynthesis !== 'undefined') {
+  loadVoices();
+  speechSynthesis.onvoiceschanged = loadVoices;
+}
+
+// Main speak() — accepts optional voice param (shop/you/null=default)
+function speak(text, rate, voiceKind) {
+  // voiceKind kept for backward compat with existing calls but ignored — single voice
+  speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(text);
+  u.rate = rate || currentSpeed || 0.7;
+  u.pitch = window._voiceIsFemale ? 1.0 : 1.4;
+  u.volume = 1;
+  if (englishVoice) {
+    u.voice = englishVoice;
+    u.lang = englishVoice.lang;
+  } else {
+    u.lang = 'en-GB';
+  }
+  // DEBUG: log actual rate used
+  console.log('[speak]', 'rate=' + u.rate, 'currentSpeed=' + currentSpeed, 'text=' + text.substring(0, 30));
+  speechSynthesis.speak(u);
+}
+
+function setSpeed(speed, btn) {
+  currentSpeed = speed;
+  console.log('[setSpeed] currentSpeed now =', currentSpeed);
+  document.querySelectorAll('.speed-btn').forEach(b => b.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+}
+
+// ============ FULL DIALOGUE TOGGLE ============
+let FULL_DIALOGUE_DATA = [];  // populated from DOM on first play
+let dialogueTimers = [];
+let dialoguePlaying = false;
+
+function buildDialogueData() {
+  const lines = document.querySelectorAll('.dialogue-card .dialogue-line');
+  FULL_DIALOGUE_DATA = [];
+  lines.forEach((line, idx) => {
+    line.setAttribute('data-line-idx', idx);
+    const textEl = line.querySelector('.dialogue-text');
+    const bubble = line.querySelector('.dialogue-bubble');
+    const isYou = bubble && bubble.classList.contains('you');
+    FULL_DIALOGUE_DATA.push({
+      text: textEl ? textEl.textContent.trim() : '',
+      voiceKind: isYou ? 'you' : 'shop',
+      idx: idx
+    });
+  });
+}
+
+function highlightLine(idx) {
+  const el = document.querySelector(`.dialogue-line[data-line-idx="${idx}"]`);
+  if (el) el.classList.add('active');
+}
+function unhighlightLine(idx) {
+  const el = document.querySelector(`.dialogue-line[data-line-idx="${idx}"]`);
+  if (el) el.classList.remove('active');
+}
+function clearAllHighlights() {
+  document.querySelectorAll('.dialogue-line.active').forEach(el => el.classList.remove('active'));
+}
+
+function toggleFullDialogue() {
+  if (dialoguePlaying) stopFullDialogue();
+  else playFullDialogue();
+}
+
+function playFullDialogue() {
+  if (FULL_DIALOGUE_DATA.length === 0) buildDialogueData();
+  speechSynthesis.cancel();
+  clearAllHighlights();
+  dialogueTimers.forEach(t => clearTimeout(t));
+  dialogueTimers = [];
+  dialoguePlaying = true;
+  updateDialogueButton(true);
+
+  const gap = 3500;  // ms between lines
+
+  FULL_DIALOGUE_DATA.forEach((item, i) => {
+    const t = setTimeout(() => {
+      if (i > 0) unhighlightLine(i - 1);
+      highlightLine(i);
+      speak(item.text, 0.4, item.voiceKind);
+    }, i * gap);
+    dialogueTimers.push(t);
+  });
+
+  const totalMs = FULL_DIALOGUE_DATA.length * gap;
+  const endTimer = setTimeout(() => {
+    clearAllHighlights();
+    dialoguePlaying = false;
+    updateDialogueButton(false);
+  }, totalMs + 1500);
+  dialogueTimers.push(endTimer);
+}
+
+function stopFullDialogue() {
+  speechSynthesis.cancel();
+  dialogueTimers.forEach(t => clearTimeout(t));
+  dialogueTimers = [];
+  clearAllHighlights();
+  dialoguePlaying = false;
+  updateDialogueButton(false);
+}
+
+function updateDialogueButton(isPlaying) {
+  const btn = document.querySelector('button[onclick*="FullDialogue"]');
+  if (!btn) return;
+  if (isPlaying) {
+    btn.innerHTML = '⏹️ 停止';
+    btn.setAttribute('onclick', 'toggleFullDialogue()');
+  } else {
+    btn.innerHTML = '🔊 聽全段對話';
+    btn.setAttribute('onclick', 'toggleFullDialogue()');
+  }
+}
+
+function showHint(num, en, zh) {
+  const el = document.getElementById('hint' + num);
+  el.innerHTML = `<div style="font-weight:600;color:var(--ink);font-size:16px;margin-bottom:4px;">${en}</div><div style="color:var(--ink-soft);font-size:13px;">${zh}</div>`;
+  setTimeout(() => speak(en), 200);
+}
+
+function goToStep(step) {
+  speechSynthesis.cancel();
+  if (step > currentStep) completedSteps.add(currentStep);
+  currentStep = step;
+
+  document.querySelectorAll('.step-content').forEach(el => el.classList.add('hidden'));
+  document.querySelector(`.step-content[data-step="${step}"]`).classList.remove('hidden');
+
+  document.querySelectorAll('.step-btn').forEach(btn => {
+    const btnStep = parseInt(btn.dataset.step);
+    btn.classList.remove('active', 'completed');
+    if (btnStep === step) btn.classList.add('active');
+    else if (completedSteps.has(btnStep)) btn.classList.add('completed');
+  });
+
+  const progress = (step / TOTAL_STEPS) * 100;
+  document.getElementById('progress-fill').style.width = progress + '%';
+  document.getElementById('progress-text').textContent = `第 ${step} 部分 / 共 6 部分`;
+
+  const mobileProgress = document.getElementById('mobile-progress-fill');
+  if (mobileProgress) mobileProgress.style.width = progress + '%';
+  const mobileIndicator = document.getElementById('mobile-step-indicator');
+  if (mobileIndicator) mobileIndicator.innerHTML = `${step} <span class="total">/ ${TOTAL_STEPS}</span>`;
+
+  const timeMap = { 1: "2 分鐘", 2: "4 分鐘", 3: "5 分鐘", 4: "4 分鐘", 5: "4 分鐘", 6: "1 分鐘" };
+  document.getElementById('progress-time').textContent = timeMap[step] || "";
+
+  document.getElementById('step-indicator').textContent = `Step ${step} of ${TOTAL_STEPS}`;
+  const prevBtn = document.getElementById('prev-btn');
+  const nextBtn = document.getElementById('next-btn');
+  const nextText = document.getElementById('next-btn-text');
+
+  prevBtn.style.visibility = step === 1 ? 'hidden' : 'visible';
+  if (step === TOTAL_STEPS) {
+    nextText.textContent = '🎉 完成';
+    nextBtn.onclick = () => alert('恭喜完成 Day 1！記得做 homework 喇 🛍️');
+  } else if (step === 1) {
+    nextText.textContent = '開始學習';
+    nextBtn.onclick = goNext;
+  } else {
+    nextText.textContent = '下一步';
+    nextBtn.onclick = goNext;
+  }
+
+  const mobilePrev = document.getElementById('mobile-prev-btn');
+  if (mobilePrev) mobilePrev.classList.toggle('disabled', step === 1);
+  const mobileNextText = document.getElementById('mobile-next-btn-text');
+  const mobileNextBtn = document.getElementById('mobile-next-btn');
+  if (mobileNextText && mobileNextBtn) {
+    if (step === TOTAL_STEPS) {
+      mobileNextText.textContent = '🎉 完成';
+      mobileNextBtn.onclick = () => alert('恭喜完成 Day 1！記得做 homework 喇 🛍️');
+    } else if (step === 1) {
+      mobileNextText.textContent = '開始學習 →';
+      mobileNextBtn.onclick = goNext;
+    } else {
+      mobileNextText.textContent = '下一步 →';
+      mobileNextBtn.onclick = goNext;
+    }
+  }
+
+  document.querySelector('.main-inner').scrollTop = 0;
+  // Auto-close sidebar on mobile after navigating
+  if (window.innerWidth <= 768) setTimeout(closeMobileSidebar, 150);
+}
+
+function goNext() { if (currentStep < TOTAL_STEPS) goToStep(currentStep + 1); }
+function goPrev() { if (currentStep > 1) goToStep(currentStep - 1); }
+
+function openMobileSidebar() {
+  document.querySelector('.sidebar').classList.add('open');
+  document.getElementById('sidebar-backdrop').classList.add('show');
+}
+function closeMobileSidebar() {
+  document.querySelector('.sidebar').classList.remove('open');
+  document.getElementById('sidebar-backdrop').classList.remove('show');
+}
+document.querySelectorAll('.step-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    if (window.innerWidth <= 768) setTimeout(closeMobileSidebar, 150);
+  });
+});
+
+goToStep(1);
+
+
+// ============ CLICKABLE WORDS ============
+function speakWord(word, spanEl) {
+  if (!word) return;
+  const cleanWord = word.replace(/[.,!?;:"'`]/g, '').trim();
+  if (!cleanWord) return;
+  speechSynthesis.cancel();
+  document.querySelectorAll('.word.speaking').forEach(el => el.classList.remove('speaking'));
+  if (spanEl) spanEl.classList.add('speaking');
+  const u = new SpeechSynthesisUtterance(cleanWord);
+  u.rate = 0.7;
+  u.pitch = window._voiceIsFemale ? 1.0 : 1.4;
+  u.volume = 1;
+  if (englishVoice) {
+    u.voice = englishVoice;
+    u.lang = englishVoice.lang;
+  } else {
+    u.lang = 'en-GB';
+  }
+  u.onend = () => { if (spanEl) spanEl.classList.remove('speaking'); };
+  speechSynthesis.speak(u);
+}
+
+const WORD_SELECTORS = [
+  '.dialogue-text',
+  '.phrase-en',
+  '.roleplay-prompt .what',
+  '.money-card .price-en',
+];
+
+function makeWordsClickable(rootEl) {
+  const root = rootEl || document;
+  WORD_SELECTORS.forEach(sel => {
+    root.querySelectorAll(sel).forEach(el => {
+      if (el.dataset.wordsDone === 'true') return;
+      const text = el.textContent;
+      if (!text || text.trim().length === 0) return;
+      if (!/[a-zA-Z]/.test(text)) return;
+      const words = text.split(/(\s+)/);
+      el.innerHTML = '';
+      words.forEach(token => {
+        if (/^\s+$/.test(token)) {
+          el.appendChild(document.createTextNode(token));
+        } else if (/[a-zA-Z]/.test(token)) {
+          const span = document.createElement('span');
+          span.className = 'word';
+          span.textContent = token;
+          span.addEventListener('click', function(e) {
+            e.stopPropagation();
+            speakWord(token, this);
+          });
+          el.appendChild(span);
+        } else {
+          el.appendChild(document.createTextNode(token));
+        }
+      });
+      el.dataset.wordsDone = 'true';
+    });
+  });
+}
+
+window.addEventListener('DOMContentLoaded', () => makeWordsClickable());
+setTimeout(() => makeWordsClickable(), 100);
+
+// ============ INFO POPUP MODAL ============
+function showInfoModal(title, htmlBody) {
+  let backdrop = document.getElementById('info-modal-backdrop');
+  if (!backdrop) {
+    backdrop = document.createElement('div');
+    backdrop.id = 'info-modal-backdrop';
+    backdrop.className = 'info-modal-backdrop';
+    backdrop.innerHTML = `
+      <div class="info-modal" onclick="event.stopPropagation()">
+        <button class="info-modal-close" onclick="closeInfoModal()" aria-label="關閉">×</button>
+        <div class="info-modal-header" id="info-modal-title"></div>
+        <div class="info-modal-body" id="info-modal-body"></div>
+        <button class="info-modal-ok" onclick="closeInfoModal()">明白！</button>
+      </div>
+    `;
+    backdrop.addEventListener('click', closeInfoModal);
+    document.body.appendChild(backdrop);
+  }
+  document.getElementById('info-modal-title').innerHTML = title;
+  document.getElementById('info-modal-body').innerHTML = htmlBody;
+  backdrop.classList.add('show');
+}
+
+function closeInfoModal() {
+  const b = document.getElementById('info-modal-backdrop');
+  if (b) b.classList.remove('show');
+}
+
+function convertInlineBoxesToPopups() {
+  const boxTypes = [
+    { selector: '.instruction', buttonLabel: '點玩', buttonEmoji: '💡', buttonClass: 'info-btn', modalTitle: '💡 點玩' },
+    { selector: '.teacher-note', buttonLabel: '老師貼士', buttonEmoji: '👩‍🏫', buttonClass: 'info-btn-float', modalTitle: '👩‍🏫 老師貼士' },
+    { selector: '.callback', buttonLabel: '小貼士', buttonEmoji: '💡', buttonClass: 'info-btn-float', modalTitle: '💡 小貼士' },
+  ];
+  boxTypes.forEach(type => {
+    document.querySelectorAll(type.selector).forEach(box => {
+      if (box.dataset.converted === 'true') return;
+      if (box.classList.contains('keep-inline')) return;
+      const content = box.innerHTML;
+      const btn = document.createElement('button');
+      btn.className = type.buttonClass;
+      const safeContent = content.replace(/"/g, '&quot;');
+      btn.setAttribute('data-info-content', safeContent);
+      btn.setAttribute('data-info-title', type.modalTitle);
+      if (type.buttonClass === 'info-btn') {
+        btn.innerHTML = `<span class="icon">${type.buttonEmoji}</span> ${type.buttonLabel}`;
+      } else {
+        btn.innerHTML = 'ℹ️';
+        btn.setAttribute('aria-label', type.modalTitle);
+      }
+      btn.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        showInfoModal(this.getAttribute('data-info-title'), this.getAttribute('data-info-content'));
+      });
+      if (type.buttonClass === 'info-btn-float') {
+        const step = box.closest('.step-content');
+        if (step) step.appendChild(btn);
+        box.remove();
+      } else {
+        box.parentNode.insertBefore(btn, box);
+        box.remove();
+      }
+    });
+  });
+}
+window.addEventListener('DOMContentLoaded', convertInlineBoxesToPopups);
+setTimeout(convertInlineBoxesToPopups, 200);
+
+// ============ CARD PAGINATION ============
+const paginators = {};
+
+function setupPagination(stepNum, cardSelector, label) {
+  const stepEl = document.querySelector(`.step-content[data-step="${stepNum}"]`);
+  if (!stepEl) return;
+  if (stepEl.dataset.paginatorSetup === 'true') return;
+  const cards = Array.from(stepEl.querySelectorAll(cardSelector));
+  if (cards.length <= 1) return;
+  const pager = document.createElement('div');
+  pager.className = 'card-pager';
+  pager.innerHTML = `
+    <div class="card-pager-progress" id="pager-${stepNum}-dots"></div>
+    <div class="card-pager-counter" id="pager-${stepNum}-counter">第 1 / ${cards.length} ${label || ''}</div>
+    <div class="card-pager-controls">
+      <button class="card-pager-btn" id="pager-${stepNum}-prev" onclick="pagerGo(${stepNum}, -1)">← 上一個</button>
+      <button class="card-pager-btn primary" id="pager-${stepNum}-next" onclick="pagerGo(${stepNum}, 1)">下一個 →</button>
+    </div>
+  `;
+  const teacherNoteOrEnd = stepEl.querySelector('.teacher-note') || stepEl.querySelector('.info-btn-float');
+  if (teacherNoteOrEnd) {
+    teacherNoteOrEnd.parentNode.insertBefore(pager, teacherNoteOrEnd);
+  } else {
+    stepEl.appendChild(pager);
+  }
+  const dotsEl = document.getElementById(`pager-${stepNum}-dots`);
+  cards.forEach((_, i) => {
+    const dot = document.createElement('div');
+    dot.className = 'card-pager-dot' + (i === 0 ? ' active' : '');
+    dotsEl.appendChild(dot);
+  });
+  paginators[stepNum] = { cards, current: 0, label: label || '' };
+  stepEl.dataset.paginatorSetup = 'true';
+  pagerRender(stepNum);
+}
+
+function pagerRender(stepNum) {
+  const p = paginators[stepNum];
+  if (!p) return;
+  p.cards.forEach((card, i) => {
+    if (i === p.current) card.classList.remove('card-page-hidden');
+    else card.classList.add('card-page-hidden');
+  });
+  const dots = document.querySelectorAll(`#pager-${stepNum}-dots .card-pager-dot`);
+  dots.forEach((d, i) => {
+    d.classList.remove('active', 'completed');
+    if (i < p.current) d.classList.add('completed');
+    else if (i === p.current) d.classList.add('active');
+  });
+  const counter = document.getElementById(`pager-${stepNum}-counter`);
+  if (counter) counter.textContent = `第 ${p.current + 1} / ${p.cards.length} ${p.label}`;
+  const prevBtn = document.getElementById(`pager-${stepNum}-prev`);
+  const nextBtn = document.getElementById(`pager-${stepNum}-next`);
+  if (prevBtn) prevBtn.disabled = p.current === 0;
+  if (nextBtn) {
+    if (p.current === p.cards.length - 1) {
+      nextBtn.textContent = '✓ 全部完成';
+      nextBtn.disabled = true;
+    } else {
+      nextBtn.textContent = '下一個 →';
+      nextBtn.disabled = false;
+    }
+  }
+}
+
+function pagerGo(stepNum, delta) {
+  const p = paginators[stepNum];
+  if (!p) return;
+  const newIdx = p.current + delta;
+  if (newIdx < 0 || newIdx >= p.cards.length) return;
+  speechSynthesis.cancel();
+  p.current = newIdx;
+  pagerRender(stepNum);
+  const stepEl = document.querySelector(`.step-content[data-step="${stepNum}"]`);
+  if (stepEl) stepEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function setupAllPaginators() {
+  // Step 2: dialogues (8 lines, paginate them as 1 line per page)
+  setupPagination(2, '.dialogue-line', '句對話');
+  // Step 3: phrase cards (6 phrases)
+  setupPagination(3, '.phrase-card', '句套語');
+  // Step 4: money/price cards (6 prices)
+  setupPagination(4, '.money-card', '個字詞');
+  // Step 5: roleplay cards (5 turns)
+  setupPagination(5, '.roleplay-card', '個練習');
+}
+window.addEventListener('DOMContentLoaded', setupAllPaginators);
+setTimeout(setupAllPaginators, 250);
+
+</script>
+
+</body>
+</html>
