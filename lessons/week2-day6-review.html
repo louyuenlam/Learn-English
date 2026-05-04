@@ -2,6 +2,10 @@
 <html lang="zh-HK">
 <head>
 <meta charset="UTF-8">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<!-- Cache version: v2-week2-batch-2026-04-27 -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
@@ -54,8 +58,7 @@
     display: grid;
     grid-template-columns: var(--sidebar-w) 1fr;
     height: 100vh;
-    position: relative;
-    z-index: 2;
+    /* No position:relative or z-index — would trap sidebar below backdrop */
   }
 
   .sidebar {
@@ -263,6 +266,226 @@
     box-shadow: 0 0 0 2px var(--terra);
   }
 
+
+  /* ============ CLICKABLE WORDS ============ */
+  .word {
+    display: inline-block;
+    cursor: pointer;
+    padding: 1px 2px;
+    border-radius: 4px;
+    transition: all 0.15s ease;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .word:hover, .word:focus {
+    background: rgba(201, 168, 76, 0.25);
+    color: var(--terra);
+  }
+  .word.speaking {
+    background: var(--gold);
+    color: white;
+    transform: scale(1.08);
+  }
+
+  /* ============ INFO POPUP ============ */
+  .info-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 8px 14px;
+    background: white;
+    border: 1.5px solid var(--cream-dark);
+    border-radius: 20px;
+    color: var(--blue-dark);
+    font-family: 'Noto Sans HK', serif;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    margin: 4px 0 14px;
+    -webkit-tap-highlight-color: transparent;
+    transition: all 0.15s ease;
+    min-height: 36px;
+  }
+  .info-btn:hover, .info-btn:focus {
+    border-color: var(--blue);
+    background: rgba(90, 122, 139, 0.06);
+  }
+  .info-btn:active { transform: scale(0.96); }
+  .info-btn .icon { font-size: 16px; }
+
+  .info-btn-float {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    border-radius: 50%;
+    background: white;
+    border: 1.5px solid var(--cream-dark);
+    color: var(--blue-dark);
+    font-size: 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 5;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    -webkit-tap-highlight-color: transparent;
+    transition: all 0.15s ease;
+  }
+  .info-btn-float:hover, .info-btn-float:focus {
+    border-color: var(--blue);
+    color: var(--blue);
+  }
+  .info-btn-float:active { transform: scale(0.92); }
+
+  .step-content { position: relative; }
+
+  .info-modal-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(42, 36, 32, 0.55);
+    z-index: 200;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    -webkit-backdrop-filter: blur(4px);
+    backdrop-filter: blur(4px);
+  }
+  .info-modal-backdrop.show {
+    display: flex;
+    animation: modalFadeIn 0.18s ease;
+  }
+  @keyframes modalFadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  .info-modal {
+    background: var(--paper);
+    border-radius: 18px;
+    padding: 22px 22px 18px;
+    max-width: 480px;
+    width: 100%;
+    max-height: 80vh;
+    overflow-y: auto;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+    position: relative;
+    animation: modalSlideUp 0.22s cubic-bezier(0.3, 0.85, 0.4, 1);
+  }
+  @keyframes modalSlideUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .info-modal-header {
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 10px;
+    padding-right: 36px;
+    line-height: 1.3;
+  }
+  .info-modal-body {
+    font-size: 14.5px;
+    line-height: 1.65;
+    color: var(--ink);
+  }
+  .info-modal-body strong { color: var(--terra); }
+  .info-modal-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: transparent;
+    border: none;
+    font-size: 22px;
+    color: var(--ink-soft);
+    cursor: pointer;
+  }
+  .info-modal-ok {
+    margin-top: 16px;
+    width: 100%;
+    padding: 12px;
+    background: var(--terra);
+    border: none;
+    color: white;
+    border-radius: 10px;
+    font-family: 'Noto Sans HK', serif;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    min-height: 44px;
+  }
+  .info-modal-ok:hover { background: var(--terra-dark); }
+
+  /* ============ CARD PAGINATION ============ */
+  .card-page-hidden { display: none !important; }
+
+  .card-pager {
+    margin: 18px 0 8px;
+    padding: 14px 12px;
+    background: var(--paper);
+    border: 1.5px solid var(--cream-dark);
+    border-radius: 14px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+  .card-pager-progress {
+    display: flex;
+    gap: 5px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .card-pager-dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: var(--cream-dark);
+    transition: all 0.2s ease;
+  }
+  .card-pager-dot.active {
+    background: var(--terra);
+    transform: scale(1.3);
+  }
+  .card-pager-dot.completed { background: var(--gold); }
+  .card-pager-counter {
+    font-size: 13px;
+    color: var(--ink-soft);
+    font-weight: 600;
+  }
+  .card-pager-controls {
+    display: flex;
+    gap: 10px;
+    width: 100%;
+  }
+  .card-pager-btn {
+    flex: 1;
+    padding: 12px 10px;
+    border: 1.5px solid var(--cream-dark);
+    background: white;
+    color: var(--ink);
+    border-radius: 10px;
+    font-family: 'Noto Sans HK', serif;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    min-height: 44px;
+  }
+  .card-pager-btn:disabled { opacity: 0.35; cursor: not-allowed; }
+  .card-pager-btn.primary {
+    background: var(--terra);
+    border-color: var(--terra);
+    color: white;
+  }
+  .card-pager-btn.primary:hover:not(:disabled) {
+    background: var(--terra-dark);
+  }
+
 </style>
 </head>
 <body>
@@ -302,13 +525,10 @@
     <div class="speed-panel">
       <div class="speed-label">🐢 聲音速度</div>
       <div class="speed-buttons">
-        <button class="speed-btn" data-speed="0.2" onclick="setSpeed(0.2, this)"><span class="rate">0.2x</span><span class="rate-label">極慢</span></button>
-        <button class="speed-btn active" data-speed="0.3" onclick="setSpeed(0.3, this)"><span class="rate">0.3x</span><span class="rate-label">好慢</span></button>
-        <button class="speed-btn" data-speed="0.4" onclick="setSpeed(0.4, this)"><span class="rate">0.4x</span><span class="rate-label">慢</span></button>
-        <button class="speed-btn" data-speed="0.6" onclick="setSpeed(0.6, this)"><span class="rate">0.6x</span><span class="rate-label">正常</span></button>
-        <button class="speed-btn" data-speed="0.7" onclick="setSpeed(0.7, this)"><span class="rate">0.7x</span><span class="rate-label">稍快</span></button>
-        <button class="speed-btn" data-speed="0.9" onclick="setSpeed(0.9, this)"><span class="rate">0.9x</span><span class="rate-label">較快</span></button>
-        <button class="speed-btn" data-speed="1.0" onclick="setSpeed(1.0, this)"><span class="rate">1.0x</span><span class="rate-label">原速</span></button>
+        <button class="speed-btn" data-speed="0.3" onclick="setSpeed(0.3, this)"><span class="rate">0.3x</span><span class="rate-label">極慢</span></button>
+        <button class="speed-btn" data-speed="0.5" onclick="setSpeed(0.5, this)"><span class="rate">0.5x</span><span class="rate-label">慢</span></button>
+        <button class="speed-btn active" data-speed="0.7" onclick="setSpeed(0.7, this)"><span class="rate">0.7x</span><span class="rate-label">稍慢</span></button>
+        <button class="speed-btn" data-speed="1.0" onclick="setSpeed(1.0, this)"><span class="rate">1.0x</span><span class="rate-label">正常</span></button>
       </div>
     </div>
   </aside>
@@ -365,16 +585,16 @@
         <button class="play-btn blue" onclick="toggleFullDialogue()">🔊 聽全段對話</button>
 
         <div class="dialogue-card" style="margin-top: 14px;">
-          <div class="dialogue-line"><div class="dialogue-avatar shop">🛒</div><div class="dialogue-bubble"><div class="dialogue-text">Good morning! Need any help?</div><div class="dialogue-zh">早晨！要幫手嗎？</div><button class="play-btn small" onclick="speak(`Good morning! Need any help?`, 0.3, 'shop')">▶️ 聽</button> <button class="play-btn small blue" onclick="speak(`Good morning! Need any help?`, 0.2, 'shop')">🐢 極慢</button></div></div>
-          <div class="dialogue-line"><div class="dialogue-avatar you">😊</div><div class="dialogue-bubble you"><div class="dialogue-text">Yes, where is the dairy section?</div><div class="dialogue-zh">係，奶類區喺邊？</div><button class="play-btn small" onclick="speak(`Yes, where is the dairy section?`, 0.3, 'you')">▶️ 聽</button> <button class="play-btn small blue" onclick="speak(`Yes, where is the dairy section?`, 0.2, 'you')">🐢 極慢</button></div></div>
-          <div class="dialogue-line"><div class="dialogue-avatar shop">🛒</div><div class="dialogue-bubble"><div class="dialogue-text">Aisle 3. Anything else?</div><div class="dialogue-zh">第 3 行。仲要其他？</div><button class="play-btn small" onclick="speak(`Aisle 3. Anything else?`, 0.3, 'shop')">▶️ 聽</button> <button class="play-btn small blue" onclick="speak(`Aisle 3. Anything else?`, 0.2, 'shop')">🐢 極慢</button></div></div>
-          <div class="dialogue-line"><div class="dialogue-avatar you">😊</div><div class="dialogue-bubble you"><div class="dialogue-text">Do you have fresh salmon?</div><div class="dialogue-zh">有冇新鮮三文魚？</div><button class="play-btn small" onclick="speak(`Do you have fresh salmon?`, 0.3, 'you')">▶️ 聽</button> <button class="play-btn small blue" onclick="speak(`Do you have fresh salmon?`, 0.2, 'you')">🐢 極慢</button></div></div>
-          <div class="dialogue-line"><div class="dialogue-avatar shop">🛒</div><div class="dialogue-bubble"><div class="dialogue-text">Yes, at the fish counter.</div><div class="dialogue-zh">有，喺海鮮檔。</div><button class="play-btn small" onclick="speak(`Yes, at the fish counter.`, 0.3, 'shop')">▶️ 聽</button> <button class="play-btn small blue" onclick="speak(`Yes, at the fish counter.`, 0.2, 'shop')">🐢 極慢</button></div></div>
-          <div class="dialogue-line"><div class="dialogue-avatar you">😊</div><div class="dialogue-bubble you"><div class="dialogue-text">And where is the meat section?</div><div class="dialogue-zh">肉類區喺邊？</div><button class="play-btn small" onclick="speak(`And where is the meat section?`, 0.3, 'you')">▶️ 聽</button> <button class="play-btn small blue" onclick="speak(`And where is the meat section?`, 0.2, 'you')">🐢 極慢</button></div></div>
-          <div class="dialogue-line"><div class="dialogue-avatar shop">🛒</div><div class="dialogue-bubble"><div class="dialogue-text">Aisle 5. You'll find beef and chicken there.</div><div class="dialogue-zh">第 5 行。有牛肉同雞肉。</div><button class="play-btn small" onclick="speak(`Aisle 5. You'll find beef and chicken there.`, 0.3, 'shop')">▶️ 聽</button> <button class="play-btn small blue" onclick="speak(`Aisle 5. You'll find beef and chicken there.`, 0.2, 'shop')">🐢 極慢</button></div></div>
-          <div class="dialogue-line"><div class="dialogue-avatar you">😊</div><div class="dialogue-bubble you"><div class="dialogue-text">Perfect. And the fruits and veg?</div><div class="dialogue-zh">好。水果蔬菜呢？</div><button class="play-btn small" onclick="speak(`Perfect. And the fruits and veg?`, 0.3, 'you')">▶️ 聽</button> <button class="play-btn small blue" onclick="speak(`Perfect. And the fruits and veg?`, 0.2, 'you')">🐢 極慢</button></div></div>
-          <div class="dialogue-line"><div class="dialogue-avatar shop">🛒</div><div class="dialogue-bubble"><div class="dialogue-text">Right at the entrance!</div><div class="dialogue-zh">就喺入口！</div><button class="play-btn small" onclick="speak(`Right at the entrance!`, 0.3, 'shop')">▶️ 聽</button> <button class="play-btn small blue" onclick="speak(`Right at the entrance!`, 0.2, 'shop')">🐢 極慢</button></div></div>
-          <div class="dialogue-line"><div class="dialogue-avatar you">😊</div><div class="dialogue-bubble you"><div class="dialogue-text">Thank you so much!</div><div class="dialogue-zh">真係好多謝你！</div><button class="play-btn small" onclick="speak(`Thank you so much!`, 0.3, 'you')">▶️ 聽</button> <button class="play-btn small blue" onclick="speak(`Thank you so much!`, 0.2, 'you')">🐢 極慢</button></div></div>
+          <div class="dialogue-line"><div class="dialogue-avatar shop">🛒</div><div class="dialogue-bubble"><div class="dialogue-text">Good morning! Need any help?</div><div class="dialogue-zh">早晨！要幫手嗎？</div><button class="play-btn small" onclick="speak(`Good morning! Need any help?`)">▶️ 聽</button> <button class="play-btn small blue" onclick="speak(`Good morning! Need any help?`, 0.3, 'shop')">🐢 極慢</button></div></div>
+          <div class="dialogue-line"><div class="dialogue-avatar you">😊</div><div class="dialogue-bubble you"><div class="dialogue-text">Yes, where is the dairy section?</div><div class="dialogue-zh">係，奶類區喺邊？</div><button class="play-btn small" onclick="speak(`Yes, where is the dairy section?`)">▶️ 聽</button> <button class="play-btn small blue" onclick="speak(`Yes, where is the dairy section?`, 0.3, 'you')">🐢 極慢</button></div></div>
+          <div class="dialogue-line"><div class="dialogue-avatar shop">🛒</div><div class="dialogue-bubble"><div class="dialogue-text">Aisle 3. Anything else?</div><div class="dialogue-zh">第 3 行。仲要其他？</div><button class="play-btn small" onclick="speak(`Aisle 3. Anything else?`)">▶️ 聽</button> <button class="play-btn small blue" onclick="speak(`Aisle 3. Anything else?`, 0.3, 'shop')">🐢 極慢</button></div></div>
+          <div class="dialogue-line"><div class="dialogue-avatar you">😊</div><div class="dialogue-bubble you"><div class="dialogue-text">Do you have fresh salmon?</div><div class="dialogue-zh">有冇新鮮三文魚？</div><button class="play-btn small" onclick="speak(`Do you have fresh salmon?`)">▶️ 聽</button> <button class="play-btn small blue" onclick="speak(`Do you have fresh salmon?`, 0.3, 'you')">🐢 極慢</button></div></div>
+          <div class="dialogue-line"><div class="dialogue-avatar shop">🛒</div><div class="dialogue-bubble"><div class="dialogue-text">Yes, at the fish counter.</div><div class="dialogue-zh">有，喺海鮮檔。</div><button class="play-btn small" onclick="speak(`Yes, at the fish counter.`)">▶️ 聽</button> <button class="play-btn small blue" onclick="speak(`Yes, at the fish counter.`, 0.3, 'shop')">🐢 極慢</button></div></div>
+          <div class="dialogue-line"><div class="dialogue-avatar you">😊</div><div class="dialogue-bubble you"><div class="dialogue-text">And where is the meat section?</div><div class="dialogue-zh">肉類區喺邊？</div><button class="play-btn small" onclick="speak(`And where is the meat section?`)">▶️ 聽</button> <button class="play-btn small blue" onclick="speak(`And where is the meat section?`, 0.3, 'you')">🐢 極慢</button></div></div>
+          <div class="dialogue-line"><div class="dialogue-avatar shop">🛒</div><div class="dialogue-bubble"><div class="dialogue-text">Aisle 5. You'll find beef and chicken there.</div><div class="dialogue-zh">第 5 行。有牛肉同雞肉。</div><button class="play-btn small" onclick="speak(`Aisle 5. You'll find beef and chicken there.`)">▶️ 聽</button> <button class="play-btn small blue" onclick="speak(`Aisle 5. You'll find beef and chicken there.`, 0.3, 'shop')">🐢 極慢</button></div></div>
+          <div class="dialogue-line"><div class="dialogue-avatar you">😊</div><div class="dialogue-bubble you"><div class="dialogue-text">Perfect. And the fruits and veg?</div><div class="dialogue-zh">好。水果蔬菜呢？</div><button class="play-btn small" onclick="speak(`Perfect. And the fruits and veg?`)">▶️ 聽</button> <button class="play-btn small blue" onclick="speak(`Perfect. And the fruits and veg?`, 0.3, 'you')">🐢 極慢</button></div></div>
+          <div class="dialogue-line"><div class="dialogue-avatar shop">🛒</div><div class="dialogue-bubble"><div class="dialogue-text">Right at the entrance!</div><div class="dialogue-zh">就喺入口！</div><button class="play-btn small" onclick="speak(`Right at the entrance!`)">▶️ 聽</button> <button class="play-btn small blue" onclick="speak(`Right at the entrance!`, 0.3, 'shop')">🐢 極慢</button></div></div>
+          <div class="dialogue-line"><div class="dialogue-avatar you">😊</div><div class="dialogue-bubble you"><div class="dialogue-text">Thank you so much!</div><div class="dialogue-zh">真係好多謝你！</div><button class="play-btn small" onclick="speak(`Thank you so much!`)">▶️ 聽</button> <button class="play-btn small blue" onclick="speak(`Thank you so much!`, 0.3, 'you')">🐢 極慢</button></div></div>
         </div>
 
         <div class="teacher-note"><strong>👩‍🏫 注意：</strong>呢個係 Hannah 嘅<strong>完整超市導航</strong>對話 — 由問路到結帳。每 day 學嘅套語都有用到！</div>
@@ -387,11 +607,11 @@
         <div class="card-sub">每句聽 2-3 次，跟住讀</div>
 
         <div class="phrases-list">
-          <div class="phrase-card"><div class="phrase-num">1</div><div class="phrase-en">Where is the [X] section?</div><div class="phrase-zh">[X]區喺邊？</div><div class="phrase-context">📍 Day 2 · 萬用問位置（dairy / meat / bread / fruit section）</div><div class="phrase-actions"><button class="play-btn small" onclick="speak(`Where is the [X] section?`)">▶️ 聽</button> <button class="play-btn small blue" onclick="speak(`Where is the [X] section?`, 0.2)">🐢 極慢</button></div></div>
-          <div class="phrase-card"><div class="phrase-num">2</div><div class="phrase-en">Do you have fresh [X]?</div><div class="phrase-zh">有冇新鮮[X]？</div><div class="phrase-context">📍 Day 2 / 4 · 萬用問有冇（milk, eggs, salmon...）</div><div class="phrase-actions"><button class="play-btn small" onclick="speak(`Do you have fresh [X]?`)">▶️ 聽</button> <button class="play-btn small blue" onclick="speak(`Do you have fresh [X]?`, 0.2)">🐢 極慢</button></div></div>
-          <div class="phrase-card"><div class="phrase-num">3</div><div class="phrase-en">Could I have [X], please?</div><div class="phrase-zh">唔該[X]。</div><div class="phrase-context">📍 Day 3 · 禮貌買嘢（加重量／數量）</div><div class="phrase-actions"><button class="play-btn small" onclick="speak(`Could I have [X], please?`)">▶️ 聽</button> <button class="play-btn small blue" onclick="speak(`Could I have [X], please?`, 0.2)">🐢 極慢</button></div></div>
-          <div class="phrase-card"><div class="phrase-num">4</div><div class="phrase-en">How much per kilo?</div><div class="phrase-zh">一公斤幾錢？</div><div class="phrase-context">📍 Day 5 · 問按重量嘅價錢</div><div class="phrase-actions"><button class="play-btn small" onclick="speak(`How much per kilo?`)">▶️ 聽</button> <button class="play-btn small blue" onclick="speak(`How much per kilo?`, 0.2)">🐢 極慢</button></div></div>
-          <div class="phrase-card"><div class="phrase-num">5</div><div class="phrase-en">I'll take [X], please.</div><div class="phrase-zh">我要[X]，唔該。</div><div class="phrase-context">📍 Day 1 · 最基礎決定購買（貫穿成個 Week 2）</div><div class="phrase-actions"><button class="play-btn small" onclick="speak(`I'll take [X], please.`)">▶️ 聽</button> <button class="play-btn small blue" onclick="speak(`I'll take [X], please.`, 0.2)">🐢 極慢</button></div></div>
+          <div class="phrase-card"><div class="phrase-num">1</div><div class="phrase-en">Where is the [X] section?</div><div class="phrase-zh">[X]區喺邊？</div><div class="phrase-context">📍 Day 2 · 萬用問位置（dairy / meat / bread / fruit section）</div><div class="phrase-actions"><button class="play-btn small" onclick="speak(`Where is the [X] section?`)">▶️ 聽</button> <button class="play-btn small blue" onclick="speak(`Where is the [X] section?`, 0.3)">🐢 極慢</button></div></div>
+          <div class="phrase-card"><div class="phrase-num">2</div><div class="phrase-en">Do you have fresh [X]?</div><div class="phrase-zh">有冇新鮮[X]？</div><div class="phrase-context">📍 Day 2 / 4 · 萬用問有冇（milk, eggs, salmon...）</div><div class="phrase-actions"><button class="play-btn small" onclick="speak(`Do you have fresh [X]?`)">▶️ 聽</button> <button class="play-btn small blue" onclick="speak(`Do you have fresh [X]?`, 0.3)">🐢 極慢</button></div></div>
+          <div class="phrase-card"><div class="phrase-num">3</div><div class="phrase-en">Could I have [X], please?</div><div class="phrase-zh">唔該[X]。</div><div class="phrase-context">📍 Day 3 · 禮貌買嘢（加重量／數量）</div><div class="phrase-actions"><button class="play-btn small" onclick="speak(`Could I have [X], please?`)">▶️ 聽</button> <button class="play-btn small blue" onclick="speak(`Could I have [X], please?`, 0.3)">🐢 極慢</button></div></div>
+          <div class="phrase-card"><div class="phrase-num">4</div><div class="phrase-en">How much per kilo?</div><div class="phrase-zh">一公斤幾錢？</div><div class="phrase-context">📍 Day 5 · 問按重量嘅價錢</div><div class="phrase-actions"><button class="play-btn small" onclick="speak(`How much per kilo?`)">▶️ 聽</button> <button class="play-btn small blue" onclick="speak(`How much per kilo?`, 0.3)">🐢 極慢</button></div></div>
+          <div class="phrase-card"><div class="phrase-num">5</div><div class="phrase-en">I'll take [X], please.</div><div class="phrase-zh">我要[X]，唔該。</div><div class="phrase-context">📍 Day 1 · 最基礎決定購買（貫穿成個 Week 2）</div><div class="phrase-actions"><button class="play-btn small" onclick="speak(`I'll take [X], please.`)">▶️ 聽</button> <button class="play-btn small blue" onclick="speak(`I'll take [X], please.`, 0.3)">🐢 極慢</button></div></div>
         </div>
 
         <div class="teacher-note"><strong>👩‍🏫 呢 5 個 <strong>pattern</strong> 係 Week 2 核心。只要識得填入唔同嘅字，你就可以買超市 99% 嘅嘢！</strong></div>
@@ -407,42 +627,42 @@
 
         <div class="subsection-title">🥛 奶類 & 早餐</div>
         <div class="money-grid">
-          <div class="money-card"><div class="price">🥛</div><div class="price-en">Milk</div><div class="price-zh">奶</div><button class="play-btn small" onclick="speak(`Milk`)">▶️ 聽</button> <button class="play-btn small blue" onclick="speak(`Milk`, 0.2)">🐢 極慢</button></div>
-          <div class="money-card"><div class="price">🧈</div><div class="price-en">Butter</div><div class="price-zh">牛油</div><button class="play-btn small" onclick="speak(`Butter`)">▶️ 聽</button> <button class="play-btn small blue" onclick="speak(`Butter`, 0.2)">🐢 極慢</button></div>
-          <div class="money-card"><div class="price">🥚</div><div class="price-en">Eggs</div><div class="price-zh">蛋</div><button class="play-btn small" onclick="speak(`Eggs`)">▶️ 聽</button> <button class="play-btn small blue" onclick="speak(`Eggs`, 0.2)">🐢 極慢</button></div>
-          <div class="money-card"><div class="price">🍞</div><div class="price-en">Bread</div><div class="price-zh">麵包</div><button class="play-btn small" onclick="speak(`Bread`)">▶️ 聽</button> <button class="play-btn small blue" onclick="speak(`Bread`, 0.2)">🐢 極慢</button></div>
-          <div class="money-card"><div class="price">🧀</div><div class="price-en">Cheese</div><div class="price-zh">芝士</div><button class="play-btn small" onclick="speak(`Cheese`)">▶️ 聽</button> <button class="play-btn small blue" onclick="speak(`Cheese`, 0.2)">🐢 極慢</button></div>
-          <div class="money-card"><div class="price">🥣</div><div class="price-en">Cereal</div><div class="price-zh">麥片</div><button class="play-btn small" onclick="speak(`Cereal`)">▶️ 聽</button> <button class="play-btn small blue" onclick="speak(`Cereal`, 0.2)">🐢 極慢</button></div>
+          <div class="money-card"><div class="price">🥛</div><div class="price-en">Milk</div><div class="price-zh">奶</div><button class="play-btn small" onclick="speak(`Milk`)">▶️ 聽</button> <button class="play-btn small blue" onclick="speak(`Milk`, 0.3)">🐢 極慢</button></div>
+          <div class="money-card"><div class="price">🧈</div><div class="price-en">Butter</div><div class="price-zh">牛油</div><button class="play-btn small" onclick="speak(`Butter`)">▶️ 聽</button> <button class="play-btn small blue" onclick="speak(`Butter`, 0.3)">🐢 極慢</button></div>
+          <div class="money-card"><div class="price">🥚</div><div class="price-en">Eggs</div><div class="price-zh">蛋</div><button class="play-btn small" onclick="speak(`Eggs`)">▶️ 聽</button> <button class="play-btn small blue" onclick="speak(`Eggs`, 0.3)">🐢 極慢</button></div>
+          <div class="money-card"><div class="price">🍞</div><div class="price-en">Bread</div><div class="price-zh">麵包</div><button class="play-btn small" onclick="speak(`Bread`)">▶️ 聽</button> <button class="play-btn small blue" onclick="speak(`Bread`, 0.3)">🐢 極慢</button></div>
+          <div class="money-card"><div class="price">🧀</div><div class="price-en">Cheese</div><div class="price-zh">芝士</div><button class="play-btn small" onclick="speak(`Cheese`)">▶️ 聽</button> <button class="play-btn small blue" onclick="speak(`Cheese`, 0.3)">🐢 極慢</button></div>
+          <div class="money-card"><div class="price">🥣</div><div class="price-en">Cereal</div><div class="price-zh">麥片</div><button class="play-btn small" onclick="speak(`Cereal`)">▶️ 聽</button> <button class="play-btn small blue" onclick="speak(`Cereal`, 0.3)">🐢 極慢</button></div>
         </div>
 
         <div class="subsection-title">🥩 肉類</div>
         <div class="money-grid">
-          <div class="money-card"><div class="price">🐄</div><div class="price-en">Beef</div><div class="price-zh">牛肉</div><button class="play-btn small" onclick="speak(`Beef`)">▶️ 聽</button> <button class="play-btn small blue" onclick="speak(`Beef`, 0.2)">🐢 極慢</button></div>
-          <div class="money-card"><div class="price">🐷</div><div class="price-en">Pork</div><div class="price-zh">豬肉</div><button class="play-btn small" onclick="speak(`Pork`)">▶️ 聽</button> <button class="play-btn small blue" onclick="speak(`Pork`, 0.2)">🐢 極慢</button></div>
-          <div class="money-card"><div class="price">🐔</div><div class="price-en">Chicken</div><div class="price-zh">雞</div><button class="play-btn small" onclick="speak(`Chicken`)">▶️ 聽</button> <button class="play-btn small blue" onclick="speak(`Chicken`, 0.2)">🐢 極慢</button></div>
-          <div class="money-card"><div class="price">🐑</div><div class="price-en">Lamb</div><div class="price-zh">羊肉</div><button class="play-btn small" onclick="speak(`Lamb`)">▶️ 聽</button> <button class="play-btn small blue" onclick="speak(`Lamb`, 0.2)">🐢 極慢</button></div>
-          <div class="money-card"><div class="price">🥩</div><div class="price-en">Mince</div><div class="price-zh">免治肉</div><button class="play-btn small" onclick="speak(`Mince`)">▶️ 聽</button> <button class="play-btn small blue" onclick="speak(`Mince`, 0.2)">🐢 極慢</button></div>
-          <div class="money-card"><div class="price">🌭</div><div class="price-en">Sausages</div><div class="price-zh">香腸</div><button class="play-btn small" onclick="speak(`Sausages`)">▶️ 聽</button> <button class="play-btn small blue" onclick="speak(`Sausages`, 0.2)">🐢 極慢</button></div>
+          <div class="money-card"><div class="price">🐄</div><div class="price-en">Beef</div><div class="price-zh">牛肉</div><button class="play-btn small" onclick="speak(`Beef`)">▶️ 聽</button> <button class="play-btn small blue" onclick="speak(`Beef`, 0.3)">🐢 極慢</button></div>
+          <div class="money-card"><div class="price">🐷</div><div class="price-en">Pork</div><div class="price-zh">豬肉</div><button class="play-btn small" onclick="speak(`Pork`)">▶️ 聽</button> <button class="play-btn small blue" onclick="speak(`Pork`, 0.3)">🐢 極慢</button></div>
+          <div class="money-card"><div class="price">🐔</div><div class="price-en">Chicken</div><div class="price-zh">雞</div><button class="play-btn small" onclick="speak(`Chicken`)">▶️ 聽</button> <button class="play-btn small blue" onclick="speak(`Chicken`, 0.3)">🐢 極慢</button></div>
+          <div class="money-card"><div class="price">🐑</div><div class="price-en">Lamb</div><div class="price-zh">羊肉</div><button class="play-btn small" onclick="speak(`Lamb`)">▶️ 聽</button> <button class="play-btn small blue" onclick="speak(`Lamb`, 0.3)">🐢 極慢</button></div>
+          <div class="money-card"><div class="price">🥩</div><div class="price-en">Mince</div><div class="price-zh">免治肉</div><button class="play-btn small" onclick="speak(`Mince`)">▶️ 聽</button> <button class="play-btn small blue" onclick="speak(`Mince`, 0.3)">🐢 極慢</button></div>
+          <div class="money-card"><div class="price">🌭</div><div class="price-en">Sausages</div><div class="price-zh">香腸</div><button class="play-btn small" onclick="speak(`Sausages`)">▶️ 聽</button> <button class="play-btn small blue" onclick="speak(`Sausages`, 0.3)">🐢 極慢</button></div>
         </div>
 
         <div class="subsection-title">🦐 海鮮</div>
         <div class="money-grid">
-          <div class="money-card"><div class="price">🐟</div><div class="price-en">Salmon</div><div class="price-zh">三文魚</div><button class="play-btn small" onclick="speak(`Salmon`)">▶️ 聽</button> <button class="play-btn small blue" onclick="speak(`Salmon`, 0.2)">🐢 極慢</button></div>
-          <div class="money-card"><div class="price">🐟</div><div class="price-en">Cod</div><div class="price-zh">鱈魚</div><button class="play-btn small" onclick="speak(`Cod`)">▶️ 聽</button> <button class="play-btn small blue" onclick="speak(`Cod`, 0.2)">🐢 極慢</button></div>
-          <div class="money-card"><div class="price">🦐</div><div class="price-en">Prawns</div><div class="price-zh">蝦</div><button class="play-btn small" onclick="speak(`Prawns`)">▶️ 聽</button> <button class="play-btn small blue" onclick="speak(`Prawns`, 0.2)">🐢 極慢</button></div>
-          <div class="money-card"><div class="price">🦀</div><div class="price-en">Crab</div><div class="price-zh">蟹</div><button class="play-btn small" onclick="speak(`Crab`)">▶️ 聽</button> <button class="play-btn small blue" onclick="speak(`Crab`, 0.2)">🐢 極慢</button></div>
-          <div class="money-card"><div class="price">🦪</div><div class="price-en">Mussels</div><div class="price-zh">青口</div><button class="play-btn small" onclick="speak(`Mussels`)">▶️ 聽</button> <button class="play-btn small blue" onclick="speak(`Mussels`, 0.2)">🐢 極慢</button></div>
-          <div class="money-card"><div class="price">🐚</div><div class="price-en">Scallops</div><div class="price-zh">帶子</div><button class="play-btn small" onclick="speak(`Scallops`)">▶️ 聽</button> <button class="play-btn small blue" onclick="speak(`Scallops`, 0.2)">🐢 極慢</button></div>
+          <div class="money-card"><div class="price">🐟</div><div class="price-en">Salmon</div><div class="price-zh">三文魚</div><button class="play-btn small" onclick="speak(`Salmon`)">▶️ 聽</button> <button class="play-btn small blue" onclick="speak(`Salmon`, 0.3)">🐢 極慢</button></div>
+          <div class="money-card"><div class="price">🐟</div><div class="price-en">Cod</div><div class="price-zh">鱈魚</div><button class="play-btn small" onclick="speak(`Cod`)">▶️ 聽</button> <button class="play-btn small blue" onclick="speak(`Cod`, 0.3)">🐢 極慢</button></div>
+          <div class="money-card"><div class="price">🦐</div><div class="price-en">Prawns</div><div class="price-zh">蝦</div><button class="play-btn small" onclick="speak(`Prawns`)">▶️ 聽</button> <button class="play-btn small blue" onclick="speak(`Prawns`, 0.3)">🐢 極慢</button></div>
+          <div class="money-card"><div class="price">🦀</div><div class="price-en">Crab</div><div class="price-zh">蟹</div><button class="play-btn small" onclick="speak(`Crab`)">▶️ 聽</button> <button class="play-btn small blue" onclick="speak(`Crab`, 0.3)">🐢 極慢</button></div>
+          <div class="money-card"><div class="price">🦪</div><div class="price-en">Mussels</div><div class="price-zh">青口</div><button class="play-btn small" onclick="speak(`Mussels`)">▶️ 聽</button> <button class="play-btn small blue" onclick="speak(`Mussels`, 0.3)">🐢 極慢</button></div>
+          <div class="money-card"><div class="price">🐚</div><div class="price-en">Scallops</div><div class="price-zh">帶子</div><button class="play-btn small" onclick="speak(`Scallops`)">▶️ 聽</button> <button class="play-btn small blue" onclick="speak(`Scallops`, 0.3)">🐢 極慢</button></div>
         </div>
 
         <div class="subsection-title">🍎🥕 水果 & 菜</div>
         <div class="money-grid">
-          <div class="money-card"><div class="price">🍎</div><div class="price-en">Apple</div><div class="price-zh">蘋果</div><button class="play-btn small" onclick="speak(`Apple`)">▶️ 聽</button> <button class="play-btn small blue" onclick="speak(`Apple`, 0.2)">🐢 極慢</button></div>
-          <div class="money-card"><div class="price">🍌</div><div class="price-en">Banana</div><div class="price-zh">香蕉</div><button class="play-btn small" onclick="speak(`Banana`)">▶️ 聽</button> <button class="play-btn small blue" onclick="speak(`Banana`, 0.2)">🐢 極慢</button></div>
-          <div class="money-card"><div class="price">🍓</div><div class="price-en">Strawberry</div><div class="price-zh">士多啤梨</div><button class="play-btn small" onclick="speak(`Strawberry`)">▶️ 聽</button> <button class="play-btn small blue" onclick="speak(`Strawberry`, 0.2)">🐢 極慢</button></div>
-          <div class="money-card"><div class="price">🥕</div><div class="price-en">Carrot</div><div class="price-zh">紅蘿蔔</div><button class="play-btn small" onclick="speak(`Carrot`)">▶️ 聽</button> <button class="play-btn small blue" onclick="speak(`Carrot`, 0.2)">🐢 極慢</button></div>
-          <div class="money-card"><div class="price">🥔</div><div class="price-en">Potato</div><div class="price-zh">薯仔</div><button class="play-btn small" onclick="speak(`Potato`)">▶️ 聽</button> <button class="play-btn small blue" onclick="speak(`Potato`, 0.2)">🐢 極慢</button></div>
-          <div class="money-card"><div class="price">🍅</div><div class="price-en">Tomato</div><div class="price-zh">番茄</div><button class="play-btn small" onclick="speak(`Tomato`)">▶️ 聽</button> <button class="play-btn small blue" onclick="speak(`Tomato`, 0.2)">🐢 極慢</button></div>
+          <div class="money-card"><div class="price">🍎</div><div class="price-en">Apple</div><div class="price-zh">蘋果</div><button class="play-btn small" onclick="speak(`Apple`)">▶️ 聽</button> <button class="play-btn small blue" onclick="speak(`Apple`, 0.3)">🐢 極慢</button></div>
+          <div class="money-card"><div class="price">🍌</div><div class="price-en">Banana</div><div class="price-zh">香蕉</div><button class="play-btn small" onclick="speak(`Banana`)">▶️ 聽</button> <button class="play-btn small blue" onclick="speak(`Banana`, 0.3)">🐢 極慢</button></div>
+          <div class="money-card"><div class="price">🍓</div><div class="price-en">Strawberry</div><div class="price-zh">士多啤梨</div><button class="play-btn small" onclick="speak(`Strawberry`)">▶️ 聽</button> <button class="play-btn small blue" onclick="speak(`Strawberry`, 0.3)">🐢 極慢</button></div>
+          <div class="money-card"><div class="price">🥕</div><div class="price-en">Carrot</div><div class="price-zh">紅蘿蔔</div><button class="play-btn small" onclick="speak(`Carrot`)">▶️ 聽</button> <button class="play-btn small blue" onclick="speak(`Carrot`, 0.3)">🐢 極慢</button></div>
+          <div class="money-card"><div class="price">🥔</div><div class="price-en">Potato</div><div class="price-zh">薯仔</div><button class="play-btn small" onclick="speak(`Potato`)">▶️ 聽</button> <button class="play-btn small blue" onclick="speak(`Potato`, 0.3)">🐢 極慢</button></div>
+          <div class="money-card"><div class="price">🍅</div><div class="price-en">Tomato</div><div class="price-zh">番茄</div><button class="play-btn small" onclick="speak(`Tomato`)">▶️ 聽</button> <button class="play-btn small blue" onclick="speak(`Tomato`, 0.3)">🐢 極慢</button></div>
         </div>
 
         <div class="callback">💡 <strong>全部都識 = Week 2 完成！</strong>唔識嘅返去對應嘅 Day 溫一溫。</div>
@@ -459,42 +679,42 @@
         <div class="instruction"><strong>📋 點玩：</strong>每句店員講完，到你諗點答。先諗，再 㩒 "💡 提示" 睇建議答案，最後 㩒 ▶️ 對比讀音。</div>
 
         <div class="roleplay-card">
-          <div class="roleplay-prompt"><div class="who">🛒 Greeter</div><div class="what">Good morning! Need help?</div><div class="what-zh">早晨！要幫手嗎？</div><button class="play-btn small blue" onclick="speak(`Good morning! Need help?`)">▶️ 聽</button> <button class="play-btn small" onclick="speak(`Good morning! Need help?`, 0.2)">🐢 極慢</button></div>
+          <div class="roleplay-prompt"><div class="who">🛒 Greeter</div><div class="what">Good morning! Need help?</div><div class="what-zh">早晨！要幫手嗎？</div><button class="play-btn small blue" onclick="speak(`Good morning! Need help?`)">▶️ 聽</button> <button class="play-btn small" onclick="speak(`Good morning! Need help?`, 0.3)">🐢 極慢</button></div>
           <div class="roleplay-your-turn"><div class="label">👉 你嘅回應</div><div class="hint" id="hint1">問奶類區 →</div><button class="play-btn small" onclick="showHint(1, `Where is the dairy section?`, `奶類區喺邊？`)">💡 提示</button></div>
         </div>
 
         <div class="roleplay-card">
-          <div class="roleplay-prompt"><div class="who">🥛 奶類員工</div><div class="what">Which milk?</div><div class="what-zh">邊種奶？</div><button class="play-btn small blue" onclick="speak(`Which milk?`)">▶️ 聽</button> <button class="play-btn small" onclick="speak(`Which milk?`, 0.2)">🐢 極慢</button></div>
+          <div class="roleplay-prompt"><div class="who">🥛 奶類員工</div><div class="what">Which milk?</div><div class="what-zh">邊種奶？</div><button class="play-btn small blue" onclick="speak(`Which milk?`)">▶️ 聽</button> <button class="play-btn small" onclick="speak(`Which milk?`, 0.3)">🐢 極慢</button></div>
           <div class="roleplay-your-turn"><div class="label">👉 你嘅回應</div><div class="hint" id="hint2">問邊個係半脂 →</div><button class="play-btn small" onclick="showHint(2, `Which one is semi-skimmed?`, `邊個係半脂？`)">💡 提示</button></div>
         </div>
 
         <div class="roleplay-card">
-          <div class="roleplay-prompt"><div class="who">🥩 肉檔員工</div><div class="what">Hi! What can I get?</div><div class="what-zh">你好！要啲咩？</div><button class="play-btn small blue" onclick="speak(`Hi! What can I get?`)">▶️ 聽</button> <button class="play-btn small" onclick="speak(`Hi! What can I get?`, 0.2)">🐢 極慢</button></div>
+          <div class="roleplay-prompt"><div class="who">🥩 肉檔員工</div><div class="what">Hi! What can I get?</div><div class="what-zh">你好！要啲咩？</div><button class="play-btn small blue" onclick="speak(`Hi! What can I get?`)">▶️ 聽</button> <button class="play-btn small" onclick="speak(`Hi! What can I get?`, 0.3)">🐢 極慢</button></div>
           <div class="roleplay-your-turn"><div class="label">👉 你嘅回應</div><div class="hint" id="hint3">要半公斤免治 →</div><button class="play-btn small" onclick="showHint(3, `Could I have half a kilo of mince, please?`, `唔該半公斤免治。`)">💡 提示</button></div>
         </div>
 
         <div class="roleplay-card">
-          <div class="roleplay-prompt"><div class="who">🐟 海鮮員工</div><div class="what">Fresh catch today!</div><div class="what-zh">今日新鮮！</div><button class="play-btn small blue" onclick="speak(`Fresh catch today!`)">▶️ 聽</button> <button class="play-btn small" onclick="speak(`Fresh catch today!`, 0.2)">🐢 極慢</button></div>
+          <div class="roleplay-prompt"><div class="who">🐟 海鮮員工</div><div class="what">Fresh catch today!</div><div class="what-zh">今日新鮮！</div><button class="play-btn small blue" onclick="speak(`Fresh catch today!`)">▶️ 聽</button> <button class="play-btn small" onclick="speak(`Fresh catch today!`, 0.3)">🐢 極慢</button></div>
           <div class="roleplay-your-turn"><div class="label">👉 你嘅回應</div><div class="hint" id="hint4">要兩塊三文魚 →</div><button class="play-btn small" onclick="showHint(4, `Two salmon fillets, please.`, `兩塊三文魚，唔該。`)">💡 提示</button></div>
         </div>
 
         <div class="roleplay-card">
-          <div class="roleplay-prompt"><div class="who">🥕 水果員工</div><div class="what">Anything else?</div><div class="what-zh">仲要？</div><button class="play-btn small blue" onclick="speak(`Anything else?`)">▶️ 聽</button> <button class="play-btn small" onclick="speak(`Anything else?`, 0.2)">🐢 極慢</button></div>
+          <div class="roleplay-prompt"><div class="who">🥕 水果員工</div><div class="what">Anything else?</div><div class="what-zh">仲要？</div><button class="play-btn small blue" onclick="speak(`Anything else?`)">▶️ 聽</button> <button class="play-btn small" onclick="speak(`Anything else?`, 0.3)">🐢 極慢</button></div>
           <div class="roleplay-your-turn"><div class="label">👉 你嘅回應</div><div class="hint" id="hint5">半公斤蘋果 →</div><button class="play-btn small" onclick="showHint(5, `Half a kilo of apples, please.`, `半公斤蘋果，唔該。`)">💡 提示</button></div>
         </div>
 
         <div class="roleplay-card">
-          <div class="roleplay-prompt"><div class="who">💰 收銀員</div><div class="what">That's £18 in total.</div><div class="what-zh">總共 £18。</div><button class="play-btn small blue" onclick="speak(`That's £18 in total.`)">▶️ 聽</button> <button class="play-btn small" onclick="speak(`That's £18 in total.`, 0.2)">🐢 極慢</button></div>
+          <div class="roleplay-prompt"><div class="who">💰 收銀員</div><div class="what">That's £18 in total.</div><div class="what-zh">總共 £18。</div><button class="play-btn small blue" onclick="speak(`That's £18 in total.`)">▶️ 聽</button> <button class="play-btn small" onclick="speak(`That's £18 in total.`, 0.3)">🐢 極慢</button></div>
           <div class="roleplay-your-turn"><div class="label">👉 你嘅回應</div><div class="hint" id="hint6">用 card 俾錢 →</div><button class="play-btn small" onclick="showHint(6, `Do you take cards?`, `收唔收 card？`)">💡 提示</button></div>
         </div>
 
         <div class="roleplay-card">
-          <div class="roleplay-prompt"><div class="who">💰 收銀員</div><div class="what">Yes, tap here.</div><div class="what-zh">係，拍呢度。</div><button class="play-btn small blue" onclick="speak(`Yes, tap here.`)">▶️ 聽</button> <button class="play-btn small" onclick="speak(`Yes, tap here.`, 0.2)">🐢 極慢</button></div>
+          <div class="roleplay-prompt"><div class="who">💰 收銀員</div><div class="what">Yes, tap here.</div><div class="what-zh">係，拍呢度。</div><button class="play-btn small blue" onclick="speak(`Yes, tap here.`)">▶️ 聽</button> <button class="play-btn small" onclick="speak(`Yes, tap here.`, 0.3)">🐢 極慢</button></div>
           <div class="roleplay-your-turn"><div class="label">👉 你嘅回應</div><div class="hint" id="hint7">要袋 + 單 →</div><button class="play-btn small" onclick="showHint(7, `Can I have a bag and a receipt, please?`, `可唔可以畀個袋同張單？`)">💡 提示</button></div>
         </div>
 
         <div class="roleplay-card">
-          <div class="roleplay-prompt"><div class="who">💰 收銀員</div><div class="what">Have a lovely day!</div><div class="what-zh">祝你有美好一日！</div><button class="play-btn small blue" onclick="speak(`Have a lovely day!`)">▶️ 聽</button> <button class="play-btn small" onclick="speak(`Have a lovely day!`, 0.2)">🐢 極慢</button></div>
+          <div class="roleplay-prompt"><div class="who">💰 收銀員</div><div class="what">Have a lovely day!</div><div class="what-zh">祝你有美好一日！</div><button class="play-btn small blue" onclick="speak(`Have a lovely day!`)">▶️ 聽</button> <button class="play-btn small" onclick="speak(`Have a lovely day!`, 0.3)">🐢 極慢</button></div>
           <div class="roleplay-your-turn"><div class="label">👉 你嘅回應</div><div class="hint" id="hint8">結束 →</div><button class="play-btn small" onclick="showHint(8, `Thank you! You too!`, `多謝！你都係！`)">💡 提示</button></div>
         </div>
 
@@ -551,7 +771,7 @@
 
 <script>
 let currentStep = 1;
-let currentSpeed = 0.3;
+let currentSpeed = 0.7;
 const completedSteps = new Set();
 const TOTAL_STEPS = 6;
 
@@ -569,30 +789,92 @@ const FULL_DIALOGUE = [
 ];
 
 // ============ SPEECH (dual voice) ============
-let emmaVoice = null;   // 對方 / 店員 voice
-let hannahVoice = null; // 你 / Hannah voice
-let englishVoice = null; // default fallback (= emmaVoice)
+let englishVoice = null;
 
 function loadVoices() {
   const voices = speechSynthesis.getVoices();
-  const ukFemale = voices.filter(v => v.lang === 'en-GB' && v.name.toLowerCase().includes('female'));
-  const ukAny = voices.filter(v => v.lang === 'en-GB');
-  const enFemale = voices.filter(v => v.lang.startsWith('en-') && v.name.toLowerCase().includes('female'));
-  const enAny = voices.filter(v => v.lang.startsWith('en-'));
 
-  const femalePool = [...ukFemale, ...enFemale];
-  const generalPool = [...ukAny, ...enAny, ...voices];
+  const FEMALE_NAMES = [
+    'Samantha', 'Karen', 'Moira', 'Kate', 'Serena', 'Victoria', 'Tessa',
+    'Fiona', 'Veena', 'Allison', 'Ava', 'Susan', 'Zoe', 'Martha',
+    'Google UK English Female', 'Google US English',
+    'Hazel', 'Zira', 'Eva', 'Catherine',
+    'Female', 'female'
+  ];
 
-  const seen = new Set();
-  const uniqueFemale = femalePool.filter(v => !seen.has(v.name) && seen.add(v.name));
-  const seen2 = new Set();
-  const uniqueGeneral = generalPool.filter(v => !seen2.has(v.name) && seen2.add(v.name));
+  const IOS_LOCAL_FEMALES = ['Samantha', 'Karen', 'Moira', 'Tessa', 'Kate', 'Serena', 'Fiona', 'Victoria', 'Martha'];
 
-  emmaVoice = uniqueFemale[0] || uniqueGeneral[0] || voices[0];
-  hannahVoice = uniqueFemale.find(v => v !== emmaVoice)
-             || uniqueGeneral.find(v => v !== emmaVoice)
-             || emmaVoice;
-  englishVoice = emmaVoice;  // default for flashcards / single-line speak
+  function isFemale(voice) {
+    if (!voice || !voice.name) return false;
+    return FEMALE_NAMES.some(name => voice.name.includes(name));
+  }
+  function isEnhanced(voice) {
+    if (!voice || !voice.name) return false;
+    const n = voice.name.toLowerCase();
+    return n.includes('enhanced') || n.includes('premium') || n.includes('siri');
+  }
+  function isIosLocal(voice) {
+    if (!voice || !voice.name) return false;
+    return IOS_LOCAL_FEMALES.some(name => voice.name.includes(name));
+  }
+  function isGoogleCloud(voice) {
+    if (!voice || !voice.name) return false;
+    return voice.name.toLowerCase().startsWith('google');
+  }
+
+  // PRIORITY: Enhanced > en-GB local > en-AU Karen > en-IE Moira > en-ZA Tessa > others > cloud
+  englishVoice =
+    voices.find(v => isFemale(v) && isEnhanced(v) && v.lang.startsWith('en-')) ||
+    voices.find(v => v.lang === 'en-GB' && isIosLocal(v)) ||
+    voices.find(v => v.lang === 'en-AU' && isIosLocal(v)) ||  // Karen — closer to UK
+    voices.find(v => v.lang === 'en-IE' && isIosLocal(v)) ||  // Moira
+    voices.find(v => v.lang === 'en-ZA' && isIosLocal(v)) ||  // Tessa
+    voices.find(v => v.lang.startsWith('en-') && isIosLocal(v)) ||
+    voices.find(v => v.lang.startsWith('en-') && isFemale(v) && !isGoogleCloud(v)) ||
+    voices.find(v => v.lang.startsWith('en-') && isFemale(v)) ||
+    voices.find(v => v.lang === 'en-GB') ||
+    voices.find(v => v.lang.startsWith('en-')) ||
+    voices[0];
+
+  window._voiceIsFemale = englishVoice ? isFemale(englishVoice) : false;
+
+  if (englishVoice) {
+    console.log('[Voice]', englishVoice.name, '(' + englishVoice.lang + ')',
+                'Female:', window._voiceIsFemale,
+                '| Enhanced:', isEnhanced(englishVoice),
+                '| iOS local:', isIosLocal(englishVoice),
+                '| Google cloud:', isGoogleCloud(englishVoice));
+  } else {
+    console.log('[Voice] No voice available!');
+  }
+
+  showVoiceIndicator(englishVoice);
+}
+
+function showVoiceIndicator(voice) {
+  let el = document.getElementById('voice-indicator');
+  if (!el) {
+    el = document.createElement('div');
+    el.id = 'voice-indicator';
+    el.style.cssText = 'position: fixed; bottom: 8px; left: 8px; z-index: 999; background: rgba(42, 36, 32, 0.85); color: white; padding: 6px 10px; border-radius: 8px; font-size: 11px; font-family: monospace; max-width: 240px; line-height: 1.4; cursor: pointer; -webkit-tap-highlight-color: transparent;';
+    el.title = '㩒一㩒收埋';
+    el.onclick = () => { el.style.display = 'none'; };
+    document.body.appendChild(el);
+  }
+  if (!voice) {
+    el.innerHTML = '⚠️ 冇 voice';
+    return;
+  }
+  const name = voice.name || '';
+  const nameLower = name.toLowerCase();
+  const isEnh = nameLower.includes('enhanced') || nameLower.includes('premium') || nameLower.includes('siri');
+  const isIos = ['Samantha', 'Karen', 'Moira', 'Tessa', 'Kate', 'Serena', 'Fiona', 'Victoria', 'Martha'].some(n => name.includes(n));
+  const isCloud = nameLower.startsWith('google');
+  const tags = [];
+  if (isEnh) tags.push('💎 Enhanced');
+  if (isIos) tags.push('📱 iOS');
+  if (isCloud) tags.push('☁️ Cloud');
+  el.innerHTML = `🎙️ <b>${name}</b><br>${voice.lang} · ${tags.join(' · ') || 'standard'}`;
 }
 if (typeof speechSynthesis !== 'undefined') {
   loadVoices();
@@ -601,18 +883,28 @@ if (typeof speechSynthesis !== 'undefined') {
 
 // Main speak() — accepts optional voice param (shop/you/null=default)
 function speak(text, rate, voiceKind) {
+  // voiceKind kept for backward compat but ignored — single voice
   speechSynthesis.cancel();
   const u = new SpeechSynthesisUtterance(text);
-  u.rate = rate || 0.3;
-  u.pitch = 1;
+  u.rate = rate || currentSpeed || 0.7;
+  u.pitch = window._voiceIsFemale ? 1.0 : 1.4;
   u.volume = 1;
-  u.lang = 'en-GB';
-  if (voiceKind === 'you') u.voice = hannahVoice;
-  else if (voiceKind === 'shop') u.voice = emmaVoice;
-  else u.voice = englishVoice;
+  if (englishVoice) {
+    u.voice = englishVoice;
+    u.lang = englishVoice.lang;
+  } else {
+    u.lang = 'en-GB';
+  }
+  console.log('[speak]', 'rate=' + u.rate, 'currentSpeed=' + currentSpeed, 'text=' + text.substring(0, 30));
   speechSynthesis.speak(u);
 }
 
+function setSpeed(speed, btn) {
+  currentSpeed = speed;
+  console.log('[setSpeed] currentSpeed now =', currentSpeed);
+  document.querySelectorAll('.speed-btn').forEach(b => b.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+}
 // ============ FULL DIALOGUE TOGGLE ============
 let FULL_DIALOGUE_DATA = [];  // populated from DOM on first play
 let dialogueTimers = [];
@@ -789,6 +1081,226 @@ document.querySelectorAll('.step-btn').forEach(btn => {
 });
 
 goToStep(1);
+
+
+// ============ CLICKABLE WORDS ============
+function speakWord(word, spanEl) {
+  if (!word) return;
+  const cleanWord = word.replace(/[.,!?;:"'`]/g, '').trim();
+  if (!cleanWord) return;
+  speechSynthesis.cancel();
+  document.querySelectorAll('.word.speaking').forEach(el => el.classList.remove('speaking'));
+  if (spanEl) spanEl.classList.add('speaking');
+  const u = new SpeechSynthesisUtterance(cleanWord);
+  u.rate = 0.7;
+  u.pitch = window._voiceIsFemale ? 1.0 : 1.4;
+  u.volume = 1;
+  if (englishVoice) {
+    u.voice = englishVoice;
+    u.lang = englishVoice.lang;
+  } else {
+    u.lang = 'en-GB';
+  }
+  u.onend = () => { if (spanEl) spanEl.classList.remove('speaking'); };
+  speechSynthesis.speak(u);
+}
+
+const WORD_SELECTORS = [
+  '.dialogue-text',
+  '.phrase-en',
+  '.roleplay-prompt .what',
+  '.money-card .price-en',
+];
+
+function makeWordsClickable(rootEl) {
+  const root = rootEl || document;
+  WORD_SELECTORS.forEach(sel => {
+    root.querySelectorAll(sel).forEach(el => {
+      if (el.dataset.wordsDone === 'true') return;
+      const text = el.textContent;
+      if (!text || text.trim().length === 0) return;
+      if (!/[a-zA-Z]/.test(text)) return;
+      const words = text.split(/(\s+)/);
+      el.innerHTML = '';
+      words.forEach(token => {
+        if (/^\s+$/.test(token)) {
+          el.appendChild(document.createTextNode(token));
+        } else if (/[a-zA-Z]/.test(token)) {
+          const span = document.createElement('span');
+          span.className = 'word';
+          span.textContent = token;
+          span.addEventListener('click', function(e) {
+            e.stopPropagation();
+            speakWord(token, this);
+          });
+          el.appendChild(span);
+        } else {
+          el.appendChild(document.createTextNode(token));
+        }
+      });
+      el.dataset.wordsDone = 'true';
+    });
+  });
+}
+
+window.addEventListener('DOMContentLoaded', () => makeWordsClickable());
+setTimeout(() => makeWordsClickable(), 100);
+
+// ============ INFO POPUP MODAL ============
+function showInfoModal(title, htmlBody) {
+  let backdrop = document.getElementById('info-modal-backdrop');
+  if (!backdrop) {
+    backdrop = document.createElement('div');
+    backdrop.id = 'info-modal-backdrop';
+    backdrop.className = 'info-modal-backdrop';
+    backdrop.innerHTML = `
+      <div class="info-modal" onclick="event.stopPropagation()">
+        <button class="info-modal-close" onclick="closeInfoModal()" aria-label="關閉">×</button>
+        <div class="info-modal-header" id="info-modal-title"></div>
+        <div class="info-modal-body" id="info-modal-body"></div>
+        <button class="info-modal-ok" onclick="closeInfoModal()">明白！</button>
+      </div>
+    `;
+    backdrop.addEventListener('click', closeInfoModal);
+    document.body.appendChild(backdrop);
+  }
+  document.getElementById('info-modal-title').innerHTML = title;
+  document.getElementById('info-modal-body').innerHTML = htmlBody;
+  backdrop.classList.add('show');
+}
+
+function closeInfoModal() {
+  const b = document.getElementById('info-modal-backdrop');
+  if (b) b.classList.remove('show');
+}
+
+function convertInlineBoxesToPopups() {
+  const boxTypes = [
+    { selector: '.instruction', buttonLabel: '點玩', buttonEmoji: '💡', buttonClass: 'info-btn', modalTitle: '💡 點玩' },
+    { selector: '.teacher-note', buttonLabel: '老師貼士', buttonEmoji: '👩‍🏫', buttonClass: 'info-btn-float', modalTitle: '👩‍🏫 老師貼士' },
+    { selector: '.callback', buttonLabel: '小貼士', buttonEmoji: '💡', buttonClass: 'info-btn-float', modalTitle: '💡 小貼士' },
+  ];
+  boxTypes.forEach(type => {
+    document.querySelectorAll(type.selector).forEach(box => {
+      if (box.dataset.converted === 'true') return;
+      if (box.classList.contains('keep-inline')) return;
+      const content = box.innerHTML;
+      const btn = document.createElement('button');
+      btn.className = type.buttonClass;
+      const safeContent = content.replace(/"/g, '&quot;');
+      btn.setAttribute('data-info-content', safeContent);
+      btn.setAttribute('data-info-title', type.modalTitle);
+      if (type.buttonClass === 'info-btn') {
+        btn.innerHTML = `<span class="icon">${type.buttonEmoji}</span> ${type.buttonLabel}`;
+      } else {
+        btn.innerHTML = 'ℹ️';
+        btn.setAttribute('aria-label', type.modalTitle);
+      }
+      btn.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        showInfoModal(this.getAttribute('data-info-title'), this.getAttribute('data-info-content'));
+      });
+      if (type.buttonClass === 'info-btn-float') {
+        const step = box.closest('.step-content');
+        if (step) step.appendChild(btn);
+        box.remove();
+      } else {
+        box.parentNode.insertBefore(btn, box);
+        box.remove();
+      }
+    });
+  });
+}
+window.addEventListener('DOMContentLoaded', convertInlineBoxesToPopups);
+setTimeout(convertInlineBoxesToPopups, 200);
+
+// ============ CARD PAGINATION ============
+const paginators = {};
+
+function setupPagination(stepNum, cardSelector, label) {
+  const stepEl = document.querySelector(`.step-content[data-step="${stepNum}"]`);
+  if (!stepEl) return;
+  if (stepEl.dataset.paginatorSetup === 'true') return;
+  const cards = Array.from(stepEl.querySelectorAll(cardSelector));
+  if (cards.length <= 1) return;
+  const pager = document.createElement('div');
+  pager.className = 'card-pager';
+  pager.innerHTML = `
+    <div class="card-pager-progress" id="pager-${stepNum}-dots"></div>
+    <div class="card-pager-counter" id="pager-${stepNum}-counter">第 1 / ${cards.length} ${label || ''}</div>
+    <div class="card-pager-controls">
+      <button class="card-pager-btn" id="pager-${stepNum}-prev" onclick="pagerGo(${stepNum}, -1)">← 上一個</button>
+      <button class="card-pager-btn primary" id="pager-${stepNum}-next" onclick="pagerGo(${stepNum}, 1)">下一個 →</button>
+    </div>
+  `;
+  const teacherNoteOrEnd = stepEl.querySelector('.teacher-note') || stepEl.querySelector('.info-btn-float');
+  if (teacherNoteOrEnd) {
+    teacherNoteOrEnd.parentNode.insertBefore(pager, teacherNoteOrEnd);
+  } else {
+    stepEl.appendChild(pager);
+  }
+  const dotsEl = document.getElementById(`pager-${stepNum}-dots`);
+  cards.forEach((_, i) => {
+    const dot = document.createElement('div');
+    dot.className = 'card-pager-dot' + (i === 0 ? ' active' : '');
+    dotsEl.appendChild(dot);
+  });
+  paginators[stepNum] = { cards, current: 0, label: label || '' };
+  stepEl.dataset.paginatorSetup = 'true';
+  pagerRender(stepNum);
+}
+
+function pagerRender(stepNum) {
+  const p = paginators[stepNum];
+  if (!p) return;
+  p.cards.forEach((card, i) => {
+    if (i === p.current) card.classList.remove('card-page-hidden');
+    else card.classList.add('card-page-hidden');
+  });
+  const dots = document.querySelectorAll(`#pager-${stepNum}-dots .card-pager-dot`);
+  dots.forEach((d, i) => {
+    d.classList.remove('active', 'completed');
+    if (i < p.current) d.classList.add('completed');
+    else if (i === p.current) d.classList.add('active');
+  });
+  const counter = document.getElementById(`pager-${stepNum}-counter`);
+  if (counter) counter.textContent = `第 ${p.current + 1} / ${p.cards.length} ${p.label}`;
+  const prevBtn = document.getElementById(`pager-${stepNum}-prev`);
+  const nextBtn = document.getElementById(`pager-${stepNum}-next`);
+  if (prevBtn) prevBtn.disabled = p.current === 0;
+  if (nextBtn) {
+    if (p.current === p.cards.length - 1) {
+      nextBtn.textContent = '✓ 全部完成';
+      nextBtn.disabled = true;
+    } else {
+      nextBtn.textContent = '下一個 →';
+      nextBtn.disabled = false;
+    }
+  }
+}
+
+function pagerGo(stepNum, delta) {
+  const p = paginators[stepNum];
+  if (!p) return;
+  const newIdx = p.current + delta;
+  if (newIdx < 0 || newIdx >= p.cards.length) return;
+  speechSynthesis.cancel();
+  p.current = newIdx;
+  pagerRender(stepNum);
+  const stepEl = document.querySelector(`.step-content[data-step="${stepNum}"]`);
+  if (stepEl) stepEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function setupAllPaginators() {
+  setupPagination(2, '.dialogue-line', '句對話');
+  setupPagination(3, '.phrase-card', '句套語');
+  setupPagination(4, '.money-card', '個字詞');
+  setupPagination(5, '.roleplay-card', '個練習');
+}
+window.addEventListener('DOMContentLoaded', setupAllPaginators);
+setTimeout(setupAllPaginators, 250);
+
 </script>
 
 </body>
