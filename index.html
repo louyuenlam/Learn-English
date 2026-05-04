@@ -594,6 +594,44 @@
   }
   .modal-btn.completed:hover { background: #5a6d5e; color: white; }
 
+  /* ============ VERSION BADGE ============ */
+  .version-badge {
+    position: fixed;
+    top: calc(12px + env(safe-area-inset-top, 0));
+    right: calc(12px + env(safe-area-inset-right, 0));
+    z-index: 50;
+    background: rgba(255, 251, 243, 0.85);
+    border: 1px solid var(--cream-dark);
+    border-radius: 100px;
+    padding: 5px 11px;
+    font-family: 'Noto Sans HK', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--ink-soft);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+    pointer-events: none;
+    letter-spacing: 0.3px;
+  }
+  .version-badge .v-num {
+    color: var(--terra);
+    font-weight: 700;
+  }
+  .version-badge .v-date {
+    color: var(--ink-soft);
+    margin-left: 4px;
+  }
+
+  @media (min-width: 768px) {
+    .version-badge {
+      top: 16px;
+      right: 16px;
+      font-size: 12px;
+      padding: 6px 13px;
+    }
+  }
+
   /* ============ SIDEBAR ============ */
   .menu-toggle {
     position: fixed;
@@ -834,6 +872,9 @@
 
 <body>
 
+<!-- Version badge -->
+<div class="version-badge"><span class="v-num">v1.0</span><span class="v-date">· 2026-05-04</span></div>
+
 <div class="container">
 
   <!-- HEADER -->
@@ -1007,9 +1048,9 @@ const BONUS_LESSONS = [
 ];
 
 // ============================================================
-// SCHEDULE — Mon/Wed/Fri starting 2026-04-20
+// SCHEDULE — Mon/Wed/Fri starting 2026-04-22 (so today 5-04 = Week 2 Day 1)
 // ============================================================
-const START_DATE = new Date(2026, 3, 20);
+const START_DATE = new Date(2026, 3, 22); // April 22 (Wed)
 START_DATE.setHours(0, 0, 0, 0);
 const STUDY_DAYS = [1, 3, 5];
 
@@ -1048,7 +1089,6 @@ const TODAY = new Date(); TODAY.setHours(0, 0, 0, 0);
 // PROGRESS STORAGE
 // ============================================================
 const STORAGE_KEY = 'hannah_progress_calendar_v1';
-const INIT_KEY = 'hannah_progress_calendar_initialized_v1';
 
 function loadProgress() {
   try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}'); } catch(e) { return {}; }
@@ -1058,7 +1098,9 @@ function saveProgress(p) { localStorage.setItem(STORAGE_KEY, JSON.stringify(p));
 let completedLessons = loadProgress();
 
 // First-visit: auto-mark past lessons (Hannah is on Week 2 Day 1 today)
-if (!localStorage.getItem(INIT_KEY)) {
+// v2: schedule re-aligned so today (5-04) = Week 2 Day 1
+const INIT_KEY_V2 = 'hannah_progress_calendar_initialized_v2';
+if (!localStorage.getItem(INIT_KEY_V2)) {
   const todayKey = formatDate(TODAY);
   Object.keys(SCHEDULE).forEach(dateKey => {
     if (dateKey < todayKey) {
@@ -1069,7 +1111,7 @@ if (!localStorage.getItem(INIT_KEY)) {
     }
   });
   saveProgress(completedLessons);
-  localStorage.setItem(INIT_KEY, 'true');
+  localStorage.setItem(INIT_KEY_V2, 'true');
 }
 
 function isCompleted(id) { return !!completedLessons[id]; }
